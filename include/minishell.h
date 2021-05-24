@@ -1,17 +1,21 @@
 #ifndef MINISHELL_H
-# define MMINISHELL_H
+# define MINISHELL_H
 
-# include "../libft/libft.h"
-# include "fcntl.h"
+#include "../libft/libft.h"
+#include "../get_next_line/get_next_line.h"
+#include "fcntl.h"
+#include <sys/wait.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
 
-typedef	struct			s_lst_com
+typedef struct		s_all
 {
-	char				*str;
-	int					symbol;
-	struct s_lst_com	*next;
-}						t_lst_com;
+	char 			**env;
+	char			*str; // my input string
+	char 			**arr1; // split string by ;
+	char 			**arr2; // split by command(it is always s[0]) and args
+}					t_all;
 
-typedef	struct			s_lst_str
-{
-	t_lst_com			*command;
-};
+# endif
