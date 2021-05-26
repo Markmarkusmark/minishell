@@ -230,10 +230,13 @@
 		<Unit filename="/Users/legunshi/minishell/libft/libft.h">
 			<Option target="minishell"/>
 		</Unit>
-		<Unit filename="/Users/legunshi/minishell/srcs/minishell.c">
+		<Unit filename="/Users/legunshi/minishell/srcs/close.c">
 			<Option target="minishell"/>
 		</Unit>
-		<Unit filename="/Users/legunshi/minishell/srcs/minishell2.c">
+		<Unit filename="/Users/legunshi/minishell/srcs/env.c">
+			<Option target="minishell"/>
+		</Unit>
+		<Unit filename="/Users/legunshi/minishell/srcs/minishell.c">
 			<Option target="minishell"/>
 		</Unit>
 		<Unit filename="/Users/legunshi/minishell/CMakeLists.txt">

@@ -18,4 +18,8 @@ typedef struct		s_all
 	char 			**arr2; // split by command(it is always s[0]) and args
 }					t_all;
 
+void 	close_prog(t_all *all, char *err);
+void	ft_copyenv(t_all *all, char **env);
+
+
 # endif

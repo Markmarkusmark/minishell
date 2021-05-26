@@ -19,14 +19,14 @@ int		ft_check_func(char **line, char **buff, int bytes)
 
 	if (!bytes && !*buff)
 	{
-		*line = ft_strdup("");
+		*line = ft_strdup1("");
 		return (0);
 	}
-	if ((end = ft_strchr(*buff, '\n')))
+	if ((end = ft_strchr1(*buff, '\n')))
 	{
 		*end = '\0';
-		*line = ft_strdup(*buff);
-		tmp = ft_strdup(++end);
+		*line = ft_strdup1(*buff);
+		tmp = ft_strdup1(++end);
 		free(*buff);
 		*buff = tmp;
 	}
@@ -58,9 +58,9 @@ int		get_next_line(int fd, char **line)
 		}
 		buffer[get_bytes] = '\0';
 		tmp = remainder;
-		remainder = ft_strjoin(remainder, buffer);
+		remainder = ft_strjoin1(remainder, buffer);
 		free(tmp);
-		if (ft_strchr(remainder, '\n'))
+		if (ft_strchr1(remainder, '\n'))
 			break ;
 	}
 	free(buffer);

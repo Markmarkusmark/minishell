@@ -58,4 +58,6 @@ add_executable(minishell
         libft/ft_toupper.c
         libft/libft.h
         srcs/minishell.c
-        srcs/minishell2.c)
+        srcs/close.c
+        srcs/env.c
+        )

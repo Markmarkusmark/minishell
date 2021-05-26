@@ -19,9 +19,9 @@
 # include <fcntl.h>
 
 int		get_next_line(int fd, char **line);
-size_t	ft_strlen(const char *str);
-char	*ft_strjoin(char const *s1, char const *s2);
-char	*ft_strdup(const char *s);
-char	*ft_strchr(const char *str, int c);
+size_t	ft_strlen1(const char *str);
+char	*ft_strjoin1(char const *s1, char const *s2);
+char	*ft_strdup1(const char *s);
+char	*ft_strchr1(const char *str, int c);
 
 #endif
