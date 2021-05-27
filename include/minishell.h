@@ -10,10 +10,22 @@
 # include <stdio.h>
 # include <string.h>
 
+# define TAB " \t\b\r\v\f"
+
+typedef struct		s_env
+{
+	char			*name;
+	char 			*content;
+	struct s_env	*next;
+}					t_env;
+
 typedef struct		s_all
 {
 	char 			**env;
 	char			*str; // my input string
+	char			**arr1;
+	char			**arr2;
+
 }					t_all;
 
 void 	close_prog(t_all *all, char *err);
