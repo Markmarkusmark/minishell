@@ -67,10 +67,10 @@ RM = /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/legunshi/minishell
+CMAKE_SOURCE_DIR = /Users/marselaminov/Documents/minishell
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/legunshi/minishell/cmake-build-debug
+CMAKE_BINARY_DIR = /Users/marselaminov/Documents/minishell/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -99,9 +99,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/legunshi/minishell/cmake-build-debug/CMakeFiles /Users/legunshi/minishell/cmake-build-debug//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/marselaminov/Documents/minishell/cmake-build-debug/CMakeFiles /Users/marselaminov/Documents/minishell/cmake-build-debug//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/legunshi/minishell/cmake-build-debug/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/marselaminov/Documents/minishell/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -1357,60 +1357,6 @@ libft/ft_toupper.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/libft/ft_toupper.c.s
 .PHONY : libft/ft_toupper.c.s
 
-srcs/close.o: srcs/close.c.o
-
-.PHONY : srcs/close.o
-
-# target to build an object file
-srcs/close.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/close.c.o
-.PHONY : srcs/close.c.o
-
-srcs/close.i: srcs/close.c.i
-
-.PHONY : srcs/close.i
-
-# target to preprocess a source file
-srcs/close.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/close.c.i
-.PHONY : srcs/close.c.i
-
-srcs/close.s: srcs/close.c.s
-
-.PHONY : srcs/close.s
-
-# target to generate assembly for a file
-srcs/close.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/close.c.s
-.PHONY : srcs/close.c.s
-
-srcs/env.o: srcs/env.c.o
-
-.PHONY : srcs/env.o
-
-# target to build an object file
-srcs/env.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/env.c.o
-.PHONY : srcs/env.c.o
-
-srcs/env.i: srcs/env.c.i
-
-.PHONY : srcs/env.i
-
-# target to preprocess a source file
-srcs/env.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/env.c.i
-.PHONY : srcs/env.c.i
-
-srcs/env.s: srcs/env.c.s
-
-.PHONY : srcs/env.s
-
-# target to generate assembly for a file
-srcs/env.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/env.c.s
-.PHONY : srcs/env.c.s
-
 srcs/minishell.o: srcs/minishell.c.o
 
 .PHONY : srcs/minishell.o
@@ -1582,12 +1528,6 @@ help:
 	@echo "... libft/ft_toupper.o"
 	@echo "... libft/ft_toupper.i"
 	@echo "... libft/ft_toupper.s"
-	@echo "... srcs/close.o"
-	@echo "... srcs/close.i"
-	@echo "... srcs/close.s"
-	@echo "... srcs/env.o"
-	@echo "... srcs/env.i"
-	@echo "... srcs/env.s"
 	@echo "... srcs/minishell.o"
 	@echo "... srcs/minishell.i"
 	@echo "... srcs/minishell.s"

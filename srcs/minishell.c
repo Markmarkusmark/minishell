@@ -1,87 +1,156 @@
 #include "../include/minishell.h"
 
-char	*get_line(t_all *all)
+void 	close_prog(t_msh *msh, char *err)
 {
-	char	*str;
-
-	str = NULL;
-	get_next_line(0, &str);
-	return (str);
+    ft_putstr_fd(err, 2);
+    free(msh);
+    exit(0);
 }
 
-int		ft_check_around(t_all *all, int i)
+void	ft_clear_oldpwd(t_msh *msh)
 {
-    int j;
+    t_list	*list;
 
-    j = 0;
-    while (i >= 0 && all->str[i] != ';')
+    list = msh->env;
+    while (list)
     {
-		if (ft_isalnum(all->str[i]))
-			j++;
-    	if (all->str[i] == '|' && all->str[i + 1] == '|' && j == 0)
-            return (0);
-        i--;
+        if (!ft_strncmp(((t_env *)list->content)->key, "OLDPWD", 6))
+        {
+            free(((t_env *)list->content)->val);
+            ((t_env *)list->content)->val = NULL;
+            return ;
+        }
+        list = list->next;
     }
-    if (j == 0)
-		return (0);
-    else
-    	return (1);
 }
 
-int		ft_preparse(t_all *all)
+void    ft_environment(t_msh *msh, char **env)
 {
     int		i;
+    t_list	*new_lst;
+    t_env	*envp;
 
-    i = 0;
-    while (all->str[i])
+    i = -1;
+    while (env[++i])
     {
-        if ((all->str[i] == ';') && !ft_check_around(all, i - 1))   //--->if (ft_check_around == 0)
-            return (0);
-        else if (all->str[i] == '|' && all->str[i + 1] != '\0' && all->str[i + 1] == '|')
+        envp = malloc(sizeof(t_env));
+        if (!envp)
+            close_prog(msh, "error memory");
+        new_lst = ft_lstnew(envp);
+        if (!new_lst)
+            close_prog(msh, "problem with create list");
+        msh->env_args = ft_split(env[i], '=');
+        if (!msh->env_args)
+            close_prog(msh, "str split error");
+        envp->key = msh->env_args[0];
+        envp->val = msh->env_args[1];
+        ft_lstadd_back(&msh->env, new_lst);
+        free(msh->env_args);
+    }
+    ft_clear_oldpwd(msh);
+}
+
+int     ft_get_quote_flag(t_msh *msh, int *i)
+{
+    int q_flag;
+
+    q_flag = 0;
+    if (msh->str[*i] == '\'' && q_flag != 2)
+    {
+        if (!q_flag)
+            q_flag = 1;
+        else if (q_flag == 1)
+            q_flag = 0;
+    }
+    else if (msh->str[*i] == '"' && q_flag != 1)
+    {
+        if (!q_flag)
+            q_flag = 2;
+        else if (q_flag == 2)
+            q_flag = 0;
+    }
+    return (q_flag);
+}
+
+int	esc_size(t_msh *msh)
+{
+    int	q_flag;
+    int	i;
+    int	j;
+
+    q_flag = 0;
+    i = -1;
+    j = 0;
+    while (msh->str[++i])
+    {
+        q_flag = ft_get_quote_flag(msh, &i);
+        if (msh->str[i] == '\\' && (!q_flag || (q_flag == 2 && (msh->str[i + 1] == '$'
+            || msh->str[i + 1] == '\\' || msh->str[i + 1] == '"'))))
         {
-            if (!ft_check_around(all, i - 1))   //--->if (ft_check_around == 0)
-                return (0);
-            else
-                i++;
+            i++;
+            if (msh->str[i] == '\0')
+            {
+                write(2, "open backslash\n", 23);
+                return (-1);
+            }
         }
-        else if ((all->str[i] == '|') && !ft_check_around(all, i - 1))   //--->if (ft_check_around == 0)
-            return (0);
-        i++;
+        j++;
+    }
+    return (open_quote_checks(q_flag, j));
+}
+
+int     ft_preparser(t_msh *msh)
+{
+    int			len;
+
+    len = esc_size(msh);
+    if (len == -1)
+    {
+        data->ret = 1;
+        return (0);
+    }
+    data->line = line_to_struct(str, len);
+    if (!data->line)
+        ft_exit(data, NULL);
+    if (!dollar_finder(&data->env_head, &data->line, data->ret))
+        return (0);
+    if (!syntax_errors(data->line))
+    {
+        free(data->line);
+        data->ret = 258;
+        return (0);
     }
     return (1);
 }
 
-char	**ft_getarr(t_all *all)
+int     ft_parser(t_msh *msh)
 {
-	char	*tmp;
-	int 	flag[3];
+    if (!(ft_preparser(msh)))
+        close_prog(msh, "string syntax error");
 
-	flag[0] = -1;
-	flag[1] = 0;
-	flag[2] = 0;
-
-}
-
-int 	ft_getcmd(t_all *all)
-{
-	int i;
-
-	i = 0;
-	all->arr1 = ft_getarr(all);
+    return (1);
 }
 
 int		main(int argc, char **argv, char **env)
 {
-	t_all	*all;
+	t_msh	*msh;
+	int     success;
 
-	all = (t_all *)malloc(sizeof(t_all));
-	if (!all)
-		close_prog(all, "error memory");
-	ft_bzero(all, sizeof(t_all));
-	ft_copyenv(all, env);
-	all->str = get_line(all);
-	ft_preparse(all);
-	if (ft_preparse(all))
-		ft_getcmd(all);
+    if (argc > 1 || argv[1])
+        close_prog(msh, "too many arguments");
+    msh = (t_msh *)malloc(sizeof(t_msh));
+	if (!msh)
+		close_prog(msh, "error memory");
+	ft_bzero(msh, sizeof(t_msh));
+    ft_putstr_fd("this is our fucking shell", 1);
+    ft_environment(msh, env);
+    while (MINISHELL_LOOP)
+    {
+        //here will be signals
+        success = get_next_line(0, &msh->str);
+        if (!success)
+            close_prog(msh, "gnl error");
+        ft_parser(msh);
+    }
 	return (0);
 }

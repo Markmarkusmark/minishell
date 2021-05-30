@@ -4,7 +4,7 @@
 # compile C with /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc
 C_DEFINES = 
 
-C_INCLUDES = -I/Users/legunshi/minishell/get_next_line -I/Users/legunshi/minishell/include -I/Users/legunshi/minishell/libft -I/Users/legunshi/minishell/srcs
+C_INCLUDES = -I/Users/marselaminov/Documents/minishell/get_next_line -I/Users/marselaminov/Documents/minishell/include -I/Users/marselaminov/Documents/minishell/libft -I/Users/marselaminov/Documents/minishell/srcs
 
-C_FLAGS = -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk -mmacosx-version-min=10.14 -std=gnu11
+C_FLAGS = -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk -mmacosx-version-min=11.2 -std=gnu11
 

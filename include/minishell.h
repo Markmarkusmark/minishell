@@ -10,25 +10,22 @@
 # include <stdio.h>
 # include <string.h>
 
-# define TAB " \t\b\r\v\f"
+# define MINISHELL_LOOP 1
 
-typedef struct		s_env
+typedef struct      s_env
 {
-	char			*name;
-	char 			*content;
-	struct s_env	*next;
-}					t_env;
+    char            *key;
+    char            *val;
+}                   t_env;
 
-typedef struct		s_all
+typedef struct		s_msh
 {
-	char 			**env;
+    t_list		    *env;
+    t_list		    *cmd;
 	char			*str; // my input string
-	char			**arr1;
-	char			**arr2;
+	char            **env_args;
 
-}					t_all;
+}					t_msh;
 
-void 	close_prog(t_all *all, char *err);
-void	ft_copyenv(t_all *all, char **env);
 
 # endif
