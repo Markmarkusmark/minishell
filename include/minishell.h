@@ -18,13 +18,24 @@ typedef struct      s_env
     char            *val;
 }                   t_env;
 
+typedef struct      s_cmd
+{
+	char            *cmd;
+	char            **args_str;
+	char 			separ;
+	int 			n_args;
+	int 			n_redir;
+}                   t_cmd;
+
 typedef struct		s_msh
 {
     t_list		    *env;
     t_list		    *cmd;
 	char			*str; // my input string
 	char            **env_args;
-
+	int 			ret;
+	int 			fd_0;
+	int 			fd_1;
 }					t_msh;
 
 

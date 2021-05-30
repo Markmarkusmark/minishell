@@ -99,29 +99,29 @@ int	esc_size(t_msh *msh)
     return (open_quote_checks(q_flag, j));
 }
 
-int     ft_preparser(t_msh *msh)
-{
-    int			len;
-
-    len = esc_size(msh);
-    if (len == -1)
-    {
-        data->ret = 1;
-        return (0);
-    }
-    data->line = line_to_struct(str, len);
-    if (!data->line)
-        ft_exit(data, NULL);
-    if (!dollar_finder(&data->env_head, &data->line, data->ret))
-        return (0);
-    if (!syntax_errors(data->line))
-    {
-        free(data->line);
-        data->ret = 258;
-        return (0);
-    }
-    return (1);
-}
+//int     ft_preparser(t_msh *msh)
+//{
+//    int			len;
+//
+//    len = esc_size(msh);
+//    if (len == -1)
+//    {
+//        data->ret = 1;
+//        return (0);
+//    }
+//    data->line = line_to_struct(str, len);
+//    if (!data->line)
+//        ft_exit(data, NULL);
+//    if (!dollar_finder(&data->env_head, &data->line, data->ret))
+//        return (0);
+//    if (!syntax_errors(data->line))
+//    {
+//        free(data->line);
+//        data->ret = 258;
+//        return (0);
+//    }
+//    return (1);
+//}
 
 int     ft_parser(t_msh *msh)
 {
