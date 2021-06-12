@@ -18,6 +18,12 @@ typedef struct      s_env
     char            *val;
 }                   t_env;
 
+typedef struct		s_line_symbol
+{
+	char			c;
+	int 			flag;
+}					t_line_symbol;
+
 typedef struct      s_cmd
 {
 	char            *cmd;
@@ -31,9 +37,11 @@ typedef struct		s_msh
 {
     t_list		    *env;
     t_list		    *cmd;
+    t_line_symbol	*line;
 	char			*str; // my input string
 	char            **env_args;
-	int 			ret;
+	char 			*val;
+	int 			incorrect_line;
 	int 			fd_0;
 	int 			fd_1;
 }					t_msh;

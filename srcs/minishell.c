@@ -50,21 +50,18 @@ void    ft_environment(t_msh *msh, char **env)
     ft_clear_oldpwd(msh);
 }
 
-int     ft_get_quote_flag(t_msh *msh, int *i)
+int     ft_get_quote_flag(t_msh *msh, const int *i, int q_flag)
 {
-    int q_flag;
-
-    q_flag = 0;
     if (msh->str[*i] == '\'' && q_flag != 2)
     {
-        if (!q_flag)
+        if (q_flag == 0)
             q_flag = 1;
         else if (q_flag == 1)
             q_flag = 0;
     }
     else if (msh->str[*i] == '"' && q_flag != 1)
     {
-        if (!q_flag)
+        if (q_flag == 0)
             q_flag = 2;
         else if (q_flag == 2)
             q_flag = 0;
@@ -72,52 +69,168 @@ int     ft_get_quote_flag(t_msh *msh, int *i)
     return (q_flag);
 }
 
-int	esc_size(t_msh *msh)
+int 	ft_check_open_quote(int q_flag)
+{
+	if (q_flag == 1)
+	{
+		ft_putstr_fd("open quote\n", 1);
+		return (-1);
+	}
+	if (q_flag == 2)
+	{
+		ft_putstr_fd("open quote\n", 1);
+		return (-1);
+	}
+	return (0);
+}
+
+int		ft_line_size(t_msh *msh)
 {
     int	q_flag;
     int	i;
-    int	j;
+    int	str_len;
+    int err;
 
     q_flag = 0;
     i = -1;
-    j = 0;
+    str_len = 0;
     while (msh->str[++i])
     {
-        q_flag = ft_get_quote_flag(msh, &i);
+        q_flag = ft_get_quote_flag(msh, &i, q_flag);
         if (msh->str[i] == '\\' && (!q_flag || (q_flag == 2 && (msh->str[i + 1] == '$'
             || msh->str[i + 1] == '\\' || msh->str[i + 1] == '"'))))
         {
             i++;
             if (msh->str[i] == '\0')
             {
-                write(2, "open backslash\n", 23);
+				ft_putstr_fd("open backslash\n", 1);
                 return (-1);
             }
         }
-        j++;
+        str_len++;
     }
-    return (open_quote_checks(q_flag, j));
+    err = ft_check_open_quote(q_flag);
+    if (err != 0)
+		return (-1);
+    else
+		return (str_len);
+}
+
+int	ft_get_symbol_flag_utils(t_msh *msh, const int *i, int qte)
+{
+	if (!qte || (qte == 2 && (msh->str[*i + 1] == '$' || msh->str[*i + 1] == '\\'
+		|| msh->str[*i + 1] == '"')))
+		return (1);
+	return (0);
+}
+
+int		ft_get_symbol_flag(t_msh *msh, int *len, int *qte, int *dlr)
+{
+	if ((msh->str[*len] == '\'' && *qte !=2) || (msh->str[*len] == '"' && *qte != 1))
+	{
+		*qte = ft_get_quote_flag(msh, len, *qte);
+		return (0);
+	}
+	else if (msh->str[*len] == '\\' && ft_get_symbol_flag_utils(msh, len, *qte))
+		return (1);
+	else
+	{
+		if ((*dlr != 0) && (msh->str[*len] != '_') && (ft_isalnum(msh->str[*len]) == 0))
+			*dlr = 0;
+		else if ((*dlr == 0) && (*qte == 1 || (*qte == 2 && msh->str[*len] != '$'
+			&& msh->str[*len] != '\\' && msh->str[*len] != '"')))
+			return (1);
+		else
+		{
+			if (msh->str[*len] == '$')
+				*dlr = 1;
+			return (0);
+		}
+	}
+}
+
+t_line_symbol	*ft_get_struct_line(t_msh *msh, int mlc_len)
+{
+	int len;
+	int chr;
+	int qte;
+	int dlr;
+	t_line_symbol *line;
+
+	len = -1;
+	chr = 0;
+	qte = 0;
+	dlr = 0;
+	line = malloc((mlc_len + 1) * sizeof(t_line_symbol));
+	if (!line)
+		return (NULL);
+	while (msh->str[++len])
+	{
+		line[chr].flag = ft_get_symbol_flag(msh, &len, &qte, &dlr);
+		if (msh->str[len] == '\\' && ft_get_symbol_flag_utils(msh, &len, qte))
+			len++;
+		line[chr].c = msh->str[len];
+		chr++;
+	}
+	line[chr].c = '\0';
+	return (line);
+}
+
+int 	ft_get_val(t_msh *msh)
+{
+	int		i;
+	char 	*its_ok;
+
+	i = 0;
+	while (((ft_isalnum(msh->line[i].c) == 1) || msh->line[i].c == '_')
+			&& msh->line[i].flag == 0)
+		i++;
+	its_ok =
+}
+
+int		ft_get_dollar(t_msh *msh)
+{
+	int		begin_str;
+	int 	end_str;
+	int 	res;
+
+	begin_str = -1;
+	end_str = 0;
+	res = 0;
+	while (msh->line[++begin_str].c)
+	{
+		if (msh->line[begin_str].c == '$' && msh->line[begin_str].flag == 0)
+		{
+			begin_str++;
+			if (((ft_isalnum(msh->line[begin_str].c) == 0) && msh->line[begin_str].c != '_'
+					&& msh->line[begin_str].c != '?') || msh->line[begin_str].flag == 1)
+				continue; // вернуться поправить
+			res = ft_get_val(msh);
+		}
+	}
 }
 
 int     ft_preparser(t_msh *msh)
 {
-    int			len;
+    int			str_len;
 
-    len = esc_size(msh);
-    if (len == -1)
-    {
-        msh->ret = 1;
-        return (0);
-    }
+    str_len = ft_line_size(msh);
+	if (str_len == -1)
+	{
+		msh->incorrect_line = 1;
+		return (0);
+	}
+	msh->line = ft_get_struct_line(msh, str_len);
+	if (!msh->line)
+		close_prog(msh, "line malloc error");
+	if (ft_get_dollar(msh) == 0)
     return (1);
 }
 
-int     ft_parser(t_msh *msh)
+void     ft_parser(t_msh *msh)
 {
-    if (!(ft_preparser(msh)))
-        close_prog(msh, "string syntax error");
-
-    return (1);
+    if (ft_preparser(msh) == 0)
+		return ;
 }
 
 int		main(int argc, char **argv, char **env)
@@ -126,20 +239,22 @@ int		main(int argc, char **argv, char **env)
 	int     success;
 
     if (argc > 1 || argv[1])
-        close_prog(msh, "too many arguments");
+        close_prog(msh, "too many arguments\n");
     msh = (t_msh *)malloc(sizeof(t_msh));
 	if (!msh)
-		close_prog(msh, "error memory");
+		close_prog(msh, "error memory\n");
 	ft_bzero(msh, sizeof(t_msh));
-    ft_putstr_fd("this is our fucking shell", 1);
+    ft_putstr_fd("this is our fucking shell\n", 1);
     ft_environment(msh, env);
     while (MINISHELL_LOOP)
     {
-        //here will be signals
+        // тут будут сигналы , добавим позже
+        msh->line = NULL; // зануляем каждый раз для новой команды
         success = get_next_line(0, &msh->str);
         if (!success)
             close_prog(msh, "gnl error");
         ft_parser(msh);
+        free(msh->str);
     }
 	return (0);
 }
