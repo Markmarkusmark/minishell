@@ -73,12 +73,12 @@ int 	ft_check_open_quote(int q_flag)
 {
 	if (q_flag == 1)
 	{
-		ft_putstr_fd("open quote\n", 1);
+		ft_putstr_fd("open single quote\n", 1);
 		return (-1);
 	}
 	if (q_flag == 2)
 	{
-		ft_putstr_fd("open quote\n", 1);
+		ft_putstr_fd("open double quote\n", 1);
 		return (-1);
 	}
 	return (0);
@@ -176,27 +176,79 @@ t_line_symbol	*ft_get_struct_line(t_msh *msh, int mlc_len)
 	return (line);
 }
 
-int 	ft_get_val(t_msh *msh)
+int					ft_strcmp(const char *s1, const char *s2)
 {
-	int		i;
-	char 	*its_ok;
+	unsigned int	z;
 
-	i = 0;
-	while (((ft_isalnum(msh->line[i].c) == 1) || msh->line[i].c == '_')
-			&& msh->line[i].flag == 0)
-		i++;
-	its_ok =
+	z = 0;
+	while (s1[z] != '\0' || s2[z] != '\0')
+	{
+		if (s1[z] != s2[z])
+			return ((unsigned char)s1[z] - (unsigned char)s2[z]);
+		z++;
+	}
+	return (0);
 }
+
+char 	*ft_get_env(t_msh *msh, char *val)
+{
+	t_list	*list;
+
+	list = msh->env;
+	while (list)
+	{
+		if (!ft_strcmp(val, ((t_env *)list->content)->key))
+			return (((t_env *)list->content)->val);
+		list = list->next;
+	}
+	return (NULL);
+}
+
+int 	ft_get_val_in_dlr(t_msh *msh, t_line_symbol *line)
+{
+	int		val_i;
+	char 	*val;
+	int 	i;
+	int 	j;
+
+	i = -1;
+	j = 0;
+	val_i = 0;
+	while (((ft_isalnum(line[val_i].c) == 1) || line[val_i].c == '_')
+			&& line[val_i].flag == 0)
+		val_i++;
+	val = malloc(val_i + 1);
+	if (!val)
+		return (-1);
+	while (++i < val_i)
+	{
+		val[i] = line[j].c;
+		j++;
+	}
+	val[i] = '\0';
+	if (line[0].c == '?')
+	{
+		msh->val_in_dlr = ft_itoa(msh->return_code); // ноль либо один сюда записывем если встречаем '?'
+		val_i++;
+		if (!msh->val_in_dlr)
+			return (-1);
+	}
+	else
+		msh->val_in_dlr = ft_get_env(msh, val); // или записываем какую переменную окр встретили
+	return (val_i);
+}
+
+int 	ft_
 
 int		ft_get_dollar(t_msh *msh)
 {
 	int		begin_str;
 	int 	end_str;
-	int 	res;
+	int 	val;
 
 	begin_str = -1;
 	end_str = 0;
-	res = 0;
+	val = 0;
 	while (msh->line[++begin_str].c)
 	{
 		if (msh->line[begin_str].c == '$' && msh->line[begin_str].flag == 0)
@@ -204,8 +256,13 @@ int		ft_get_dollar(t_msh *msh)
 			begin_str++;
 			if (((ft_isalnum(msh->line[begin_str].c) == 0) && msh->line[begin_str].c != '_'
 					&& msh->line[begin_str].c != '?') || msh->line[begin_str].flag == 1)
-				continue; // вернуться поправить
-			res = ft_get_val(msh);
+				continue; // вернуться поправить (возможно не нужно будет это условие)
+			val = ft_get_val_in_dlr(msh, &msh->line[begin_str]);//тут получаем индекс на котором заканчивается переменная окр и записываем саму переменную в структуру
+			if (val == -1) // проверяем записалсь ли переменная окр в структуру
+				return (0);
+			end_str = begin_str + val;
+
+
 		}
 	}
 }
@@ -217,13 +274,15 @@ int     ft_preparser(t_msh *msh)
     str_len = ft_line_size(msh);
 	if (str_len == -1)
 	{
-		msh->incorrect_line = 1;
+		msh->return_code = 1; // оригинальный bash возвращает 1 при ошибке
 		return (0);
 	}
 	msh->line = ft_get_struct_line(msh, str_len);
 	if (!msh->line)
 		close_prog(msh, "line malloc error");
 	if (ft_get_dollar(msh) == 0)
+		return (0);
+
     return (1);
 }
 

@@ -40,11 +40,10 @@ typedef struct		s_msh
     t_line_symbol	*line;
 	char			*str; // my input string
 	char            **env_args;
-	char 			*val;
-	int 			incorrect_line;
+	char 			*val_in_dlr;   // in this field environment after $
+	int 			return_code;
 	int 			fd_0;
 	int 			fd_1;
 }					t_msh;
-
 
 # endif
