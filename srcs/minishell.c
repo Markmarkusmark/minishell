@@ -176,20 +176,6 @@ t_line_symbol	*ft_get_struct_line(t_msh *msh, int mlc_len)
 	return (line);
 }
 
-int					ft_strcmp(const char *s1, const char *s2)
-{
-	unsigned int	z;
-
-	z = 0;
-	while (s1[z] != '\0' || s2[z] != '\0')
-	{
-		if (s1[z] != s2[z])
-			return ((unsigned char)s1[z] - (unsigned char)s2[z]);
-		z++;
-	}
-	return (0);
-}
-
 char 	*ft_get_env(t_msh *msh, char *val)
 {
 	t_list	*list;
@@ -238,7 +224,86 @@ int 	ft_get_val_in_dlr(t_msh *msh, t_line_symbol *line)
 	return (val_i);
 }
 
-int 	ft_
+int 	ft_notenv(t_msh *msh, int i, int j)
+{
+	t_line_symbol	*s1;
+	t_line_symbol	*s2;
+
+	s1 = ft_mshsubstr(msh, i - 1);
+	if (!s1)
+		return (0);
+	s2 = ft_mshstrjoin(s1, &msh->line[j]);
+	if (!s2)
+		return (0);
+	free(msh->line);
+	msh->line = s2;
+	free(s1);
+	return (1);
+}
+
+t_line_symbol	*ft_get_new_line(t_msh *msh)
+{
+	int 			i;
+	t_line_symbol	*new_line;
+	int 			len;
+
+	i = -1;
+	len = (int) ft_strlen(msh->val_in_dlr) + 1;
+	new_line = malloc(sizeof (t_line_symbol) * len);
+	if (!new_line)
+		return (NULL);
+	while (msh->val_in_dlr[++i])
+	{
+		new_line[i].c = msh->val_in_dlr[i];
+		new_line[i].flag = 1;
+	}
+	new_line[i].c = '\0';
+	return (new_line);
+}
+
+int 	ft_env(t_msh *msh, int i, int j)
+{
+	t_line_symbol	*s1;
+	t_line_symbol	*s2;
+	t_line_symbol	*s3;
+	t_line_symbol	*new_line;
+
+	new_line = ft_get_new_line(msh);
+	if (!new_line)
+		return (0);
+	s1 = ft_mshsubstr(msh, i - 1);
+	if (!s1)
+		return (0);
+	s2 = ft_mshstrjoin(s1, new_line);
+	if (!s2)
+		return (0);
+	s3 = ft_mshstrjoin(s2, &msh->line[j]);
+	if (!s3)
+		return (0);
+	if (msh->line[i].c == '?')
+		free(msh->val_in_dlr);
+	free(msh->line);
+	msh->line = s3;
+	free(s1);
+	free(s2);
+	free(new_line);
+	return (1);
+}
+
+int 	ft_check(t_msh *msh, int begin_str, int end_str)
+{
+	if (msh->val_in_dlr)
+	{
+		if (ft_env(msh, begin_str, end_str) == 0)
+			return (1);
+	}
+	else
+	{
+		if (ft_notenv(msh, begin_str, end_str) == 0)
+			return (1);
+	}
+	return (0);
+}
 
 int		ft_get_dollar(t_msh *msh)
 {
@@ -261,10 +326,12 @@ int		ft_get_dollar(t_msh *msh)
 			if (val == -1) // проверяем записалсь ли переменная окр в структуру
 				return (0);
 			end_str = begin_str + val;
-
-
+			if (ft_check(msh, begin_str, end_str) == 1)
+				return (0);
+			begin_str = begin_str - 2;
 		}
 	}
+	return (1);
 }
 
 int     ft_preparser(t_msh *msh)
@@ -275,20 +342,25 @@ int     ft_preparser(t_msh *msh)
 	if (str_len == -1)
 	{
 		msh->return_code = 1; // оригинальный bash возвращает 1 при ошибке
-		return (0);
+		return (1);
 	}
 	msh->line = ft_get_struct_line(msh, str_len);
 	if (!msh->line)
 		close_prog(msh, "line malloc error");
 	if (ft_get_dollar(msh) == 0)
-		return (0);
-
-    return (1);
+		return (1);
+	if (ft_check_line_syntax(msh))
+	{
+		msh->return_code = 258; // код ошибки ( можно чекнуть в оригинальном баше если просто вввести ; или | )
+		free(msh->line);
+		return (1);
+	}
+    return (0);
 }
 
 void     ft_parser(t_msh *msh)
 {
-    if (ft_preparser(msh) == 0)
+    if (ft_preparser(msh) == 1)
 		return ;
 }
 
