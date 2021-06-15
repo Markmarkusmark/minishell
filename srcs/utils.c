@@ -1,6 +1,6 @@
 #include "../include/minishell.h"
 
-int 	ft_mshstrlen(t_line_symbol *line)
+int				ft_mshstrlen(t_line_symbol *line)
 {
 	int	i;
 
@@ -69,7 +69,7 @@ t_line_symbol	*ft_mshstrjoin(t_line_symbol *line1, t_line_symbol *line2)
 	return (new_line);
 }
 
-int					ft_strcmp(const char *s1, const char *s2)
+int			ft_strcmp(const char *s1, const char *s2)
 {
 	unsigned int	z;
 
