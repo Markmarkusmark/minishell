@@ -70,5 +70,11 @@ int		ft_get_dollar(t_msh *msh);
 int     ft_preparser(t_msh *msh);
 void     ft_parser(t_msh *msh);
 int		ft_check_line_syntax(t_msh *msh);
+int		ft_check_token_error(t_msh *msh);
+int		ft_get_token(t_msh *msh, int *len);
+int		ft_check_token3(t_msh *msh, int *len);
+int		ft_check_token2(t_msh *msh, int *len);
+int 	ft_check_token1(t_msh *msh, int *len);
+
 
 # endif

@@ -141,3 +141,13 @@ CMakeFiles/minishell.dir/srcs/minishell.c.o
  /Users/legunshi/minishell/include/minishell.h
  /Users/legunshi/minishell/libft/libft.h
  /Users/legunshi/minishell/srcs/minishell.c
+CMakeFiles/minishell.dir/srcs/syntax.c.o
+ /Users/legunshi/minishell/get_next_line/get_next_line.h
+ /Users/legunshi/minishell/include/minishell.h
+ /Users/legunshi/minishell/libft/libft.h
+ /Users/legunshi/minishell/srcs/syntax.c
+CMakeFiles/minishell.dir/srcs/utils.c.o
+ /Users/legunshi/minishell/get_next_line/get_next_line.h
+ /Users/legunshi/minishell/include/minishell.h
+ /Users/legunshi/minishell/libft/libft.h
+ /Users/legunshi/minishell/srcs/utils.c

@@ -1384,6 +1384,60 @@ srcs/minishell.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/minishell.c.s
 .PHONY : srcs/minishell.c.s
 
+srcs/syntax.o: srcs/syntax.c.o
+
+.PHONY : srcs/syntax.o
+
+# target to build an object file
+srcs/syntax.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/syntax.c.o
+.PHONY : srcs/syntax.c.o
+
+srcs/syntax.i: srcs/syntax.c.i
+
+.PHONY : srcs/syntax.i
+
+# target to preprocess a source file
+srcs/syntax.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/syntax.c.i
+.PHONY : srcs/syntax.c.i
+
+srcs/syntax.s: srcs/syntax.c.s
+
+.PHONY : srcs/syntax.s
+
+# target to generate assembly for a file
+srcs/syntax.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/syntax.c.s
+.PHONY : srcs/syntax.c.s
+
+srcs/utils.o: srcs/utils.c.o
+
+.PHONY : srcs/utils.o
+
+# target to build an object file
+srcs/utils.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/utils.c.o
+.PHONY : srcs/utils.c.o
+
+srcs/utils.i: srcs/utils.c.i
+
+.PHONY : srcs/utils.i
+
+# target to preprocess a source file
+srcs/utils.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/utils.c.i
+.PHONY : srcs/utils.c.i
+
+srcs/utils.s: srcs/utils.c.s
+
+.PHONY : srcs/utils.s
+
+# target to generate assembly for a file
+srcs/utils.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/utils.c.s
+.PHONY : srcs/utils.c.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -1531,6 +1585,12 @@ help:
 	@echo "... srcs/minishell.o"
 	@echo "... srcs/minishell.i"
 	@echo "... srcs/minishell.s"
+	@echo "... srcs/syntax.o"
+	@echo "... srcs/syntax.i"
+	@echo "... srcs/syntax.s"
+	@echo "... srcs/utils.o"
+	@echo "... srcs/utils.i"
+	@echo "... srcs/utils.s"
 .PHONY : help
 
 

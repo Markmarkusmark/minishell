@@ -141,3 +141,13 @@ CMakeFiles/minishell.dir/srcs/minishell.c.o: ../include/minishell.h
 CMakeFiles/minishell.dir/srcs/minishell.c.o: ../libft/libft.h
 CMakeFiles/minishell.dir/srcs/minishell.c.o: ../srcs/minishell.c
 
+CMakeFiles/minishell.dir/srcs/syntax.c.o: ../get_next_line/get_next_line.h
+CMakeFiles/minishell.dir/srcs/syntax.c.o: ../include/minishell.h
+CMakeFiles/minishell.dir/srcs/syntax.c.o: ../libft/libft.h
+CMakeFiles/minishell.dir/srcs/syntax.c.o: ../srcs/syntax.c
+
+CMakeFiles/minishell.dir/srcs/utils.c.o: ../get_next_line/get_next_line.h
+CMakeFiles/minishell.dir/srcs/utils.c.o: ../include/minishell.h
+CMakeFiles/minishell.dir/srcs/utils.c.o: ../libft/libft.h
+CMakeFiles/minishell.dir/srcs/utils.c.o: ../srcs/utils.c
+

@@ -1,5 +1,12 @@
 #include "../include/minishell.h"
 
+void 	close_prog(t_msh *msh, char *err)
+{
+	ft_putstr_fd(err, 2);
+	free(msh);
+	exit(0);
+}
+
 int				ft_mshstrlen(t_line_symbol *line)
 {
 	int	i;
@@ -18,13 +25,12 @@ t_line_symbol 	*ft_mshsubstr(t_msh *msh, size_t len)
 
 	i = -1;
 	j = 0;
-
 	if (!msh->line)
 		return (NULL);
 	substr = malloc(sizeof (t_line_symbol) * (len + 1));
 	if (!substr)
 		return (NULL);
-	if (msh->line[0] == '\0')
+	if (msh->line[0].c == '\0')
 	{
 		substr[0].c = '\0';
 		substr[0].flag = 0;

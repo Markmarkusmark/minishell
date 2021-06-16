@@ -46,7 +46,7 @@ stddef.h
 stdarg.h
 -
 
-/Users/legunshi/minishell/srcs/minishell.c
+/Users/legunshi/minishell/srcs/syntax.c
 ../include/minishell.h
 /Users/legunshi/minishell/include/minishell.h
 

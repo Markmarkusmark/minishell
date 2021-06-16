@@ -50,6 +50,8 @@ set(CMAKE_DEPENDS_CHECK_C
   "/Users/legunshi/minishell/libft/ft_tolower.c" "/Users/legunshi/minishell/cmake-build-debug/CMakeFiles/minishell.dir/libft/ft_tolower.c.o"
   "/Users/legunshi/minishell/libft/ft_toupper.c" "/Users/legunshi/minishell/cmake-build-debug/CMakeFiles/minishell.dir/libft/ft_toupper.c.o"
   "/Users/legunshi/minishell/srcs/minishell.c" "/Users/legunshi/minishell/cmake-build-debug/CMakeFiles/minishell.dir/srcs/minishell.c.o"
+  "/Users/legunshi/minishell/srcs/syntax.c" "/Users/legunshi/minishell/cmake-build-debug/CMakeFiles/minishell.dir/srcs/syntax.c.o"
+  "/Users/legunshi/minishell/srcs/utils.c" "/Users/legunshi/minishell/cmake-build-debug/CMakeFiles/minishell.dir/srcs/utils.c.o"
   )
 set(CMAKE_C_COMPILER_ID "AppleClang")
 

@@ -45,6 +45,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/minishell.dir/libft/ft_tolower.c.o"
   "CMakeFiles/minishell.dir/libft/ft_toupper.c.o"
   "CMakeFiles/minishell.dir/srcs/minishell.c.o"
+  "CMakeFiles/minishell.dir/srcs/syntax.c.o"
+  "CMakeFiles/minishell.dir/srcs/utils.c.o"
   "minishell"
   "minishell.pdb"
 )
