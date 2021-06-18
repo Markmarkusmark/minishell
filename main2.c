@@ -6,7 +6,7 @@
 /*   By: mryan <mryan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 13:36:04 by mryan             #+#    #+#             */
-/*   Updated: 2021/06/01 17:47:11 by mryan            ###   ########.fr       */
+/*   Updated: 2021/06/18 15:21:15 by mryan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -285,7 +285,6 @@ int bi_echo(char **arg, int fd)
 }
 
 /*
-	если после cd нет аргументов, не обрабатываем?
 	изменить PWD в переменной окружения
 */
 int bi_cd(char **arg, int fd)
@@ -339,24 +338,84 @@ int bi_exit(char **arg, int fd)
 /*
 	в каком виде нужно выводить export без аргументов? уточнить
 */
+
+void print_env(t_list *env, int fd, int declare)
+{
+	while (env)
+	{
+		t_env	*envp;
+
+		envp = malloc(sizeof(t_env));
+		envp = env->content;
+		if (declare == 1)
+			write(fd, "declare -x ", 11);
+		write(fd, envp->key, strlen(envp->key));
+		write(fd, "=", 1);
+		if (envp->val != NULL)
+			write(fd, envp->val, strlen(envp->val));
+		write(fd, "\n", 1);
+		env = env->next;
+	}
+}
+
+void	ft_lstsort(t_list *lst, t_list *sorted_fin)
+{
+	t_list *sorted;
+		t_list *sorted1;
+	t_env	*temp;
+	t_env *elem1;
+	t_env *elem2;
+	int count;
+	int i, j;
+	
+	sorted = malloc(sizeof(t_list));
+	elem1 = malloc(sizeof(t_env));
+	elem2 = malloc(sizeof(t_env));
+	count = 0;
+	i = 0;
+	j = 0;
+	sorted = lst;
+	while (sorted)
+	{
+		count++;
+		sorted = sorted->next;
+	}
+	sorted = lst;
+	print_env(sorted, 1, 0);
+	while (i < count - 1)
+	{
+		j = 0;
+		while (j < count - i - 1)
+		{
+			elem1 = sorted[j].content; //  поменять ввод элементов?? 
+			elem2 = sorted[j + 1].content;
+			if (strcmp(elem1->key, elem2->key) > 0)
+			{
+				temp = elem1;
+				elem1 = elem2;
+				elem2 = temp;
+			}
+			sorted[j].content = elem1;
+			sorted[j + 1].content = elem2;
+			j++;
+		}
+		print_env(sorted, 1, 0);
+		i++;
+	}
+	sorted_fin = sorted;
+}
+
 int bi_export(char **arg, t_msh *msh, int fd) // ???????
 {
 	int i = 0;
 	t_env	*envp;
-	t_env	*envp1;
+	t_list	sorted;
 
 	if (arg[0] == NULL)
 	{
-		while (msh->env)
-		{
-			envp = malloc(sizeof(t_env));
-			envp = msh->env->content;
-			write(fd, envp->key, strlen(envp->key));
-			write(fd, "=", 1);
-			write(fd, envp->val, strlen(envp->val));
-			write(fd, "\n", 1);
-			msh->env = msh->env->next;
-		}
+		// sort
+		ft_lstsort(msh->env, &sorted);
+		print_env(&sorted, fd, 1);
 	}
 	else
 	{
@@ -403,79 +462,15 @@ int bi_unset(char **arg, t_msh *msh, int fd)
 
 /*
 	сделать ennro
-	вывод?
 */
-void print_env(t_msh *msh, int fd)
-{
-	while (msh->env)
-	{
-		t_env	*envp;
-
-		envp = malloc(sizeof(t_env));
-		envp = msh->env->content;
-		write(fd, envp->key, strlen(envp->key));
-		write(fd, "=", 1);
-		if (envp->val != NULL)
-			write(fd, envp->val, strlen(envp->val));
-		write(fd, "\n", 1);
-		msh->env = msh->env->next;
-	}
-}
-
-void env_change(char *arg, t_msh *msh, int fd, t_env *envp)
-{
-	t_env	*temp;
-	t_list	*lst;
-	int		flag = 0;
-
-	lst = msh->env;
-	while (lst)
-	{
-		temp = lst->content;
-		if (strcmp(temp->key, envp->key) == 0)
-		{
-			temp->val = envp->val;
-			flag = 1;
-			break;
-		}
-		lst = lst->next;
-	}
-	print_env(msh, fd);
-	if (flag == 0)
-	{
-		write(fd, arg, ft_strlen(arg));
-		write(fd, "\n", 1);
-	}
-}
-
 int bi_env(char **arg, t_msh *msh, int fd)
 {
-	int i = 0;
-	t_env	envp;
-
 	if (arg[0] == NULL)
-		print_env(msh, fd);
+		print_env(msh->env, fd, 0);
 	else
 	{
-		while (arg[i] != NULL)
-		{
-			msh->env_args = ft_split(arg[i], '=');
-			envp.key = msh->env_args[0];
-    	    envp.val = msh->env_args[1];
-			if (!envp.val)
-			{
-				if (ft_strchr(arg[0], '=') == NULL)
-				{
-					write(fd, "No such file or directory", 25);
-					write(fd, "\n", 1);
-				}
-				else
-					env_change(arg[i], msh, fd, &envp);
-			}
-			else
-				env_change(arg[i], msh, fd, &envp);
-			i++;
-		}
+		write(fd, "No such file or directory", 25);
+		write(fd, "\n", 1);		
 	}
 	return (0);
 }
@@ -483,7 +478,6 @@ int bi_env(char **arg, t_msh *msh, int fd)
 int main(int argc, char **argv, char **env)
 {
 	char *arg[] = {
-	"PWD",
 	NULL
 	};
 	t_cmd cmd;
