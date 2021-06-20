@@ -67,10 +67,10 @@ RM = /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/legunshi/minishell
+CMAKE_SOURCE_DIR = /Users/marselaminov/Documents/minishell
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/legunshi/minishell/cmake-build-debug
+CMAKE_BINARY_DIR = /Users/marselaminov/Documents/minishell/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -99,9 +99,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/legunshi/minishell/cmake-build-debug/CMakeFiles /Users/legunshi/minishell/cmake-build-debug//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/marselaminov/Documents/minishell/cmake-build-debug/CMakeFiles /Users/marselaminov/Documents/minishell/cmake-build-debug//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/legunshi/minishell/cmake-build-debug/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/marselaminov/Documents/minishell/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -1357,6 +1357,33 @@ libft/ft_toupper.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/libft/ft_toupper.c.s
 .PHONY : libft/ft_toupper.c.s
 
+srcs/env_list.o: srcs/env_list.c.o
+
+.PHONY : srcs/env_list.o
+
+# target to build an object file
+srcs/env_list.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/env_list.c.o
+.PHONY : srcs/env_list.c.o
+
+srcs/env_list.i: srcs/env_list.c.i
+
+.PHONY : srcs/env_list.i
+
+# target to preprocess a source file
+srcs/env_list.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/env_list.c.i
+.PHONY : srcs/env_list.c.i
+
+srcs/env_list.s: srcs/env_list.c.s
+
+.PHONY : srcs/env_list.s
+
+# target to generate assembly for a file
+srcs/env_list.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/env_list.c.s
+.PHONY : srcs/env_list.c.s
+
 srcs/minishell.o: srcs/minishell.c.o
 
 .PHONY : srcs/minishell.o
@@ -1383,6 +1410,87 @@ srcs/minishell.s: srcs/minishell.c.s
 srcs/minishell.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/minishell.c.s
 .PHONY : srcs/minishell.c.s
+
+srcs/parse_env.o: srcs/parse_env.c.o
+
+.PHONY : srcs/parse_env.o
+
+# target to build an object file
+srcs/parse_env.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/parse_env.c.o
+.PHONY : srcs/parse_env.c.o
+
+srcs/parse_env.i: srcs/parse_env.c.i
+
+.PHONY : srcs/parse_env.i
+
+# target to preprocess a source file
+srcs/parse_env.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/parse_env.c.i
+.PHONY : srcs/parse_env.c.i
+
+srcs/parse_env.s: srcs/parse_env.c.s
+
+.PHONY : srcs/parse_env.s
+
+# target to generate assembly for a file
+srcs/parse_env.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/parse_env.c.s
+.PHONY : srcs/parse_env.c.s
+
+srcs/parser.o: srcs/parser.c.o
+
+.PHONY : srcs/parser.o
+
+# target to build an object file
+srcs/parser.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/parser.c.o
+.PHONY : srcs/parser.c.o
+
+srcs/parser.i: srcs/parser.c.i
+
+.PHONY : srcs/parser.i
+
+# target to preprocess a source file
+srcs/parser.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/parser.c.i
+.PHONY : srcs/parser.c.i
+
+srcs/parser.s: srcs/parser.c.s
+
+.PHONY : srcs/parser.s
+
+# target to generate assembly for a file
+srcs/parser.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/parser.c.s
+.PHONY : srcs/parser.c.s
+
+srcs/preparser.o: srcs/preparser.c.o
+
+.PHONY : srcs/preparser.o
+
+# target to build an object file
+srcs/preparser.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/preparser.c.o
+.PHONY : srcs/preparser.c.o
+
+srcs/preparser.i: srcs/preparser.c.i
+
+.PHONY : srcs/preparser.i
+
+# target to preprocess a source file
+srcs/preparser.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/preparser.c.i
+.PHONY : srcs/preparser.c.i
+
+srcs/preparser.s: srcs/preparser.c.s
+
+.PHONY : srcs/preparser.s
+
+# target to generate assembly for a file
+srcs/preparser.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/preparser.c.s
+.PHONY : srcs/preparser.c.s
 
 srcs/syntax.o: srcs/syntax.c.o
 
@@ -1582,9 +1690,21 @@ help:
 	@echo "... libft/ft_toupper.o"
 	@echo "... libft/ft_toupper.i"
 	@echo "... libft/ft_toupper.s"
+	@echo "... srcs/env_list.o"
+	@echo "... srcs/env_list.i"
+	@echo "... srcs/env_list.s"
 	@echo "... srcs/minishell.o"
 	@echo "... srcs/minishell.i"
 	@echo "... srcs/minishell.s"
+	@echo "... srcs/parse_env.o"
+	@echo "... srcs/parse_env.i"
+	@echo "... srcs/parse_env.s"
+	@echo "... srcs/parser.o"
+	@echo "... srcs/parser.i"
+	@echo "... srcs/parser.s"
+	@echo "... srcs/preparser.o"
+	@echo "... srcs/preparser.i"
+	@echo "... srcs/preparser.s"
 	@echo "... srcs/syntax.o"
 	@echo "... srcs/syntax.i"
 	@echo "... srcs/syntax.s"

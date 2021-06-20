@@ -21,6 +21,7 @@ int		main(int argc, char **argv, char **env)
         if (!success)
             close_prog(msh, "gnl error\n");
         ft_parser(msh);
+        // после парсера вызываем менеджер команд,передавать будем общую структуру
         free(msh->str);
 		free(msh->line);
 		msh->line = NULL;

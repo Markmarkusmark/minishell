@@ -24,19 +24,21 @@ typedef struct		s_line_symbol
 	int 			flag;
 }					t_line_symbol;
 
-typedef struct      s_cmd
+typedef struct      s_com
 {
-	char            *cmd;
-	char            **args_str;
+    int 			num_args;
+    int 			num_redir;
+	char            *com;
+	char            **line_of_args;
 	char 			separ;
-	int 			n_args;
-	int 			n_redir;
-}                   t_cmd;
+	char 			separ2;
+	t_line_symbol   **args;
+}                   t_com;
 
 typedef struct		s_msh
 {
     t_list		    *env;
-    t_list		    *cmd;
+    t_list		    *com;
     t_line_symbol	*line;
 	char			*str; // my input string
 	char            **env_args;
