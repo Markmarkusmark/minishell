@@ -1,4 +1,4 @@
-
+#include "../include/minishell.h"
 
 int 	ft_check_token1(t_msh *msh, int *len)
 {
