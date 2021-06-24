@@ -78,5 +78,4 @@ int		ft_check_token3(t_msh *msh, int *len);
 int		ft_check_token2(t_msh *msh, int *len);
 int 	ft_check_token1(t_msh *msh, int *len);
 
-
 # endif
