@@ -27,9 +27,9 @@ typedef struct		s_line_symbol
 typedef struct      s_com
 {
     int 			num_args;
-    int 			num_redir;
+    //int 			num_redir;
 	char            *com;
-	char            **line_of_args;
+	//char            **line_of_args;
 	char 			separ;
 	char 			separ2;
 	t_line_symbol   **args;

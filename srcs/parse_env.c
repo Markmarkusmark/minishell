@@ -22,7 +22,7 @@ int		ft_get_symbol_flag(t_msh *msh, int *len, int *qte, int *dlr)
 		if ((*dlr != 0) && (msh->str[*len] != '_') && (ft_isalnum(msh->str[*len]) == 0))
 			*dlr = 0;
 		else if ((*dlr == 0) && (*qte == 1 || (*qte == 2 && msh->str[*len] != '$'
-											   && msh->str[*len] != '\\' && msh->str[*len] != '"')))
+				&& msh->str[*len] != '\\' && msh->str[*len] != '"')))
 			return (1);
 		else
 		{
@@ -33,13 +33,13 @@ int		ft_get_symbol_flag(t_msh *msh, int *len, int *qte, int *dlr)
 	}
 }
 
-t_line_symbol	*ft_get_struct_line(t_msh *msh, int mlc_len)
+t_line_symbol		*ft_get_struct_line(t_msh *msh, int mlc_len)
 {
-	int len;
-	int chr;
-	int qte;
-	int dlr;
-	t_line_symbol *line;
+	int 			len;
+	int 			chr;
+	int 			qte;
+	int 			dlr;
+	t_line_symbol	*line;
 
 	len = -1;
 	chr = 0;

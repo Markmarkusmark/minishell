@@ -73,7 +73,7 @@ int     ft_preparser(t_msh *msh)
 	str_len = ft_line_size(msh);
 	if (str_len == -1)
 	{
-		msh->return_code = 1; // оригинальный bash возвращает 1 при ошибке
+		msh->return_code = 1; // оригинальный bash возвращает 1 при ошибке (при открытых кавычках к примеру)
 		return (1);
 	}
 	msh->line = ft_get_struct_line(msh, str_len);

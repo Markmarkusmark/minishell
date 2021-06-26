@@ -1,10 +1,10 @@
 #include "../include/minishell.h"
 
-void    ft_skip_spaces(t_msh *msh, int *i)
-{
-    while (msh->line[*i].c == ' ' && msh->line[*i].flag == 0)
-        (*i)++;
-}
+//void    ft_skip_spaces(t_msh *msh, int *i)
+//{
+//    while (msh->line[*i].c == ' ' && msh->line[*i].flag == 0)
+//        (*i)++;
+//}
 
 int     ft_check_symbol(t_line_symbol line)
 {
@@ -290,7 +290,7 @@ void     ft_parser(t_msh *msh)
     t_com   *command;
     int     i;
 
-	if (ft_preparser(msh) == 1)
+	if (ft_preparser(msh))
 		return ;
 	i = 0;
 	while (msh->line[i].c != '\0')
@@ -302,9 +302,11 @@ void     ft_parser(t_msh *msh)
         if (!new_list)
             close_prog(msh, "malloc error\n");
         ft_bzero(command, sizeof (t_com)); // проверить через дебаггер зануляет ли
-        ft_skip_spaces(msh, &i);
+        while (msh->line[i].c == ' ' && msh->line[i].flag == 0)
+        	i++;
+        //ft_skip_spaces(msh, &i);
 		i = ft_get_separator(msh, command, 0, i); // поменять потом на воид и ходить по указателю i
-        ft_skip_spaces(msh, &i);
+        //ft_skip_spaces(msh, &i);
         command->num_args = ft_get_num_of_args(&msh->line[i]);
         if (command->num_args == 0)
 		{
@@ -324,6 +326,7 @@ void     ft_parser(t_msh *msh)
 			close_prog(msh, "command not found\n");
 		i = ft_get_separator(msh, command, 1, i); // поменять потом на воид и ходить по указателю i
 		ft_lstadd_back(&msh->com, new_list);
+		i++;
     }
 	free(msh->line);
 }
