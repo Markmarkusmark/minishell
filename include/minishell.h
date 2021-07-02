@@ -29,11 +29,17 @@ typedef struct      s_com
     int 			num_args;
     //int 			num_redir;
 	char            *com;
-	//char            **line_of_args;
+	//char            **args;
 	char 			separ;
 	char 			separ2;
 	t_line_symbol   **args;
 }                   t_com;
+
+typedef struct      s_redir
+{
+    char            *type;
+    char            *file;
+}                   t_redir;
 
 typedef struct		s_msh
 {

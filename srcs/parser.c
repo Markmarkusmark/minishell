@@ -53,6 +53,7 @@ t_line_symbol	*ft_get_clean_line(t_line_symbol *line)
 	int 			i;
 	int 			j;
 	t_line_symbol	*new_line;
+
 	i = 0;
 	j = 0;
 	if (!line)
@@ -73,48 +74,62 @@ t_line_symbol	*ft_get_clean_line(t_line_symbol *line)
 	return (new_line);
 }
 
-int 	ft_pass_str(int *i, t_msh *msh)
+int		ft_check_char(t_line_symbol line)
+{
+
+    if ((line.c == '<' && line.flag == 0) ||
+        (line.c == '>' && line.flag == 0) ||
+        (line.c == ';' && line.flag == 0) ||
+        (line.c == '|' && line.flag == 0) ||
+        (line.c == ' ' && line.flag == 0) ||
+        (line.c == '\0'))
+        return (0);
+    else
+        return (1);
+}
+
+int 	ft_pass_str(int *i, t_line_symbol **line)
 {
 	int	j;
 
 	j = *i;
-	if (msh->line[*i].flag == 0 && (msh->line[*i].c == '>' ||
-		msh->line[*i].c == '<'))
+	if ((*line)[*i].flag == 0 && ((*line)[*i].c == '>' ||
+            (*line)[*i].c == '<'))
 	{
-		while (msh->line[*i].flag == 0 && (msh->line[*i].c == '>' ||
-			msh->line[*i].c == '<'))
+		while ((*line)[*i].flag == 0 && ((*line)[*i].c == '>' ||
+                (*line)[*i].c == '<'))
 			j++;
 	}
 	else
 	{
-		while (ft_check_token3(msh, &j))
+		while (ft_check_char((*line)[j]))
 			j++;
 	}
 	return (j);
 }
 
-t_line_symbol 	*ft_mshsubstr2(t_msh *msh, int n, size_t len)
+t_line_symbol 	*ft_mshsubstr2(t_line_symbol *line, int a, size_t len)
 {
 	size_t			i;
 	size_t			j;
 	t_line_symbol	*substr;
 
-	i = n;
+	i = a;
 	j = 0;
-	if (!msh->line)
+	if (!line)
 		return (NULL);
 	substr = malloc(sizeof (t_line_symbol) * (len + 1));
 	if (!substr)
 		return (NULL);
-	if (msh->line[0].c == '\0')
+	if (line[0].c == '\0')
 	{
 		substr[0].c = '\0';
 		substr[0].flag = 0;
 		return (substr);
 	}
-	while (i < (len + n))
+	while (i < (len + a))
 	{
-		substr[j] = msh->line[i];
+		substr[j] = line[i];
 		i++;
 		j++;
 	}
@@ -122,27 +137,28 @@ t_line_symbol 	*ft_mshsubstr2(t_msh *msh, int n, size_t len)
 	return (substr);
 }
 
-int 	ft_get_args(t_msh *msh, t_com *cmd, int *i)
+int 	ft_get_args(t_line_symbol **line, t_com *cmd, int *i)
 {
 	int 			j;
 	int 			num;
 	t_line_symbol	*line2;
 
 	num = 0;
-	line2 = ft_get_clean_line(msh->line);
+	line2 = ft_get_clean_line(*line);
 	if (line2 == NULL)
 		return (1);
-	free(msh->line);
-	msh->line = line2;
-	while (msh->line[*i].c == ' ' && msh->line[*i].flag == 0)
+	free(*line);
+	*line = line2;
+	while ((*line)[*i].c == ' ' && (*line)[*i].flag == 0)
 		*i = *i + 1;
 	while (num < cmd->num_args)
 	{
-		j = ft_pass_str(i, msh);
-		cmd->args[num] = ft_mshsubstr2(msh, *i, j - *i);
+		j = ft_pass_str(i, line);
+		cmd->args[num] = ft_mshsubstr2(*line, *i, j - *i);
 		if (!cmd->args[num])
 			return (1);
-		while (msh->line[*i].c == ' ' && msh->line[*i].flag == 0)
+		*i = j;
+		while ((*line)[*i].c == ' ' && (*line)[*i].flag == 0)
 			*i = *i + 1;
 		num++;
 	}
@@ -301,12 +317,16 @@ void     ft_parser(t_msh *msh)
         new_list = ft_lstnew(command);
         if (!new_list)
             close_prog(msh, "malloc error\n");
-        ft_bzero(command, sizeof (t_com)); // проверить через дебаггер зануляет ли
+        command->separ = '-';
+        command->separ2 = '-';
+        command->com = NULL;
+        command->args = NULL;
         while (msh->line[i].c == ' ' && msh->line[i].flag == 0)
         	i++;
         //ft_skip_spaces(msh, &i);
 		i = ft_get_separator(msh, command, 0, i); // поменять потом на воид и ходить по указателю i
-        //ft_skip_spaces(msh, &i);
+        while (msh->line[i].c == ' ' && msh->line[i].flag == 0)
+            i++;
         command->num_args = ft_get_num_of_args(&msh->line[i]);
         if (command->num_args == 0)
 		{
@@ -320,13 +340,12 @@ void     ft_parser(t_msh *msh)
 			if (!command->args)
 				close_prog(msh, "malloc error\n");
 		}
-        if (ft_get_args(msh, command, &i))
+        if (ft_get_args(&msh->line, command, &i))
 			close_prog(msh, "arguments error\n");
         if (ft_get_command(command))
 			close_prog(msh, "command not found\n");
 		i = ft_get_separator(msh, command, 1, i); // поменять потом на воид и ходить по указателю i
 		ft_lstadd_back(&msh->com, new_list);
-		i++;
     }
 	free(msh->line);
 }
