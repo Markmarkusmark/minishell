@@ -46,7 +46,31 @@ stddef.h
 stdarg.h
 -
 
+/Users/marselaminov/Documents/minishell/srcs/env_list.c
+../include/minishell.h
+/Users/marselaminov/Documents/minishell/include/minishell.h
+
+/Users/marselaminov/Documents/minishell/srcs/minishell.c
+../include/minishell.h
+/Users/marselaminov/Documents/minishell/include/minishell.h
+
+/Users/marselaminov/Documents/minishell/srcs/parse_env.c
+../include/minishell.h
+/Users/marselaminov/Documents/minishell/include/minishell.h
+
 /Users/marselaminov/Documents/minishell/srcs/parser.c
+../include/minishell.h
+/Users/marselaminov/Documents/minishell/include/minishell.h
+
+/Users/marselaminov/Documents/minishell/srcs/preparser.c
+../include/minishell.h
+/Users/marselaminov/Documents/minishell/include/minishell.h
+
+/Users/marselaminov/Documents/minishell/srcs/syntax.c
+../include/minishell.h
+/Users/marselaminov/Documents/minishell/include/minishell.h
+
+/Users/marselaminov/Documents/minishell/srcs/utils.c
 ../include/minishell.h
 /Users/marselaminov/Documents/minishell/include/minishell.h
 
