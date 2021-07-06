@@ -1,5 +1,34 @@
 #include "../include/minishell.h"
 
+void	del_lst_command(void *cmd)
+{
+	int	i;
+
+	if (((t_com *)cmd)->args)
+	{
+		i = 0;
+		while (i < ((t_com *)cmd)->num_args)
+		{
+			free(((t_com *)cmd)->args[i]);
+			i++;
+		}
+		free(((t_com *)cmd)->args);
+	}
+	if (((t_com *)cmd)->com)
+		free(((t_com *)cmd)->com);
+	if (((t_com *)cmd)->args_new)
+	{
+		i = 0;
+		while (i < ((t_com *)cmd)->num_args)
+		{
+			free(((t_com *)cmd)->args_new[i]);
+			i++;
+		}
+		free(((t_com *)cmd)->args_new);
+	}
+	free((t_com *)cmd);
+}
+
 int		main(int argc, char **argv, char **env)
 {
 	t_msh	*msh;
@@ -22,7 +51,9 @@ int		main(int argc, char **argv, char **env)
             close_prog(msh, "gnl error\n");
         ft_parser(msh);
         ft_command_manage(msh);
-        // после парсера вызываем менеджер команд,передавать будем общую структуру
+		free(msh->line);
+		msh->line = NULL;
+		ft_lstclear(&msh->com, &del_lst_command);
         free(msh->str);
     }
 	return (0);

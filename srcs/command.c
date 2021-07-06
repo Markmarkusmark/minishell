@@ -23,66 +23,6 @@ char	*ft_struct_to_str(t_line_symbol *struc, int start, int len)
     return (str);
 }
 
-int	ft_redir_checker(t_com *com)
-{
-    int		i;
-    char	*arg;
-
-    i = 0;
-    while (i < com->num_args)
-    {
-        printf("%c\n", com->args[i]->c);
-        arg = ft_struct_to_str(com->args[i], 0, ft_mshstrlen(com->args[i]));
-        if ((!ft_strcmp(arg, ">") || !ft_strcmp(arg, ">>")
-             || !ft_strcmp(arg, "<") || !ft_strcmp(arg, "<<"))
-            && com->args[i][0].flag == 0)
-        {
-            free(arg);
-            return (1);
-        }
-        free(arg);
-        i++;
-    }
-    return (0);
-}
-
-void	ft_rdr_count(t_com *com)
-{
-    int		i;
-    char	*arg;
-
-    i = 0;
-    com->num_redir = 0;
-    while (i < com->num_args)
-    {
-        arg = ft_struct_to_str(com->args[i], 0, ft_mshstrlen(com->args[i]));
-        if ((!ft_strcmp(arg, ">") || !ft_strcmp(arg, ">>")
-             || !ft_strcmp(arg, "<")) && com->args[i][0].flag == 0)
-            com->num_redir++;
-        free(arg);
-        i++;
-    }
-}
-
-/* type[0] contains the index of the last redir of < or << type
-type[1] contains the index of the last redir of > or >> type */
-void	ft_redir_mng(t_com *com, t_msh *msh)
-{
-    int		i;
-    t_redir *rdr;
-    int		type[2];
-
-    msh->return_code = 0;
-    ft_rdr_count(com);
-    rdr = malloc(com->num_redir * sizeof(t_redir *));
-    if (!rdr)
-        close_prog(msh, "malloc error\n");
-    type[0] = -1;
-    type[1] = -1;
-    msh->fd_1 = 1;
-    msh->fd_0 = 0;
-}
-
 int	ft_args_new(t_com *com)
 {
     int	i;

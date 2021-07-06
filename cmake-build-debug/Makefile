@@ -67,10 +67,10 @@ RM = /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/mryan/Marsel1
+CMAKE_SOURCE_DIR = /Users/legunshi/minishell
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/mryan/Marsel1/cmake-build-debug
+CMAKE_BINARY_DIR = /Users/legunshi/minishell/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -99,9 +99,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/mryan/Marsel1/cmake-build-debug/CMakeFiles /Users/mryan/Marsel1/cmake-build-debug//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/legunshi/minishell/cmake-build-debug/CMakeFiles /Users/legunshi/minishell/cmake-build-debug//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/mryan/Marsel1/cmake-build-debug/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/legunshi/minishell/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -1573,6 +1573,33 @@ srcs/preparser.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/preparser.c.s
 .PHONY : srcs/preparser.c.s
 
+srcs/redir.o: srcs/redir.c.o
+
+.PHONY : srcs/redir.o
+
+# target to build an object file
+srcs/redir.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/redir.c.o
+.PHONY : srcs/redir.c.o
+
+srcs/redir.i: srcs/redir.c.i
+
+.PHONY : srcs/redir.i
+
+# target to preprocess a source file
+srcs/redir.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/redir.c.i
+.PHONY : srcs/redir.c.i
+
+srcs/redir.s: srcs/redir.c.s
+
+.PHONY : srcs/redir.s
+
+# target to generate assembly for a file
+srcs/redir.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/redir.c.s
+.PHONY : srcs/redir.c.s
+
 srcs/syntax.o: srcs/syntax.c.o
 
 .PHONY : srcs/syntax.o
@@ -1795,6 +1822,9 @@ help:
 	@echo "... srcs/preparser.o"
 	@echo "... srcs/preparser.i"
 	@echo "... srcs/preparser.s"
+	@echo "... srcs/redir.o"
+	@echo "... srcs/redir.i"
+	@echo "... srcs/redir.s"
 	@echo "... srcs/syntax.o"
 	@echo "... srcs/syntax.i"
 	@echo "... srcs/syntax.s"
