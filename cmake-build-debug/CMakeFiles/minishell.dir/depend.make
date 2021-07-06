@@ -136,6 +136,11 @@ CMakeFiles/minishell.dir/libft/ft_tolower.c.o: ../libft/libft.h
 CMakeFiles/minishell.dir/libft/ft_toupper.c.o: ../libft/ft_toupper.c
 CMakeFiles/minishell.dir/libft/ft_toupper.c.o: ../libft/libft.h
 
+CMakeFiles/minishell.dir/srcs/command.c.o: ../get_next_line/get_next_line.h
+CMakeFiles/minishell.dir/srcs/command.c.o: ../include/minishell.h
+CMakeFiles/minishell.dir/srcs/command.c.o: ../libft/libft.h
+CMakeFiles/minishell.dir/srcs/command.c.o: ../srcs/command.c
+
 CMakeFiles/minishell.dir/srcs/env_list.c.o: ../get_next_line/get_next_line.h
 CMakeFiles/minishell.dir/srcs/env_list.c.o: ../include/minishell.h
 CMakeFiles/minishell.dir/srcs/env_list.c.o: ../libft/libft.h

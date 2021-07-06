@@ -27,9 +27,9 @@ typedef struct		s_line_symbol
 typedef struct      s_com
 {
     int 			num_args;
-    //int 			num_redir;
+    int 			num_redir;
 	char            *com;
-	//char            **args;
+	char            **args_new;
 	char 			separ;
 	char 			separ2;
 	t_line_symbol   **args;
@@ -51,8 +51,10 @@ typedef struct		s_msh
 	char 			*val_in_dlr;   // in this field environment after $
 	int 			return_code;
 	char 			token; // (; | > < >>) это для одной из внутренних функций , для дальнейшего не нужно , для удобства положил в структуру
-	int 			fd_0;
-	int 			fd_1;
+	int 			fd_0; // stdin
+	int 			fd_1; // stdout
+	int             fd[2]; // для функции pipe
+	int             read_fd;
 }					t_msh;
 
 t_line_symbol 	*ft_mshsubstr(t_msh *msh, size_t len);
@@ -83,5 +85,7 @@ int		ft_get_token(t_msh *msh, int *len);
 int		ft_check_token3(t_msh *msh, int *len);
 int		ft_check_token2(t_msh *msh, int *len);
 int 	ft_check_token1(t_msh *msh, int *len);
+void    ft_parser(t_msh *msh);
+void	ft_command_manage(t_msh *msh);
 
 # endif

@@ -230,6 +230,9 @@
 		<Unit filename="/Users/marselaminov/Documents/minishell/libft/libft.h">
 			<Option target="minishell"/>
 		</Unit>
+		<Unit filename="/Users/marselaminov/Documents/minishell/srcs/command.c">
+			<Option target="minishell"/>
+		</Unit>
 		<Unit filename="/Users/marselaminov/Documents/minishell/srcs/env_list.c">
 			<Option target="minishell"/>
 		</Unit>

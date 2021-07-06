@@ -64,4 +64,5 @@ add_executable(minishell
         srcs/preparser.c
         srcs/parse_env.c
         srcs/env_list.c
+        srcs/command.c
         )

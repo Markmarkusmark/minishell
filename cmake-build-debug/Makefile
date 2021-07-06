@@ -1357,6 +1357,33 @@ libft/ft_toupper.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/libft/ft_toupper.c.s
 .PHONY : libft/ft_toupper.c.s
 
+srcs/command.o: srcs/command.c.o
+
+.PHONY : srcs/command.o
+
+# target to build an object file
+srcs/command.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/command.c.o
+.PHONY : srcs/command.c.o
+
+srcs/command.i: srcs/command.c.i
+
+.PHONY : srcs/command.i
+
+# target to preprocess a source file
+srcs/command.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/command.c.i
+.PHONY : srcs/command.c.i
+
+srcs/command.s: srcs/command.c.s
+
+.PHONY : srcs/command.s
+
+# target to generate assembly for a file
+srcs/command.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/command.c.s
+.PHONY : srcs/command.c.s
+
 srcs/env_list.o: srcs/env_list.c.o
 
 .PHONY : srcs/env_list.o
@@ -1690,6 +1717,9 @@ help:
 	@echo "... libft/ft_toupper.o"
 	@echo "... libft/ft_toupper.i"
 	@echo "... libft/ft_toupper.s"
+	@echo "... srcs/command.o"
+	@echo "... srcs/command.i"
+	@echo "... srcs/command.s"
 	@echo "... srcs/env_list.o"
 	@echo "... srcs/env_list.i"
 	@echo "... srcs/env_list.s"

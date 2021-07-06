@@ -44,6 +44,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/minishell.dir/libft/ft_substr.c.o"
   "CMakeFiles/minishell.dir/libft/ft_tolower.c.o"
   "CMakeFiles/minishell.dir/libft/ft_toupper.c.o"
+  "CMakeFiles/minishell.dir/srcs/command.c.o"
   "CMakeFiles/minishell.dir/srcs/env_list.c.o"
   "CMakeFiles/minishell.dir/srcs/minishell.c.o"
   "CMakeFiles/minishell.dir/srcs/parse_env.c.o"

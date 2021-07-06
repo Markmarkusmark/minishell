@@ -49,6 +49,7 @@ set(CMAKE_DEPENDS_CHECK_C
   "/Users/marselaminov/Documents/minishell/libft/ft_substr.c" "/Users/marselaminov/Documents/minishell/cmake-build-debug/CMakeFiles/minishell.dir/libft/ft_substr.c.o"
   "/Users/marselaminov/Documents/minishell/libft/ft_tolower.c" "/Users/marselaminov/Documents/minishell/cmake-build-debug/CMakeFiles/minishell.dir/libft/ft_tolower.c.o"
   "/Users/marselaminov/Documents/minishell/libft/ft_toupper.c" "/Users/marselaminov/Documents/minishell/cmake-build-debug/CMakeFiles/minishell.dir/libft/ft_toupper.c.o"
+  "/Users/marselaminov/Documents/minishell/srcs/command.c" "/Users/marselaminov/Documents/minishell/cmake-build-debug/CMakeFiles/minishell.dir/srcs/command.c.o"
   "/Users/marselaminov/Documents/minishell/srcs/env_list.c" "/Users/marselaminov/Documents/minishell/cmake-build-debug/CMakeFiles/minishell.dir/srcs/env_list.c.o"
   "/Users/marselaminov/Documents/minishell/srcs/minishell.c" "/Users/marselaminov/Documents/minishell/cmake-build-debug/CMakeFiles/minishell.dir/srcs/minishell.c.o"
   "/Users/marselaminov/Documents/minishell/srcs/parse_env.c" "/Users/marselaminov/Documents/minishell/cmake-build-debug/CMakeFiles/minishell.dir/srcs/parse_env.c.o"

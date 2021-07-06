@@ -332,5 +332,4 @@ void     ft_parser(t_msh *msh)
 		i = ft_get_separator(msh, command, 1, i); // поменять потом на воид и ходить по указателю i
 		ft_lstadd_back(&msh->com, new_list);
     }
-	free(msh->line);
 }
