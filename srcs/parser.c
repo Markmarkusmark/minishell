@@ -253,7 +253,7 @@ int 	ft_get_command(t_com *command)
 		return (1);
 	if (ft_update_line(&str, command, args_num, its_cmd))
 		return (1);
-	if (its_cmd == 1)
+	if (its_cmd)
 	{
 		command->num_args = command->num_args - 1;
 		if (command->num_args == 0)
@@ -302,8 +302,8 @@ void     ft_parser(t_msh *msh)
         new_list = ft_lstnew(command);
         if (!new_list)
             close_prog(msh, "malloc error\n");
-        command->separ = '-';
-        command->separ2 = '-';
+        command->separ = '0';
+        command->separ2 = '0';
         command->com = NULL;
         command->args = NULL;
         while (msh->line[i].c == ' ' && msh->line[i].flag == 0)

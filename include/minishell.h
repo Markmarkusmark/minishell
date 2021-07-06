@@ -9,6 +9,8 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <string.h>
+# include <limits.h>
+# include <dirent.h>
 
 # define MINISHELL_LOOP 1
 
@@ -87,5 +89,8 @@ int		ft_check_token2(t_msh *msh, int *len);
 int 	ft_check_token1(t_msh *msh, int *len);
 void    ft_parser(t_msh *msh);
 void	ft_command_manage(t_msh *msh);
+int     ft_binary(t_msh *msh);
+int ft_builtin(t_msh *msh);
+void	ft_lstdel(t_list *lst, t_list *lst_main);
 
 # endif

@@ -88,3 +88,14 @@ int			ft_strcmp(const char *s1, const char *s2)
 	}
 	return (0);
 }
+
+void	ft_lstdel(t_list *lst, t_list *lst_main)
+{
+    t_list	*temp;
+
+    temp = lst_main;
+    while (temp->next != lst)
+        temp = temp->next;
+    temp->next = lst->next;
+    free(lst);
+}

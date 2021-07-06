@@ -67,10 +67,10 @@ RM = /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/marselaminov/Documents/minishell
+CMAKE_SOURCE_DIR = /Users/mryan/Marsel1
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/marselaminov/Documents/minishell/cmake-build-debug
+CMAKE_BINARY_DIR = /Users/mryan/Marsel1/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -99,9 +99,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/marselaminov/Documents/minishell/cmake-build-debug/CMakeFiles /Users/marselaminov/Documents/minishell/cmake-build-debug//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/mryan/Marsel1/cmake-build-debug/CMakeFiles /Users/mryan/Marsel1/cmake-build-debug//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/marselaminov/Documents/minishell/cmake-build-debug/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/mryan/Marsel1/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -1411,6 +1411,33 @@ srcs/env_list.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/env_list.c.s
 .PHONY : srcs/env_list.c.s
 
+srcs/main2.o: srcs/main2.c.o
+
+.PHONY : srcs/main2.o
+
+# target to build an object file
+srcs/main2.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/main2.c.o
+.PHONY : srcs/main2.c.o
+
+srcs/main2.i: srcs/main2.c.i
+
+.PHONY : srcs/main2.i
+
+# target to preprocess a source file
+srcs/main2.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/main2.c.i
+.PHONY : srcs/main2.c.i
+
+srcs/main2.s: srcs/main2.c.s
+
+.PHONY : srcs/main2.s
+
+# target to generate assembly for a file
+srcs/main2.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/main2.c.s
+.PHONY : srcs/main2.c.s
+
 srcs/minishell.o: srcs/minishell.c.o
 
 .PHONY : srcs/minishell.o
@@ -1437,6 +1464,33 @@ srcs/minishell.s: srcs/minishell.c.s
 srcs/minishell.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/minishell.c.s
 .PHONY : srcs/minishell.c.s
+
+srcs/minishell_process.o: srcs/minishell_process.c.o
+
+.PHONY : srcs/minishell_process.o
+
+# target to build an object file
+srcs/minishell_process.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/minishell_process.c.o
+.PHONY : srcs/minishell_process.c.o
+
+srcs/minishell_process.i: srcs/minishell_process.c.i
+
+.PHONY : srcs/minishell_process.i
+
+# target to preprocess a source file
+srcs/minishell_process.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/minishell_process.c.i
+.PHONY : srcs/minishell_process.c.i
+
+srcs/minishell_process.s: srcs/minishell_process.c.s
+
+.PHONY : srcs/minishell_process.s
+
+# target to generate assembly for a file
+srcs/minishell_process.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/minishell_process.c.s
+.PHONY : srcs/minishell_process.c.s
 
 srcs/parse_env.o: srcs/parse_env.c.o
 
@@ -1723,9 +1777,15 @@ help:
 	@echo "... srcs/env_list.o"
 	@echo "... srcs/env_list.i"
 	@echo "... srcs/env_list.s"
+	@echo "... srcs/main2.o"
+	@echo "... srcs/main2.i"
+	@echo "... srcs/main2.s"
 	@echo "... srcs/minishell.o"
 	@echo "... srcs/minishell.i"
 	@echo "... srcs/minishell.s"
+	@echo "... srcs/minishell_process.o"
+	@echo "... srcs/minishell_process.i"
+	@echo "... srcs/minishell_process.s"
 	@echo "... srcs/parse_env.o"
 	@echo "... srcs/parse_env.i"
 	@echo "... srcs/parse_env.s"

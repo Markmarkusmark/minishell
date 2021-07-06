@@ -146,10 +146,20 @@ CMakeFiles/minishell.dir/srcs/env_list.c.o: ../include/minishell.h
 CMakeFiles/minishell.dir/srcs/env_list.c.o: ../libft/libft.h
 CMakeFiles/minishell.dir/srcs/env_list.c.o: ../srcs/env_list.c
 
+CMakeFiles/minishell.dir/srcs/main2.c.o: ../get_next_line/get_next_line.h
+CMakeFiles/minishell.dir/srcs/main2.c.o: ../include/minishell.h
+CMakeFiles/minishell.dir/srcs/main2.c.o: ../libft/libft.h
+CMakeFiles/minishell.dir/srcs/main2.c.o: ../srcs/main2.c
+
 CMakeFiles/minishell.dir/srcs/minishell.c.o: ../get_next_line/get_next_line.h
 CMakeFiles/minishell.dir/srcs/minishell.c.o: ../include/minishell.h
 CMakeFiles/minishell.dir/srcs/minishell.c.o: ../libft/libft.h
 CMakeFiles/minishell.dir/srcs/minishell.c.o: ../srcs/minishell.c
+
+CMakeFiles/minishell.dir/srcs/minishell_process.c.o: ../get_next_line/get_next_line.h
+CMakeFiles/minishell.dir/srcs/minishell_process.c.o: ../include/minishell.h
+CMakeFiles/minishell.dir/srcs/minishell_process.c.o: ../libft/libft.h
+CMakeFiles/minishell.dir/srcs/minishell_process.c.o: ../srcs/minishell_process.c
 
 CMakeFiles/minishell.dir/srcs/parse_env.c.o: ../get_next_line/get_next_line.h
 CMakeFiles/minishell.dir/srcs/parse_env.c.o: ../include/minishell.h

@@ -31,6 +31,7 @@ int	ft_redir_checker(t_com *com)
     i = 0;
     while (i < com->num_args)
     {
+        printf("%c\n", com->args[i]->c);
         arg = ft_struct_to_str(com->args[i], 0, ft_mshstrlen(com->args[i]));
         if ((!ft_strcmp(arg, ">") || !ft_strcmp(arg, ">>")
              || !ft_strcmp(arg, "<") || !ft_strcmp(arg, "<<"))
@@ -99,6 +100,7 @@ int	ft_args_new(t_com *com)
         free(com->args[i]);
         i++;
     }
+    com->args_new[i] = NULL;
     free(com->args);
     com->args = NULL;
     return (1);
@@ -121,18 +123,20 @@ void	ft_command_manage(t_msh *msh)
             {
                 if (!ft_args_new((t_com *)list->content))
                     close_prog(msh, "error memory\n");
-                for (int i = 0; i < 7; i++)
-                {
-                    printf("%c", ((t_com *)list->content)->args_new[0][i]);
-                }
-                printf("\n");
-                for (int j = 0; j < 7; j++)
-                {
-                    printf("%c", ((t_com *)list->content)->args_new[1][j]);
-                }
-                printf("\n");
-                printf("%d\n", ((t_com *)list->content)->num_args);
-                //ft_builtin((t_com *)list->content, msh);
+//                for (int i = 0; i < 7; i++)
+//                {
+//                    printf("%c", ((t_com *)list->content)->args_new[0][i]);
+//                }
+//                printf("\n");
+//                for (int j = 0; j < 7; j++)
+//                {
+//                    printf("%c", ((t_com *)list->content)->args_new[1][j]);
+//                }
+//                printf("\n");
+//                printf("%d\n", ((t_com *)list->content)->num_args);
+//                ft_builtin((t_com *)list->content, msh);
+                if ((ft_builtin(msh) == 0))  /* || (ft_binary(msh) == 0)*/
+                    close_prog(msh, "command not found\n");
             }
         }
 //        else if (((t_cmd *)lst->content)->sep_0 == '|')
