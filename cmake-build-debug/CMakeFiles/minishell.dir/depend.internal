@@ -136,16 +136,31 @@ CMakeFiles/minishell.dir/libft/ft_tolower.c.o
 CMakeFiles/minishell.dir/libft/ft_toupper.c.o
  /Users/legunshi/minishell/libft/ft_toupper.c
  /Users/legunshi/minishell/libft/libft.h
+CMakeFiles/minishell.dir/srcs/cd.c.o
+ /Users/legunshi/minishell/get_next_line/get_next_line.h
+ /Users/legunshi/minishell/include/minishell.h
+ /Users/legunshi/minishell/libft/libft.h
+ /Users/legunshi/minishell/srcs/cd.c
 CMakeFiles/minishell.dir/srcs/command.c.o
  /Users/legunshi/minishell/get_next_line/get_next_line.h
  /Users/legunshi/minishell/include/minishell.h
  /Users/legunshi/minishell/libft/libft.h
  /Users/legunshi/minishell/srcs/command.c
+CMakeFiles/minishell.dir/srcs/echo.c.o
+ /Users/legunshi/minishell/get_next_line/get_next_line.h
+ /Users/legunshi/minishell/include/minishell.h
+ /Users/legunshi/minishell/libft/libft.h
+ /Users/legunshi/minishell/srcs/echo.c
 CMakeFiles/minishell.dir/srcs/env_list.c.o
  /Users/legunshi/minishell/get_next_line/get_next_line.h
  /Users/legunshi/minishell/include/minishell.h
  /Users/legunshi/minishell/libft/libft.h
  /Users/legunshi/minishell/srcs/env_list.c
+CMakeFiles/minishell.dir/srcs/execute.c.o
+ /Users/legunshi/minishell/get_next_line/get_next_line.h
+ /Users/legunshi/minishell/include/minishell.h
+ /Users/legunshi/minishell/libft/libft.h
+ /Users/legunshi/minishell/srcs/execute.c
 CMakeFiles/minishell.dir/srcs/main2.c.o
  /Users/legunshi/minishell/get_next_line/get_next_line.h
  /Users/legunshi/minishell/include/minishell.h
@@ -176,6 +191,11 @@ CMakeFiles/minishell.dir/srcs/preparser.c.o
  /Users/legunshi/minishell/include/minishell.h
  /Users/legunshi/minishell/libft/libft.h
  /Users/legunshi/minishell/srcs/preparser.c
+CMakeFiles/minishell.dir/srcs/redir.c.o
+ /Users/legunshi/minishell/get_next_line/get_next_line.h
+ /Users/legunshi/minishell/include/minishell.h
+ /Users/legunshi/minishell/libft/libft.h
+ /Users/legunshi/minishell/srcs/redir.c
 CMakeFiles/minishell.dir/srcs/syntax.c.o
  /Users/legunshi/minishell/get_next_line/get_next_line.h
  /Users/legunshi/minishell/include/minishell.h

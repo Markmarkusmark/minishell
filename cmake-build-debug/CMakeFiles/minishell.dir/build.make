@@ -804,6 +804,45 @@ CMakeFiles/minishell.dir/srcs/redir.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/minishell.dir/srcs/redir.c.s"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/legunshi/minishell/srcs/redir.c -o CMakeFiles/minishell.dir/srcs/redir.c.s
 
+CMakeFiles/minishell.dir/srcs/execute.c.o: CMakeFiles/minishell.dir/flags.make
+CMakeFiles/minishell.dir/srcs/execute.c.o: ../srcs/execute.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/legunshi/minishell/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_57) "Building C object CMakeFiles/minishell.dir/srcs/execute.c.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/minishell.dir/srcs/execute.c.o -c /Users/legunshi/minishell/srcs/execute.c
+
+CMakeFiles/minishell.dir/srcs/execute.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/minishell.dir/srcs/execute.c.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/legunshi/minishell/srcs/execute.c > CMakeFiles/minishell.dir/srcs/execute.c.i
+
+CMakeFiles/minishell.dir/srcs/execute.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/minishell.dir/srcs/execute.c.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/legunshi/minishell/srcs/execute.c -o CMakeFiles/minishell.dir/srcs/execute.c.s
+
+CMakeFiles/minishell.dir/srcs/echo.c.o: CMakeFiles/minishell.dir/flags.make
+CMakeFiles/minishell.dir/srcs/echo.c.o: ../srcs/echo.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/legunshi/minishell/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_58) "Building C object CMakeFiles/minishell.dir/srcs/echo.c.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/minishell.dir/srcs/echo.c.o -c /Users/legunshi/minishell/srcs/echo.c
+
+CMakeFiles/minishell.dir/srcs/echo.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/minishell.dir/srcs/echo.c.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/legunshi/minishell/srcs/echo.c > CMakeFiles/minishell.dir/srcs/echo.c.i
+
+CMakeFiles/minishell.dir/srcs/echo.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/minishell.dir/srcs/echo.c.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/legunshi/minishell/srcs/echo.c -o CMakeFiles/minishell.dir/srcs/echo.c.s
+
+CMakeFiles/minishell.dir/srcs/cd.c.o: CMakeFiles/minishell.dir/flags.make
+CMakeFiles/minishell.dir/srcs/cd.c.o: ../srcs/cd.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/legunshi/minishell/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_59) "Building C object CMakeFiles/minishell.dir/srcs/cd.c.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/minishell.dir/srcs/cd.c.o -c /Users/legunshi/minishell/srcs/cd.c
+
+CMakeFiles/minishell.dir/srcs/cd.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/minishell.dir/srcs/cd.c.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/legunshi/minishell/srcs/cd.c > CMakeFiles/minishell.dir/srcs/cd.c.i
+
+CMakeFiles/minishell.dir/srcs/cd.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/minishell.dir/srcs/cd.c.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/legunshi/minishell/srcs/cd.c -o CMakeFiles/minishell.dir/srcs/cd.c.s
+
 # Object files for target minishell
 minishell_OBJECTS = \
 "CMakeFiles/minishell.dir/get_next_line/get_next_line.c.o" \
@@ -861,7 +900,10 @@ minishell_OBJECTS = \
 "CMakeFiles/minishell.dir/srcs/command.c.o" \
 "CMakeFiles/minishell.dir/srcs/main2.c.o" \
 "CMakeFiles/minishell.dir/srcs/minishell_process.c.o" \
-"CMakeFiles/minishell.dir/srcs/redir.c.o"
+"CMakeFiles/minishell.dir/srcs/redir.c.o" \
+"CMakeFiles/minishell.dir/srcs/execute.c.o" \
+"CMakeFiles/minishell.dir/srcs/echo.c.o" \
+"CMakeFiles/minishell.dir/srcs/cd.c.o"
 
 # External object files for target minishell
 minishell_EXTERNAL_OBJECTS =
@@ -922,9 +964,12 @@ minishell: CMakeFiles/minishell.dir/srcs/command.c.o
 minishell: CMakeFiles/minishell.dir/srcs/main2.c.o
 minishell: CMakeFiles/minishell.dir/srcs/minishell_process.c.o
 minishell: CMakeFiles/minishell.dir/srcs/redir.c.o
+minishell: CMakeFiles/minishell.dir/srcs/execute.c.o
+minishell: CMakeFiles/minishell.dir/srcs/echo.c.o
+minishell: CMakeFiles/minishell.dir/srcs/cd.c.o
 minishell: CMakeFiles/minishell.dir/build.make
 minishell: CMakeFiles/minishell.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/legunshi/minishell/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_57) "Linking C executable minishell"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/legunshi/minishell/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_60) "Linking C executable minishell"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/minishell.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

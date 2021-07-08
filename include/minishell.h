@@ -18,6 +18,25 @@
 # define ITS_ARG 4
 # define ITS_RDR 3
 # define NONE -1
+# define ANSI_COLOR_RED     "\x1b[31m"
+# define ANSI_COLOR_GREEN   "\x1b[32m"
+# define ANSI_COLOR_YELLOW  "\x1b[33m"
+# define ANSI_COLOR_BLUE    "\x1b[34m"
+# define ANSI_COLOR_MAGENTA "\x1b[35m"
+# define ANSI_COLOR_CYAN    "\x1b[36m"
+# define ANSI_COLOR_RESET   "\x1b[0m"
+
+//int main (int argc, char const *argv[]) {
+//
+//	printf(ANSI_COLOR_RED     "This text is RED!"     ANSI_COLOR_RESET "\n");
+//	printf(ANSI_COLOR_GREEN   "This text is GREEN!"   ANSI_COLOR_RESET "\n");
+//	printf(ANSI_COLOR_YELLOW  "This text is YELLOW!"  ANSI_COLOR_RESET "\n");
+//	printf(ANSI_COLOR_BLUE    "This text is BLUE!"    ANSI_COLOR_RESET "\n");
+//	printf(ANSI_COLOR_MAGENTA "This text is MAGENTA!" ANSI_COLOR_RESET "\n");
+//	printf(ANSI_COLOR_CYAN    "This text is CYAN!"    ANSI_COLOR_RESET "\n");
+//
+//	return 0;
+//}
 
 typedef struct      s_env
 {
@@ -84,7 +103,7 @@ char 			*ft_get_env(t_msh *msh, char *val);
 int 			ft_get_val_in_dlr(t_msh *msh, t_line_symbol *line);
 int 			ft_notenv(t_msh *msh, int i, int j);
 t_line_symbol	*ft_get_new_line(t_msh *msh);
-int 			ft_env(t_msh *msh, int i, int j);
+int 			ft_envir(t_msh *msh, int i, int j);
 int 			ft_check(t_msh *msh, int begin_str, int end_str);
 int				ft_get_dollar(t_msh *msh);
 int    			ft_preparser(t_msh *msh);
@@ -98,10 +117,13 @@ int 			ft_check_token1(t_msh *msh, int *len);
 void    		ft_parser(t_msh *msh);
 void			ft_command_manage(t_msh *msh);
 int     		ft_binary(t_msh *msh);
-int 			ft_builtin(t_msh *msh);
+int 			ft_builtin(t_msh *msh, t_com *com);
 void			ft_lstdel(t_list *lst, t_list *lst_main);
 char			*ft_struct_to_str(t_line_symbol *struc, int start, int len);
 int				ft_redir_checker(t_com *com);
 void			ft_redir_mng(t_com *com, t_msh *msh);
+void 			ft_launch_com(t_msh *msh, t_com *com);
+void			ft_echo(t_msh *msh, t_com *com);
+void			ft_cd(t_msh *msh, t_com *com);
 
 # endif

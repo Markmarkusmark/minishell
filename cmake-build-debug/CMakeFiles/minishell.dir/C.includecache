@@ -35,6 +35,10 @@ limits.h
 -
 dirent.h
 -
+string.h
+-
+errno.h
+-
 
 /Users/legunshi/minishell/libft/libft.h
 string.h
@@ -50,7 +54,7 @@ stddef.h
 stdarg.h
 -
 
-/Users/legunshi/minishell/srcs/minishell.c
+/Users/legunshi/minishell/srcs/execute.c
 ../include/minishell.h
 /Users/legunshi/minishell/include/minishell.h
 

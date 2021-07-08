@@ -1357,6 +1357,33 @@ libft/ft_toupper.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/libft/ft_toupper.c.s
 .PHONY : libft/ft_toupper.c.s
 
+srcs/cd.o: srcs/cd.c.o
+
+.PHONY : srcs/cd.o
+
+# target to build an object file
+srcs/cd.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/cd.c.o
+.PHONY : srcs/cd.c.o
+
+srcs/cd.i: srcs/cd.c.i
+
+.PHONY : srcs/cd.i
+
+# target to preprocess a source file
+srcs/cd.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/cd.c.i
+.PHONY : srcs/cd.c.i
+
+srcs/cd.s: srcs/cd.c.s
+
+.PHONY : srcs/cd.s
+
+# target to generate assembly for a file
+srcs/cd.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/cd.c.s
+.PHONY : srcs/cd.c.s
+
 srcs/command.o: srcs/command.c.o
 
 .PHONY : srcs/command.o
@@ -1384,6 +1411,33 @@ srcs/command.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/command.c.s
 .PHONY : srcs/command.c.s
 
+srcs/echo.o: srcs/echo.c.o
+
+.PHONY : srcs/echo.o
+
+# target to build an object file
+srcs/echo.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/echo.c.o
+.PHONY : srcs/echo.c.o
+
+srcs/echo.i: srcs/echo.c.i
+
+.PHONY : srcs/echo.i
+
+# target to preprocess a source file
+srcs/echo.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/echo.c.i
+.PHONY : srcs/echo.c.i
+
+srcs/echo.s: srcs/echo.c.s
+
+.PHONY : srcs/echo.s
+
+# target to generate assembly for a file
+srcs/echo.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/echo.c.s
+.PHONY : srcs/echo.c.s
+
 srcs/env_list.o: srcs/env_list.c.o
 
 .PHONY : srcs/env_list.o
@@ -1410,6 +1464,33 @@ srcs/env_list.s: srcs/env_list.c.s
 srcs/env_list.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/env_list.c.s
 .PHONY : srcs/env_list.c.s
+
+srcs/execute.o: srcs/execute.c.o
+
+.PHONY : srcs/execute.o
+
+# target to build an object file
+srcs/execute.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/execute.c.o
+.PHONY : srcs/execute.c.o
+
+srcs/execute.i: srcs/execute.c.i
+
+.PHONY : srcs/execute.i
+
+# target to preprocess a source file
+srcs/execute.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/execute.c.i
+.PHONY : srcs/execute.c.i
+
+srcs/execute.s: srcs/execute.c.s
+
+.PHONY : srcs/execute.s
+
+# target to generate assembly for a file
+srcs/execute.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/execute.c.s
+.PHONY : srcs/execute.c.s
 
 srcs/main2.o: srcs/main2.c.o
 
@@ -1798,12 +1879,21 @@ help:
 	@echo "... libft/ft_toupper.o"
 	@echo "... libft/ft_toupper.i"
 	@echo "... libft/ft_toupper.s"
+	@echo "... srcs/cd.o"
+	@echo "... srcs/cd.i"
+	@echo "... srcs/cd.s"
 	@echo "... srcs/command.o"
 	@echo "... srcs/command.i"
 	@echo "... srcs/command.s"
+	@echo "... srcs/echo.o"
+	@echo "... srcs/echo.i"
+	@echo "... srcs/echo.s"
 	@echo "... srcs/env_list.o"
 	@echo "... srcs/env_list.i"
 	@echo "... srcs/env_list.s"
+	@echo "... srcs/execute.o"
+	@echo "... srcs/execute.i"
+	@echo "... srcs/execute.s"
 	@echo "... srcs/main2.o"
 	@echo "... srcs/main2.i"
 	@echo "... srcs/main2.s"

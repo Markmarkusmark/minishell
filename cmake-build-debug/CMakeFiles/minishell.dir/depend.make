@@ -136,15 +136,30 @@ CMakeFiles/minishell.dir/libft/ft_tolower.c.o: ../libft/libft.h
 CMakeFiles/minishell.dir/libft/ft_toupper.c.o: ../libft/ft_toupper.c
 CMakeFiles/minishell.dir/libft/ft_toupper.c.o: ../libft/libft.h
 
+CMakeFiles/minishell.dir/srcs/cd.c.o: ../get_next_line/get_next_line.h
+CMakeFiles/minishell.dir/srcs/cd.c.o: ../include/minishell.h
+CMakeFiles/minishell.dir/srcs/cd.c.o: ../libft/libft.h
+CMakeFiles/minishell.dir/srcs/cd.c.o: ../srcs/cd.c
+
 CMakeFiles/minishell.dir/srcs/command.c.o: ../get_next_line/get_next_line.h
 CMakeFiles/minishell.dir/srcs/command.c.o: ../include/minishell.h
 CMakeFiles/minishell.dir/srcs/command.c.o: ../libft/libft.h
 CMakeFiles/minishell.dir/srcs/command.c.o: ../srcs/command.c
 
+CMakeFiles/minishell.dir/srcs/echo.c.o: ../get_next_line/get_next_line.h
+CMakeFiles/minishell.dir/srcs/echo.c.o: ../include/minishell.h
+CMakeFiles/minishell.dir/srcs/echo.c.o: ../libft/libft.h
+CMakeFiles/minishell.dir/srcs/echo.c.o: ../srcs/echo.c
+
 CMakeFiles/minishell.dir/srcs/env_list.c.o: ../get_next_line/get_next_line.h
 CMakeFiles/minishell.dir/srcs/env_list.c.o: ../include/minishell.h
 CMakeFiles/minishell.dir/srcs/env_list.c.o: ../libft/libft.h
 CMakeFiles/minishell.dir/srcs/env_list.c.o: ../srcs/env_list.c
+
+CMakeFiles/minishell.dir/srcs/execute.c.o: ../get_next_line/get_next_line.h
+CMakeFiles/minishell.dir/srcs/execute.c.o: ../include/minishell.h
+CMakeFiles/minishell.dir/srcs/execute.c.o: ../libft/libft.h
+CMakeFiles/minishell.dir/srcs/execute.c.o: ../srcs/execute.c
 
 CMakeFiles/minishell.dir/srcs/main2.c.o: ../get_next_line/get_next_line.h
 CMakeFiles/minishell.dir/srcs/main2.c.o: ../include/minishell.h
@@ -175,6 +190,11 @@ CMakeFiles/minishell.dir/srcs/preparser.c.o: ../get_next_line/get_next_line.h
 CMakeFiles/minishell.dir/srcs/preparser.c.o: ../include/minishell.h
 CMakeFiles/minishell.dir/srcs/preparser.c.o: ../libft/libft.h
 CMakeFiles/minishell.dir/srcs/preparser.c.o: ../srcs/preparser.c
+
+CMakeFiles/minishell.dir/srcs/redir.c.o: ../get_next_line/get_next_line.h
+CMakeFiles/minishell.dir/srcs/redir.c.o: ../include/minishell.h
+CMakeFiles/minishell.dir/srcs/redir.c.o: ../libft/libft.h
+CMakeFiles/minishell.dir/srcs/redir.c.o: ../srcs/redir.c
 
 CMakeFiles/minishell.dir/srcs/syntax.c.o: ../get_next_line/get_next_line.h
 CMakeFiles/minishell.dir/srcs/syntax.c.o: ../include/minishell.h

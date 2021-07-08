@@ -38,7 +38,7 @@ int bi_cd(char **arg, int fd)
 	char s[100];
 
 	//processes
-	printf("%s\n", getcwd(s, 100));
+	//printf("%s\n", getcwd(s, 100));
 	if (arg[0] == NULL)
 		write(1, "wrong path", 10);
 	else
@@ -46,7 +46,7 @@ int bi_cd(char **arg, int fd)
 		if (chdir(arg[0]) != 0)
 			write(1, "wrong path", 10);
 	}	
-	printf("%s\n", getcwd(s, 100));
+	//printf("%s\n", getcwd(s, 100));
 	return (0);
 }
 
@@ -59,7 +59,7 @@ int bi_pwd(char **arg, int fd)
 	
 	getcwd(dir, 100);
 	write(fd, dir, ft_strlen(dir));
-	write(fd, "\n", 2);
+	//write(fd, "\n", 2);
 	return (0);
 }
 
@@ -221,27 +221,54 @@ int bi_env(char **arg, t_msh *msh, int fd)
 	return (0);
 }
 
-int ft_builtin(t_msh *msh)
+void	ft_pwd(t_msh *msh)
 {
-    t_com *com;
-    com  = malloc(sizeof(t_com));
-    com = msh->com->content;
+	char	*pwd;
 
-    if (ft_strcmp(com->com, "echo") == 0)
-        bi_echo(com->args_new, 1);
-    else if (ft_strcmp(com->com, "cd") == 0)
-        bi_cd(com->args_new, 1);
-    else if (ft_strcmp(com->com, "pwd") == 0)
-        bi_pwd(com->args_new, 1);
-    else if (ft_strcmp(com->com, "export") == 0)
-        bi_export(com->args_new, msh, 1);
-    else if (ft_strcmp(com->com, "unset") == 0)
-        bi_unset(com->args_new, msh, 1);
-    else if (ft_strcmp(com->com, "env") == 0)
-        bi_env(com->args_new, msh, 1);
-    else if (ft_strcmp(com->com, "exit") == 0)
-        bi_exit(com->args_new, 1);
-    else
-        return (0);
-    return (1);
+	pwd = NULL;
+	pwd = getcwd(pwd, 0);
+	printf("%s\n", pwd);
+	free(pwd);
+	msh->return_code = 0;
+}
+
+void	ft_env(t_msh *msh, t_com *com)
+{
+	t_list	*list;
+
+	if (com->args_new != NULL) // иногда залетает мусор какой-ьл не знаю как пока не смог найти
+	{
+		ft_putstr_fd("command \"env\" shouldnt get arguments\n", 2);
+		msh->return_code = 1;
+		return ;
+	}
+	list = msh->env;
+	while (list)
+	{
+		if (((t_env *)list->content)->val != NULL)
+			printf("%s=%s\n", ((t_env *)list->content)->key,
+				   ((t_env *)list->content)->val);
+		list = list->next;
+	}
+	msh->return_code = 0;
+}
+
+int ft_builtin(t_msh *msh, t_com *com)
+{
+	if (ft_strcmp(com->com, "echo") == 0) // переделал , все работает как надо
+		ft_echo(msh, com);
+	else if (ft_strcmp(com->com, "cd") == 0) // переделал , все работает как надо
+		ft_cd(msh, com);
+	else if (ft_strcmp(com->com, "pwd") == 0) // переделал , все работает как надо
+		ft_pwd(msh);
+	else if (ft_strcmp(com->com, "env") == 0) // переделал , все работает как надо
+		ft_env(msh, com);
+	else if (ft_strcmp(com->com, "export") == 0) // !!! надо сделать
+		bi_export(com->args_new, msh, 1);
+	else if (ft_strcmp(com->com, "unset") == 0) // !!! надо сделать
+		bi_unset(com->args_new, msh, 1);
+	else if (ft_strcmp(com->com, "exit") == 0) // !!! надо сделать
+		bi_exit(com->args_new, 1);
+	else
+		ft_launch_com(msh, com);
 }

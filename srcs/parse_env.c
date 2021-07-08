@@ -147,7 +147,7 @@ t_line_symbol	*ft_get_new_line(t_msh *msh)
 	return (new_line);
 }
 
-int 	ft_env(t_msh *msh, int i, int j)
+int 	ft_envir(t_msh *msh, int i, int j)
 {
 	t_line_symbol	*s1;
 	t_line_symbol	*s2;
@@ -180,7 +180,7 @@ int 	ft_check(t_msh *msh, int begin_str, int end_str)
 {
 	if (msh->val_in_dlr)
 	{
-		if (ft_env(msh, begin_str, end_str) == 0)
+		if (ft_envir(msh, begin_str, end_str) == 0)
 			return (1);
 	}
 	else

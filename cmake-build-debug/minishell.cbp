@@ -230,10 +230,19 @@
 		<Unit filename="/Users/legunshi/minishell/libft/libft.h">
 			<Option target="minishell"/>
 		</Unit>
+		<Unit filename="/Users/legunshi/minishell/srcs/cd.c">
+			<Option target="minishell"/>
+		</Unit>
 		<Unit filename="/Users/legunshi/minishell/srcs/command.c">
 			<Option target="minishell"/>
 		</Unit>
+		<Unit filename="/Users/legunshi/minishell/srcs/echo.c">
+			<Option target="minishell"/>
+		</Unit>
 		<Unit filename="/Users/legunshi/minishell/srcs/env_list.c">
+			<Option target="minishell"/>
+		</Unit>
+		<Unit filename="/Users/legunshi/minishell/srcs/execute.c">
 			<Option target="minishell"/>
 		</Unit>
 		<Unit filename="/Users/legunshi/minishell/srcs/main2.c">

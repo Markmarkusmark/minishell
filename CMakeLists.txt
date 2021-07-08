@@ -68,4 +68,7 @@ add_executable(minishell
         srcs/main2.c
         srcs/minishell_process.c
         srcs/redir.c
+        srcs/execute.c
+        srcs/echo.c
+        srcs/cd.c
         )

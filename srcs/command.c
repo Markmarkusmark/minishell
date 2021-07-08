@@ -8,6 +8,10 @@ char	*ft_struct_to_str(t_line_symbol *struc, int start, int len)
 
     if (!struc)
         return (NULL);
+	if (struc[0].c == '\0')
+		return (ft_strdup(""));
+	if (start > ft_mshstrlen(struc))
+		return (ft_strdup(""));
     str = malloc(len + 1);
     if (!str)
         return (NULL);
@@ -40,7 +44,6 @@ int	ft_args_new(t_com *com)
         free(com->args[i]);
         i++;
     }
-    com->args_new[i] = NULL;
     free(com->args);
     com->args = NULL;
     return (1);
@@ -75,8 +78,9 @@ void	ft_command_manage(t_msh *msh)
 //                printf("\n");
 //                printf("%d\n", ((t_com *)list->content)->num_args);
 //                ft_builtin((t_com *)list->content, msh);
-                if ((ft_builtin(msh) == 0))  /* || (ft_binary(msh) == 0)*/
-                    close_prog(msh, "command not found\n");
+//                if ((ft_builtin(msh, (t_com *)list->content) == 0))  /* || (ft_binary(msh) == 0)*/
+//                    close_prog(msh, "command not found\n");
+				ft_builtin(msh, (t_com *)list->content);
             }
         }
 //        else if (((t_cmd *)lst->content)->sep_0 == '|')
