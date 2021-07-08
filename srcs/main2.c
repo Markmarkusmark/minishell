@@ -3,31 +3,32 @@
 /*
 	посмотреть позжн echo -n еще раз
 */
-int bi_echo(char **arg, int fd)
+void bi_echo(t_msh *msh, t_com *com)
 {
 	int i;
 
 	i = 0;
-	if (arg[0] == NULL)
-		write(fd, "\n", 1);
-	else if (strcmp(arg[0], "-n") == 0)
+	if (com->args_new[i] == NULL)
+		write(1, "\n", 1);
+	else if (strcmp(com->args_new[i], "-n") == 0)
 	{
-		while (arg[i] != NULL)
+	    i += 1;
+		while (com->args_new[i] != NULL)
 		{
-			write(fd, arg[i], ft_strlen(arg[i]));
+			write(1, com->args_new[i], ft_strlen(com->args_new[i]));
 			i++;
 		}
 	}
 	else
 	{
-		while (arg[i] != NULL)
+		while (com->args_new[i] != NULL)
 		{
-			write(fd, arg[i], ft_strlen(arg[i]));
-			write(fd, "\n", 1);
+			write(1, com->args_new[i], ft_strlen(com->args_new[i]));
+			write(1, "\n", 1);
 			i++;
 		}
 	}
-	return (0);
+    msh->return_code = 0;
 }
 
 /*
@@ -256,7 +257,8 @@ void	ft_env(t_msh *msh, t_com *com)
 int ft_builtin(t_msh *msh, t_com *com)
 {
 	if (ft_strcmp(com->com, "echo") == 0) // переделал , все работает как надо
-		ft_echo(msh, com);
+        bi_echo(msh, com);
+	    //ft_echo(msh, com);
 	else if (ft_strcmp(com->com, "cd") == 0) // переделал , все работает как надо
 		ft_cd(msh, com);
 	else if (ft_strcmp(com->com, "pwd") == 0) // переделал , все работает как надо
