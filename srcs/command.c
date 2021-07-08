@@ -44,6 +44,9 @@ int	ft_args_new(t_com *com)
         free(com->args[i]);
         i++;
     }
+    ////
+    if (com->num_args != 0)
+        com->args_new[i] = NULL;
     free(com->args);
     com->args = NULL;
     return (1);

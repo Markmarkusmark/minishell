@@ -9,7 +9,7 @@ int bi_echo(char **arg, int fd)
 
 	i = 0;
 	if (arg[0] == NULL)
-		write(fd, "\n", 2);
+		write(fd, "\n", 1);
 	else if (strcmp(arg[0], "-n") == 0)
 	{
 		while (arg[i] != NULL)
@@ -114,8 +114,8 @@ void	ft_lstsort(t_list *lst, t_list *sorted_fin)
 	int i, j;
 	
 	sorted = malloc(sizeof(t_list));
-	elem1 = malloc(sizeof(t_env));
-	elem2 = malloc(sizeof(t_env));
+//	elem1 = malloc(sizeof(t_env));
+//	elem2 = malloc(sizeof(t_env));
 	count = 0;
 	i = 0;
 	j = 0;
@@ -126,22 +126,21 @@ void	ft_lstsort(t_list *lst, t_list *sorted_fin)
 		sorted = sorted->next;
 	}
 	sorted = lst;
-	print_env(sorted, 1, 0);
 	while (i < count - 1)
 	{
 		j = 0;
 		while (j < count - i - 1)
 		{
-			elem1 = sorted[j].content; //  поменять ввод элементов?? 
-			elem2 = sorted[j + 1].content;
+			elem1 = sorted[j].content;
+			elem2 = sorted[j].next->content;
 			if (strcmp(elem1->key, elem2->key) > 0)
 			{
 				temp = elem1;
 				elem1 = elem2;
 				elem2 = temp;
+                sorted[j].content = (t_env *)elem1;
+                sorted[j].next->content = (t_env *)elem2;
 			}
-			sorted[j].content = elem1;
-			sorted[j + 1].content = elem2;
 			j++;
 		}
 		print_env(sorted, 1, 0);
@@ -150,7 +149,7 @@ void	ft_lstsort(t_list *lst, t_list *sorted_fin)
 	print_env(sorted, 1, 1);
 }
 
-int bi_export(char **arg, t_msh *msh, int fd) // ???????
+int bi_export(t_msh *msh, t_com *com) // ???????
 {
 	int i = 0;
 	t_env	*envp;
@@ -158,17 +157,17 @@ int bi_export(char **arg, t_msh *msh, int fd) // ???????
 
 	sorted = malloc(sizeof(t_list *));
 
-	if (arg[0] == NULL)
+	if (com->args_new == NULL)
 	{
-		// sort
+		// sort ////// ?help
 		ft_lstsort(msh->env, sorted);
 	}
 	else
 	{
-		while (arg[i] != NULL)
+		while (com->args_new[i])
 		{
 			envp = malloc(sizeof(t_env));
-			msh->env_args = ft_split(arg[i], '=');
+			msh->env_args = ft_split(com->args_new[i], '=');
 			envp->key = msh->env_args[0];
     	    envp->val = msh->env_args[1];
     	    ft_lstadd_back(&msh->env, ft_lstnew(envp));
@@ -181,16 +180,16 @@ int bi_export(char **arg, t_msh *msh, int fd) // ???????
 
 /*
 */
-int bi_unset(char **arg, t_msh *msh, int fd)
+int bi_unset(t_msh *msh, t_com *com)
 {
 	int i = 0;
 	t_env	envp;
 	t_env	*temp;
 	t_list	*lst;
 
-	if (arg[0] != NULL)
+	if (com->args_new[i] != NULL)
 	{
-		msh->env_args = ft_split(arg[i], '=');
+		msh->env_args = ft_split(com->args_new[i], '=');
 		envp.key = msh->env_args[0];
     	envp.val = msh->env_args[1];
 		lst = msh->env;
@@ -209,16 +208,17 @@ int bi_unset(char **arg, t_msh *msh, int fd)
 /*
 	сделать ennro
 */
-int bi_env(char **arg, t_msh *msh, int fd)
+void bi_env(t_msh *msh, t_com *com)
 {
-	if (arg[0] == NULL)
-		print_env(msh->env, fd, 0);
+	if (com->args_new == NULL)
+		print_env(msh->env, 1, 0);
 	else
 	{
-		write(fd, "No such file or directory", 25);
-		write(fd, "\n", 1);		
+        ft_putstr_fd("command \"env\" shouldnt get arguments\n", 2);
+        msh->return_code = 1;
+        return ;
 	}
-	return (0);
+    msh->return_code = 0;
 }
 
 void	ft_pwd(t_msh *msh)
@@ -262,11 +262,12 @@ int ft_builtin(t_msh *msh, t_com *com)
 	else if (ft_strcmp(com->com, "pwd") == 0) // переделал , все работает как надо
 		ft_pwd(msh);
 	else if (ft_strcmp(com->com, "env") == 0) // переделал , все работает как надо
-		ft_env(msh, com);
+        bi_env(msh, com);
+	    //ft_env(msh, com);
 	else if (ft_strcmp(com->com, "export") == 0) // !!! надо сделать
-		bi_export(com->args_new, msh, 1);
+		bi_export(msh, com);
 	else if (ft_strcmp(com->com, "unset") == 0) // !!! надо сделать
-		bi_unset(com->args_new, msh, 1);
+		bi_unset(msh, com);
 	else if (ft_strcmp(com->com, "exit") == 0) // !!! надо сделать
 		bi_exit(com->args_new, 1);
 	else
