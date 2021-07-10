@@ -64,21 +64,31 @@ int bi_pwd(char **arg, int fd)
 	return (0);
 }
 
-/*
-	работает, но возможно нужно будет скорректировать позже
-*/
-int bi_exit(char **arg, int fd)
+
+int bi_exit(t_msh *msh, t_com *com)
 {
 	int n;
 
-	if (arg[0] == NULL)
-		exit(0);
+	if (com->args_new == NULL) {
+        msh->return_code = 0;
+        ft_putstr_fd("exit\n ", 1);
+        exit(0);
+	}
+	else if (com->args_new[1] != NULL)
+    {
+        ft_putstr_fd("exit\n", 1);
+        ft_putstr_fd("command \"exit\" shouldnt get more than 1 argument\n", 2);
+        msh->return_code = 1;
+        exit(1);
+    }
 	else
 	{
-		n = ft_atoi(arg[0]);
-		while (n > 255)
-			n = n % 255;
-		exit(n); 
+		n = ft_atoi(com->args_new[0]);
+		while (n > 256)
+			n = n % 256;
+        msh->return_code = n;
+        ft_putstr_fd("exit\n ", 1);
+        exit(n);
 	}
 }
 
@@ -105,66 +115,81 @@ void print_env(t_list *env, int fd, int declare)
 	}
 }
 
-void	ft_lstsort(t_list *lst, t_list *sorted_fin)
+void ft_copy_lst(t_list *lst, t_list **new)
+{
+    t_list *beg;
+    t_env  *cont;
+
+    //beg = lst;
+    cont = malloc(sizeof(t_env *));
+    *cont = *((t_env *)(lst->content));
+    (*new) = ft_lstnew(cont);
+    lst = lst->next;
+    while(lst->next)
+    {
+        *cont = *((t_env *)(lst->content));
+        ft_lstadd_back(new, ft_lstnew(cont));
+        lst = lst->next;
+    }
+    //return (beg);
+}
+
+void	ft_lstsort(t_list *lst)
 {
 	t_list *sorted;
-	t_env	*temp;
+    t_list **beg;
 	t_env *elem1;
 	t_env *elem2;
 	int count;
 	int i, j;
-	
-	sorted = malloc(sizeof(t_list));
-//	elem1 = malloc(sizeof(t_env));
-//	elem2 = malloc(sizeof(t_env));
-	count = 0;
+
+	count = 1;
 	i = 0;
-	j = 0;
-	sorted = lst;
+    sorted = malloc(sizeof(t_list)); // error
+	ft_copy_lst(lst, &sorted);
+
 	while (sorted)
 	{
 		count++;
 		sorted = sorted->next;
 	}
-	sorted = lst;
+//	print_env(lst, 1, 0);
+//	write(1, "\n", 1);
 	while (i < count - 1)
 	{
 		j = 0;
+		sorted = lst;
 		while (j < count - i - 1)
 		{
-			elem1 = sorted[j].content;
-			elem2 = sorted[j].next->content;
-			if (strcmp(elem1->key, elem2->key) > 0)
+			elem1 = sorted->content;
+			elem2 = sorted->next->content;
+			if (ft_strcmp(elem1->key, elem2->key) > 0)
 			{
-				temp = elem1;
-				elem1 = elem2;
-				elem2 = temp;
-                sorted[j].content = (t_env *)elem1;
-                sorted[j].next->content = (t_env *)elem2;
+                sorted->content = (t_env *)elem2;
+                sorted->next->content = (t_env *)elem1;
 			}
+			sorted = sorted->next;
 			j++;
 		}
-		print_env(sorted, 1, 0);
 		i++;
 	}
 	print_env(sorted, 1, 1);
 }
 
-int bi_export(t_msh *msh, t_com *com) // ???????
+int bi_export(t_msh *msh, t_com *com) // export работает но ! сортирует env переменную и оставлятет ее так
 {
 	int i = 0;
 	t_env	*envp;
-	t_list	*sorted;
 
-	sorted = malloc(sizeof(t_list *));
-
+	//sorted = malloc(sizeof(t_list));
 	if (com->args_new == NULL)
 	{
 		// sort ////// ?help
-		ft_lstsort(msh->env, sorted);
+		ft_lstsort(msh->env);
 	}
 	else
 	{
+//        ft_lstsort(msh->env);
 		while (com->args_new[i])
 		{
 			envp = malloc(sizeof(t_env));
@@ -266,12 +291,12 @@ int ft_builtin(t_msh *msh, t_com *com)
 	else if (ft_strcmp(com->com, "env") == 0) // переделал , все работает как надо
         bi_env(msh, com);
 	    //ft_env(msh, com);
-	else if (ft_strcmp(com->com, "export") == 0) // !!! надо сделать
+	else if (ft_strcmp(com->com, "export") == 0) // работает см.комментарий на фкц
 		bi_export(msh, com);
-	else if (ft_strcmp(com->com, "unset") == 0) // !!! надо сделать
+	else if (ft_strcmp(com->com, "unset") == 0) // работает
 		bi_unset(msh, com);
-	else if (ft_strcmp(com->com, "exit") == 0) // !!! надо сделать
-		bi_exit(com->args_new, 1);
+	else if (ft_strcmp(com->com, "exit") == 0) // !!! вроде работает, но нужно очищать память возможно, + вылетает сегфолт когда попадает мусор в аргументы
+		bi_exit(msh, com);
 	else
 		ft_launch_com(msh, com);
 }
