@@ -53,6 +53,7 @@ t_line_symbol	*ft_get_clean_line(t_line_symbol *line)
 	int 			i;
 	int 			j;
 	t_line_symbol	*new_line;
+
 	i = 0;
 	j = 0;
 	if (!line)
@@ -81,8 +82,8 @@ int 	ft_pass_str(int *i, t_msh *msh)
 	if (msh->line[*i].flag == 0 && (msh->line[*i].c == '>' ||
 		msh->line[*i].c == '<'))
 	{
-		while (msh->line[*i].flag == 0 && (msh->line[*i].c == '>' ||
-			msh->line[*i].c == '<'))
+		while (msh->line[j].flag == 0 && (msh->line[j].c == '>' ||
+			msh->line[j].c == '<'))
 			j++;
 	}
 	else
@@ -158,6 +159,12 @@ char	*ft_get_str_from_struct(t_line_symbol *line, int len)
 
 	i = 0;
 	j = 0;
+	if (!line)
+		return (NULL);
+	if (line[0].c == '\0')
+		return (ft_strdup(""));
+	if (0 > ft_mshstrlen(line))
+		return (ft_strdup(""));
 	tmp = malloc(len + 1);
 	if (!tmp)
 		return (NULL);
@@ -235,13 +242,15 @@ int 	ft_get_command(t_com *command)
 									 ft_mshstrlen(command->args[args_num]));
 		if (!tmp)
 			return (1);
-		if (ft_strcmp(tmp, ">>") && ft_strcmp(tmp, "<") && ft_strcmp(tmp, ">"))
+		if (ft_strcmp(tmp, ">>") && ft_strcmp(tmp, "<") && ft_strcmp(tmp, ">")
+			&& ft_strcmp(tmp, "<<"))
 		{
 			command->com = tmp;
 			free(command->args[args_num]);
 			its_cmd = 1;
 			break;
 		}
+		printf("%s\n", tmp);
 		free(tmp);
 		args_num = args_num + 2;
 	}
@@ -269,16 +278,14 @@ int 	ft_get_separator(t_msh *msh, t_com *command, int separ, int i)
 {
 	if (separ == 1)
 	{
-		if ((msh->line[i].c == ';' || msh->line[i].c == '|')
-			&& msh->line[i].flag == 0)
-			command->separ2 = msh->line[i].c;
+		if ((msh->line[i].c == '|') && msh->line[i].flag == 0)
+			command->pipe_out = msh->line[i].c;
 	}
 	if (separ == 0)
 	{
-		if ((msh->line[i].c == ';' || msh->line[i].c == '|')
-			&& msh->line[i].flag == 0)
+		if ((msh->line[i].c == '|') && msh->line[i].flag == 0)
 		{
-			command->separ = msh->line[i].c;
+			command->pipe_in = msh->line[i].c;
 			i++;
 		}
 	}
@@ -302,8 +309,8 @@ void     ft_parser(t_msh *msh)
         new_list = ft_lstnew(command);
         if (!new_list)
             close_prog(msh, "malloc error\n");
-        command->separ = '0';
-        command->separ2 = '0';
+        command->pipe_out = '-';
+        command->pipe_in = '-';
         command->com = NULL;
         command->args = NULL;
         while (msh->line[i].c == ' ' && msh->line[i].flag == 0)

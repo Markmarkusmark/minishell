@@ -18,13 +18,13 @@
 # define ITS_ARG 4
 # define ITS_RDR 3
 # define NONE -1
-# define ANSI_COLOR_RED     "\x1b[31m"
-# define ANSI_COLOR_GREEN   "\x1b[32m"
-# define ANSI_COLOR_YELLOW  "\x1b[33m"
-# define ANSI_COLOR_BLUE    "\x1b[34m"
-# define ANSI_COLOR_MAGENTA "\x1b[35m"
-# define ANSI_COLOR_CYAN    "\x1b[36m"
-# define ANSI_COLOR_RESET   "\x1b[0m"
+# define RED     "\x1b[31m"
+# define GREEN   "\x1b[32m"
+# define YELLOW  "\x1b[33m"
+# define BLUE    "\x1b[34m"
+# define MAGENTA "\x1b[35m"
+# define CYAN    "\x1b[36m"
+# define RESET   "\x1b[0m"
 
 //int main (int argc, char const *argv[]) {
 //
@@ -56,8 +56,8 @@ typedef struct      s_com
     int 			num_redir;
 	char            *com;
 	char            **args_new;
-	char 			separ;
-	char 			separ2;
+	char 			pipe_out;
+	char 			pipe_in;
 	t_line_symbol   **args;
 }                   t_com;
 

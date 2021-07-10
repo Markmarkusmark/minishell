@@ -145,10 +145,8 @@ int 	ft_file_check(t_msh *msh, t_rdr rdr, int rdr_num)
 void	ft_not_file_after_rdr(t_msh *msh, t_rdr *rdr, t_com *com)
 {
 	int 	i;
-	//char	*sterr;
 
 	i = 0;
-	//sterr = strerror(errno);
 	while (i < com->num_redir)
 	{
 		free(rdr[i].type);
@@ -174,7 +172,7 @@ void 	ft_launch_rdr(t_msh *msh, t_rdr *rdr, t_com *com)
 		if (!ft_strcmp(rdr[msh->type[1]].type, ">"))
 			fd[1] = open(last_out_file, O_WRONLY | O_TRUNC | O_CREAT, 0777);
 		else if (!ft_strcmp(rdr[msh->type[1]].type, ">>"))
-			fd[1] = open(last_out_file, O_WRONLY | O_TRUNC | O_CREAT, 0777);
+			fd[1] = open(last_out_file, O_WRONLY | O_APPEND | O_CREAT, 0777);
 	}
 	if (msh->type[0] != NONE)
 	{
@@ -189,6 +187,8 @@ void 	ft_launch_rdr(t_msh *msh, t_rdr *rdr, t_com *com)
 		{
 			dup2(STDOUT_FILENO, msh->fd_1);
 			dup2(fd[1], STDOUT_FILENO);
+			//printf("%d\n", fd[1]);
+			//dup2(fd[1], 1);
 			close(fd[1]);
 		}
 		if (fd[0] != -1)
@@ -196,6 +196,7 @@ void 	ft_launch_rdr(t_msh *msh, t_rdr *rdr, t_com *com)
 			dup2(fd[0], STDOUT_FILENO);
 			close(fd[0]);
 		}
+//		sleep(100);
 		ft_builtin(msh, com);
 	}
 }
@@ -203,14 +204,31 @@ void 	ft_launch_rdr(t_msh *msh, t_rdr *rdr, t_com *com)
 void	ft_execute_rdr(t_msh *msh, t_rdr *rdr, t_com *com)
 {
 	int 	num;
+	int 	status;
 	pid_t	pid;
+	char 	*err_msg;
 
+	num = 0;
 	pid = fork();
 	if (pid == 0) // если дочерний процесс успешно создался
 	{
 		ft_launch_rdr(msh, rdr, com);
 		exit(msh->return_code);
 	}
+	if (pid < 0)
+	{
+		err_msg = strerror(errno);
+		ft_putstr_fd(err_msg, 2);
+	}
+	wait(&status);
+	msh->return_code = WEXITSTATUS(status);
+	while (num < com->num_redir)
+	{
+		free(rdr[num].type);
+		free(rdr[num].file);
+		num++;
+	}
+	free(rdr);
 }
 
 void	ft_redir_mng(t_com *com, t_msh *msh)

@@ -257,8 +257,8 @@ void	ft_env(t_msh *msh, t_com *com)
 int ft_builtin(t_msh *msh, t_com *com)
 {
 	if (ft_strcmp(com->com, "echo") == 0) // переделал , все работает как надо
-        bi_echo(msh, com);
-	    //ft_echo(msh, com);
+        //bi_echo(msh, com);
+	    ft_echo(msh, com);
 	else if (ft_strcmp(com->com, "cd") == 0) // переделал , все работает как надо
 		ft_cd(msh, com);
 	else if (ft_strcmp(com->com, "pwd") == 0) // переделал , все работает как надо

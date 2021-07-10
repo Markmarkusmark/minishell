@@ -46,6 +46,14 @@ int		main(int argc, char **argv, char **env)
     {
         // тут будут сигналы , добавим позже
         msh->line = NULL; // зануляем каждый раз для новой команды
+		ft_putstr_fd(MAGENTA"a", 1);
+		ft_putstr_fd(RED"s", 1);
+		ft_putstr_fd(GREEN"h", 1);
+		ft_putstr_fd(BLUE"a", 1);
+		ft_putstr_fd(YELLOW"l", 1);
+		ft_putstr_fd(CYAN"e", 1);
+		ft_putstr_fd(MAGENTA"t", 1);
+		ft_putstr_fd(YELLOW"> "RESET, 1);
         success = get_next_line(0, &msh->str);
         if (!success)
             close_prog(msh, "gnl error\n");
