@@ -124,7 +124,7 @@ int 	ft_file_check(t_msh *msh, t_rdr rdr, int rdr_num)
 	else if (!ft_strcmp(rdr.type, ">>"))
 	{
 		msh->type[1] = rdr_num;
-		fd = open(rdr.file, O_WRONLY | O_TRUNC | O_CREAT, 0777);
+		fd = open(rdr.file, O_WRONLY | O_APPEND | O_CREAT, 0777);
 	}
 	else if (!ft_strcmp(rdr.type, "<"))
 	{
@@ -176,24 +176,38 @@ void 	ft_launch_rdr(t_msh *msh, t_rdr *rdr, t_com *com)
 	}
 	if (msh->type[0] != NONE)
 	{
-		if (!ft_strcmp(rdr[msh->type[0]].type, "<"))
+		if (!ft_strcmp(rdr[msh->type[0]].type, "<")) {
 			fd[0] = open(last_in_file, O_RDONLY);
-		if (!ft_strcmp(rdr[msh->type[0]].type, "<<"))
-			fd[0] = open(last_in_file, O_RDONLY);
+			//printf("%d\n", fd[0]);
+		}
+//		if (!ft_strcmp(rdr[msh->type[0]].type, "<<"))
+//		{
+//			int	fd_buff[2];
+//			char *buff;
+//
+//			pipe(fd_buff);
+//			while (MINISHELL_LOOP)
+//			{
+//				get_next_line(0, &buff);
+//				if (!ft_strcmp(rdr[msh->type[0]].file, buff))
+//					break;
+//				fd[0] = open(last_in_file, O_RDONLY);
+//			}
+//		}
 	}
 	if (com->com)
 	{
 		if (fd[1] != NONE)
 		{
-			dup2(STDOUT_FILENO, msh->fd_1);
-			dup2(fd[1], STDOUT_FILENO);
-			//printf("%d\n", fd[1]);
-			//dup2(fd[1], 1);
+//			dup2(STDOUT_FILENO, msh->fd_1);
+//			dup2(fd[1], STDOUT_FILENO);
+//			printf("%d\n", fd[1]);
+			dup2(fd[1], msh->fd_1);
 			close(fd[1]);
 		}
 		if (fd[0] != -1)
 		{
-			dup2(fd[0], STDOUT_FILENO);
+			dup2(fd[0], msh->fd_0);
 			close(fd[0]);
 		}
 //		sleep(100);
