@@ -64,8 +64,31 @@ int bi_pwd(char **arg, int fd)
 	return (0);
 }
 
+void check_exit(char *arg, t_msh *msh)
+{
+    int checker;
+    int i;
 
-int bi_exit(t_msh *msh, t_com *com)
+    checker = 0;
+    i = 0;
+    while (arg[i] != '\0')
+    {
+        if (ft_isdigit(arg[i]) == 0)
+        {
+            checker = -1;
+        }
+        i++;
+    }
+    if (checker == -1)
+    {
+        ft_putstr_fd("exit\n", 1);
+        ft_putstr_fd("command \"exit\": numeric argument required\n", 2);
+        msh->return_code = 255;
+        exit(255);
+    }
+}
+
+void bi_exit(t_msh *msh, t_com *com)
 {
 	int n;
 
@@ -77,24 +100,20 @@ int bi_exit(t_msh *msh, t_com *com)
 	else if (com->args_new[1] != NULL)
     {
         ft_putstr_fd("exit\n", 1);
-        ft_putstr_fd("command \"exit\" shouldnt get more than 1 argument\n", 2);
+        ft_putstr_fd("command \"exit\" shouldn't get more than 1 argument\n", 2);
         msh->return_code = 1;
-        exit(1);
     }
 	else
 	{
+	    check_exit(com->args_new[0], msh);
 		n = ft_atoi(com->args_new[0]);
 		while (n > 256)
 			n = n % 256;
         msh->return_code = n;
-        ft_putstr_fd("exit\n ", 1);
+        ft_putstr_fd("exit\n", 1);
         exit(n);
 	}
 }
-
-/*
-	в каком виде нужно выводить export без аргументов? уточнить
-*/
 
 void print_env(t_list *env, int fd, int declare)
 {
@@ -295,7 +314,7 @@ int ft_builtin(t_msh *msh, t_com *com)
 		bi_export(msh, com);
 	else if (ft_strcmp(com->com, "unset") == 0) // работает
 		bi_unset(msh, com);
-	else if (ft_strcmp(com->com, "exit") == 0) // !!! вроде работает, но нужно очищать память возможно, + вылетает сегфолт когда попадает мусор в аргументы
+	else if (ft_strcmp(com->com, "exit") == 0) //
 		bi_exit(msh, com);
 	else
 		ft_launch_com(msh, com);
