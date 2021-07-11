@@ -39,6 +39,10 @@ string.h
 -
 errno.h
 -
+readline/readline.h
+-
+readline/history.h
+-
 
 /Users/legunshi/minishell/libft/libft.h
 string.h

@@ -13,6 +13,8 @@
 # include <dirent.h>
 # include <string.h>
 # include <errno.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 
 # define MINISHELL_LOOP 1
 # define ITS_ARG 4

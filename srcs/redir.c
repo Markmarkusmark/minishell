@@ -91,17 +91,17 @@ int 	ft_get_result(t_rdr *rdr, t_com *com, int num, int i)
 	{
 		rdr->type = ft_struct_to_str(com->args[num], 0, ft_mshstrlen(com->args[num]));
 		//rdr->type = ft_struct_to_str2(com, 0, ft_mshstrlen(com->args[num]));
-		printf("%s\n", com->com);
-		printf("%s\n", rdr->type);
+//		printf("%s\n", com->com);
+//		printf("%s\n", rdr->type);
 		if (!rdr->type)
 			return (0);
 		rdr->file = ft_struct_to_str(com->args[num + 1],
 									0, ft_mshstrlen(com->args[num + 1]));
-		printf("%s\n", rdr->file);
+		//printf("%s\n", rdr->file);
 		if (!rdr->file)
 			return (0);
-//		free(com->args[num]);
-//		free(com->args[num + 1]);
+		free(com->args[num]);
+		free(com->args[num + 1]);
 //		for (int j = 0; j < 20; j++)
 //			printf("%c\n", com->args[j]->c);
 		return (ITS_RDR);
@@ -171,7 +171,7 @@ int 	ft_file_check(t_msh *msh, t_rdr rdr, int rdr_num)
 	else if (!ft_strcmp(rdr.type, "<<"))
 	{
 		msh->type[0] = rdr_num;
-		fd = open(rdr.file, O_RDONLY);
+		//fd = open(rdr.file, O_RDONLY);
 	}
 	if (fd == -1)
 		return (0);
@@ -206,10 +206,12 @@ void 	ft_launch_rdr(t_msh *msh, t_rdr *rdr, t_com *com)
 	last_out_file = rdr[msh->type[1]].file;
 	if (msh->type[1] != NONE)
 	{
-		if (!ft_strcmp(rdr[msh->type[1]].type, ">"))
+		if (!ft_strcmp(rdr[msh->type[1]].type, ">")) {
 			fd[1] = open(last_out_file, O_WRONLY | O_TRUNC | O_CREAT, 0777);
-		else if (!ft_strcmp(rdr[msh->type[1]].type, ">>"))
+		}
+		else if (!ft_strcmp(rdr[msh->type[1]].type, ">>")) {
 			fd[1] = open(last_out_file, O_WRONLY | O_APPEND | O_CREAT, 0777);
+		}
 	}
 	if (msh->type[0] != NONE)
 	{
@@ -217,20 +219,31 @@ void 	ft_launch_rdr(t_msh *msh, t_rdr *rdr, t_com *com)
 			fd[0] = open(last_in_file, O_RDONLY);
 			//printf("%d\n", fd[0]);
 		}
-//		if (!ft_strcmp(rdr[msh->type[0]].type, "<<"))
-//		{
-//			int	fd_buff[2];
-//			char *buff;
-//
-//			pipe(fd_buff);
-//			while (MINISHELL_LOOP)
-//			{
-//				get_next_line(0, &buff);
-//				if (!ft_strcmp(rdr[msh->type[0]].file, buff))
-//					break;
-//				fd[0] = open(last_in_file, O_RDONLY);
-//			}
-//		}
+		if (!ft_strcmp(rdr[msh->type[0]].type, "<<"))
+		{
+			printf("%s\n", rdr[msh->type[0]].file);
+			int	fd_buff[2];
+			char *buff;
+
+			pipe(fd_buff);
+			while (MINISHELL_LOOP)
+			{
+				buff = readline("> ");
+				printf("%s\n", buff);
+				//get_next_line(0, &buff);
+				if (!ft_strcmp(rdr[msh->type[0]].file, buff))
+				{
+					free(buff);
+					break;
+				}
+				ft_putstr_fd(buff, fd_buff[1]);
+				ft_putstr_fd("\n", fd_buff[1]);
+				free(buff);
+				//fd[0] = open(last_in_file, O_RDONLY);
+			}
+			close(fd_buff[1]);
+			fd[0] = fd_buff[0];
+		}
 	}
 //	ft_putstr_fd(com->com, 2);
 	if (com->com)

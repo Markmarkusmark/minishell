@@ -72,3 +72,6 @@ add_executable(minishell
         srcs/echo.c
         srcs/cd.c
         )
+add_definitions("-L ~.brew/Cellar/readline/8.1/lib/")
+add_definitions("-I ~.brew/Cellar/readline/8.1/include")
+target_link_libraries(minishell readline)
