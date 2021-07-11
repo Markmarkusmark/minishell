@@ -33,7 +33,7 @@ int	ft_args_new(t_com *com)
 
     if (com->num_args > 0)
     {
-        com->args_new = malloc(com->num_args * sizeof(char *));
+        com->args_new = calloc(com->num_args, sizeof(char *));
         if (!com->args_new)
             return (0);
     }
@@ -41,7 +41,7 @@ int	ft_args_new(t_com *com)
     while (i < com->num_args)
     {
         com->args_new[i] = ft_struct_to_str(com->args[i], 0, ft_mshstrlen(com->args[i]));
-        //free(com->args[i]);
+        free(com->args[i]);
 		com->args[i] = NULL;
         i++;
     }

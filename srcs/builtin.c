@@ -136,27 +136,32 @@ void print_env(t_list *env, int fd, int declare)
 
 void ft_copy_lst(t_list *lst, t_list **new)
 {
-    t_list *beg;
-    t_env  *cont;
+	t_env  *cont;
 
-    //beg = lst;
-    cont = malloc(sizeof(t_env *));
-    *cont = *((t_env *)(lst->content));
-    (*new) = ft_lstnew(cont);
-    lst = lst->next;
-    while(lst->next)
-    {
-        *cont = *((t_env *)(lst->content));
-        ft_lstadd_back(new, ft_lstnew(cont));
-        lst = lst->next;
-    }
-    //return (beg);
+	cont = malloc(sizeof(t_env));
+	cont->key = ft_strdup(((t_env *)lst->content)->key);
+	if (((t_env *)lst->next->content)->val != NULL)
+		cont->val = ft_strdup(((t_env *)lst->next->content)->val);
+	else
+		cont->val = ft_strdup("");
+	(*new) = ft_lstnew(cont);
+	while(lst->next)
+	{
+		cont = malloc(sizeof(t_env));
+		cont->key = ft_strdup(((t_env *)lst->next->content)->key);
+		if (((t_env *)lst->next->content)->val != NULL)
+			cont->val = ft_strdup(((t_env *)lst->next->content)->val);
+		else
+			cont->val = ft_strdup("");
+		ft_lstadd_back(new, ft_lstnew(cont));
+		lst = lst->next;
+	}
 }
 
-void	ft_lstsort(t_list *lst)
+void ft_lstsort(t_list *lst)
 {
 	t_list *sorted;
-    t_list **beg;
+	t_list *beg;
 	t_env *elem1;
 	t_env *elem2;
 	int count;
@@ -164,28 +169,22 @@ void	ft_lstsort(t_list *lst)
 
 	count = 1;
 	i = 0;
-    sorted = malloc(sizeof(t_list)); // error
+	sorted = malloc(sizeof(t_list)); // error
 	ft_copy_lst(lst, &sorted);
-
-	while (sorted)
-	{
-		count++;
-		sorted = sorted->next;
-	}
-//	print_env(lst, 1, 0);
-//	write(1, "\n", 1);
+	count = ft_lstsize(sorted);
+	beg = sorted;
 	while (i < count - 1)
 	{
 		j = 0;
-		sorted = lst;
+		sorted = beg;
 		while (j < count - i - 1)
 		{
 			elem1 = sorted->content;
 			elem2 = sorted->next->content;
 			if (ft_strcmp(elem1->key, elem2->key) > 0)
 			{
-                sorted->content = (t_env *)elem2;
-                sorted->next->content = (t_env *)elem1;
+				sorted->content = (t_env *)elem2;
+				sorted->next->content = (t_env *)elem1;
 			}
 			sorted = sorted->next;
 			j++;
@@ -195,27 +194,24 @@ void	ft_lstsort(t_list *lst)
 	print_env(sorted, 1, 1);
 }
 
-int bi_export(t_msh *msh, t_com *com) // export работает но ! сортирует env переменную и оставлятет ее так
+int bi_export(t_msh *msh, t_com *com)
 {
 	int i = 0;
-	t_env	*envp;
+	t_env *envp;
 
-	//sorted = malloc(sizeof(t_list));
 	if (com->args_new == NULL)
 	{
-		// sort ////// ?help
 		ft_lstsort(msh->env);
 	}
 	else
 	{
-//        ft_lstsort(msh->env);
 		while (com->args_new[i])
 		{
 			envp = malloc(sizeof(t_env));
 			msh->env_args = ft_split(com->args_new[i], '=');
 			envp->key = msh->env_args[0];
-    	    envp->val = msh->env_args[1];
-    	    ft_lstadd_back(&msh->env, ft_lstnew(envp));
+			envp->val = msh->env_args[1];
+			ft_lstadd_back(&msh->env, ft_lstnew(envp));
 			free(msh->env_args);
 			i++;
 		}
@@ -300,6 +296,7 @@ void	ft_env(t_msh *msh, t_com *com)
 
 int ft_builtin(t_msh *msh, t_com *com)
 {
+//	ft_putstr_fd(com->com, 2);
 	if (ft_strcmp(com->com, "echo") == 0) // переделал , все работает как надо
         //bi_echo(msh, com);
 	    ft_echo(msh, com);

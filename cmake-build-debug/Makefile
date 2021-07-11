@@ -67,10 +67,10 @@ RM = /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/mryan/hhh
+CMAKE_SOURCE_DIR = /Users/legunshi/minishell
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/mryan/hhh/cmake-build-debug
+CMAKE_BINARY_DIR = /Users/legunshi/minishell/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -99,9 +99,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/mryan/hhh/cmake-build-debug/CMakeFiles /Users/mryan/hhh/cmake-build-debug//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/legunshi/minishell/cmake-build-debug/CMakeFiles /Users/legunshi/minishell/cmake-build-debug//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/mryan/hhh/cmake-build-debug/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/legunshi/minishell/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -1357,6 +1357,33 @@ libft/ft_toupper.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/libft/ft_toupper.c.s
 .PHONY : libft/ft_toupper.c.s
 
+srcs/builtin.o: srcs/builtin.c.o
+
+.PHONY : srcs/builtin.o
+
+# target to build an object file
+srcs/builtin.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/builtin.c.o
+.PHONY : srcs/builtin.c.o
+
+srcs/builtin.i: srcs/builtin.c.i
+
+.PHONY : srcs/builtin.i
+
+# target to preprocess a source file
+srcs/builtin.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/builtin.c.i
+.PHONY : srcs/builtin.c.i
+
+srcs/builtin.s: srcs/builtin.c.s
+
+.PHONY : srcs/builtin.s
+
+# target to generate assembly for a file
+srcs/builtin.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/builtin.c.s
+.PHONY : srcs/builtin.c.s
+
 srcs/cd.o: srcs/cd.c.o
 
 .PHONY : srcs/cd.o
@@ -1491,33 +1518,6 @@ srcs/execute.s: srcs/execute.c.s
 srcs/execute.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/execute.c.s
 .PHONY : srcs/execute.c.s
-
-srcs/main2.o: srcs/main2.c.o
-
-.PHONY : srcs/main2.o
-
-# target to build an object file
-srcs/main2.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/main2.c.o
-.PHONY : srcs/main2.c.o
-
-srcs/main2.i: srcs/main2.c.i
-
-.PHONY : srcs/main2.i
-
-# target to preprocess a source file
-srcs/main2.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/main2.c.i
-.PHONY : srcs/main2.c.i
-
-srcs/main2.s: srcs/main2.c.s
-
-.PHONY : srcs/main2.s
-
-# target to generate assembly for a file
-srcs/main2.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/main2.c.s
-.PHONY : srcs/main2.c.s
 
 srcs/minishell.o: srcs/minishell.c.o
 
@@ -1879,6 +1879,9 @@ help:
 	@echo "... libft/ft_toupper.o"
 	@echo "... libft/ft_toupper.i"
 	@echo "... libft/ft_toupper.s"
+	@echo "... srcs/builtin.o"
+	@echo "... srcs/builtin.i"
+	@echo "... srcs/builtin.s"
 	@echo "... srcs/cd.o"
 	@echo "... srcs/cd.i"
 	@echo "... srcs/cd.s"
@@ -1894,9 +1897,6 @@ help:
 	@echo "... srcs/execute.o"
 	@echo "... srcs/execute.i"
 	@echo "... srcs/execute.s"
-	@echo "... srcs/main2.o"
-	@echo "... srcs/main2.i"
-	@echo "... srcs/main2.s"
 	@echo "... srcs/minishell.o"
 	@echo "... srcs/minishell.i"
 	@echo "... srcs/minishell.s"

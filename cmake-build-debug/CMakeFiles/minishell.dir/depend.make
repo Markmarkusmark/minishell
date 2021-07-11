@@ -136,6 +136,11 @@ CMakeFiles/minishell.dir/libft/ft_tolower.c.o: ../libft/libft.h
 CMakeFiles/minishell.dir/libft/ft_toupper.c.o: ../libft/ft_toupper.c
 CMakeFiles/minishell.dir/libft/ft_toupper.c.o: ../libft/libft.h
 
+CMakeFiles/minishell.dir/srcs/builtin.c.o: ../get_next_line/get_next_line.h
+CMakeFiles/minishell.dir/srcs/builtin.c.o: ../include/minishell.h
+CMakeFiles/minishell.dir/srcs/builtin.c.o: ../libft/libft.h
+CMakeFiles/minishell.dir/srcs/builtin.c.o: ../srcs/builtin.c
+
 CMakeFiles/minishell.dir/srcs/cd.c.o: ../get_next_line/get_next_line.h
 CMakeFiles/minishell.dir/srcs/cd.c.o: ../include/minishell.h
 CMakeFiles/minishell.dir/srcs/cd.c.o: ../libft/libft.h
@@ -160,11 +165,6 @@ CMakeFiles/minishell.dir/srcs/execute.c.o: ../get_next_line/get_next_line.h
 CMakeFiles/minishell.dir/srcs/execute.c.o: ../include/minishell.h
 CMakeFiles/minishell.dir/srcs/execute.c.o: ../libft/libft.h
 CMakeFiles/minishell.dir/srcs/execute.c.o: ../srcs/execute.c
-
-CMakeFiles/minishell.dir/srcs/main2.c.o: ../get_next_line/get_next_line.h
-CMakeFiles/minishell.dir/srcs/main2.c.o: ../include/minishell.h
-CMakeFiles/minishell.dir/srcs/main2.c.o: ../libft/libft.h
-CMakeFiles/minishell.dir/srcs/main2.c.o: ../srcs/main2.c
 
 CMakeFiles/minishell.dir/srcs/minishell.c.o: ../get_next_line/get_next_line.h
 CMakeFiles/minishell.dir/srcs/minishell.c.o: ../include/minishell.h

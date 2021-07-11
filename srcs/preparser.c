@@ -47,7 +47,7 @@ int		ft_line_size(t_msh *msh)
 	while (msh->str[++i])
 	{
 		q_flag = ft_get_quote_flag(msh, &i, q_flag);
-		if (msh->str[i] == '\\' && (!q_flag || (q_flag == 2 && (msh->str[i + 1] == '$'
+		if (msh->str[i] == '\\' && (q_flag == 0 || (q_flag == 2 && (msh->str[i + 1] == '$'
 			|| msh->str[i + 1] == '\\' || msh->str[i + 1] == '"'))))
 		{
 			i++;

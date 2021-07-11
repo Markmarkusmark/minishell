@@ -14,7 +14,8 @@ void	del_lst_command(void *cmd)
 			free(((t_com *)cmd)->args_new[i]);
 			i++;
 		}
-		//free(((t_com *)cmd)->args_new);
+		if (((t_com *)cmd)->args_new != NULL)
+			free(((t_com *)cmd)->args_new);
 	}
 	free((t_com *)cmd);
 	if (((t_com *)cmd)->args)
@@ -46,6 +47,7 @@ int		main(int argc, char **argv, char **env)
     {
         // тут будут сигналы , добавим позже
         msh->line = NULL; // зануляем каждый раз для новой команды
+        msh->com = NULL;
 		ft_putstr_fd(MAGENTA"a", 1);
 		ft_putstr_fd(RED"s", 1);
 		ft_putstr_fd(GREEN"h", 1);

@@ -34,7 +34,8 @@ void	ft_rdr_count(t_com *com)
 	{
 		arg = ft_struct_to_str(com->args[i], 0, ft_mshstrlen(com->args[i]));
 		if ((!ft_strcmp(arg, ">") || !ft_strcmp(arg, ">>")
-			 || !ft_strcmp(arg, "<")) && com->args[i][0].flag == 0)
+			 || !ft_strcmp(arg, "<") || !ft_strcmp(arg, "<<")) &&
+			 com->args[i][0].flag == 0)
 			com->num_redir++;
 		free(arg);
 		i++;
@@ -55,24 +56,59 @@ int	ft_mshcmp(t_line_symbol *s1, char *s2)
 	return (0);
 }
 
+char	*ft_struct_to_str2(t_com *com, int start, int len)
+{
+	int		i;
+	int		j;
+	char	*str;
+
+	if (!com)
+		return (NULL);
+	if (com->args[0]->c == '\0')
+		return (ft_strdup(""));
+//	if (start > ft_mshstrlen(struc))
+//		return (ft_strdup(""));
+	str = malloc(len + 1);
+	if (!str)
+		return (NULL);
+	i = start;
+	j = 0;
+	while (i < (len + start))
+	{
+		str[j] = com->args[i]->c;
+		i++;
+		j++;
+	}
+	str[j] = '\0';
+	return (str);
+}
+
 int 	ft_get_result(t_rdr *rdr, t_com *com, int num, int i)
 {
 	if (((ft_mshcmp(com->args[num], ">") == 0) || (ft_mshcmp(com->args[num], ">>") == 0)
-		 || (ft_mshcmp(com->args[num], "<") == 0)) && com->args[num][0].flag == 0)
+		 || (ft_mshcmp(com->args[num], "<") == 0) || (ft_mshcmp(com->args[num], "<<") == 0)) &&
+		 com->args[num][0].flag == 0)
 	{
 		rdr->type = ft_struct_to_str(com->args[num], 0, ft_mshstrlen(com->args[num]));
+		//rdr->type = ft_struct_to_str2(com, 0, ft_mshstrlen(com->args[num]));
+		printf("%s\n", com->com);
+		printf("%s\n", rdr->type);
 		if (!rdr->type)
 			return (0);
 		rdr->file = ft_struct_to_str(com->args[num + 1],
 									0, ft_mshstrlen(com->args[num + 1]));
+		printf("%s\n", rdr->file);
 		if (!rdr->file)
 			return (0);
-		free(com->args[num]);
-		free(com->args[num + 1]);
+//		free(com->args[num]);
+//		free(com->args[num + 1]);
+//		for (int j = 0; j < 20; j++)
+//			printf("%c\n", com->args[j]->c);
 		return (ITS_RDR);
 	}
 	else
 	{
+//		ft_putstr_fd(com->com, 2);
 		com->args_new[i] = ft_struct_to_str(com->args[num],
 										 0, ft_mshstrlen(com->args[num]));
 		if (!com->args_new[i])
@@ -95,6 +131,7 @@ int 	ft_loop(t_rdr *rdr, t_com *com)
 	while (num < com->num_args)
 	{
 		res = ft_get_result(&rdr[rdr_num], com, num, i);
+//		ft_putstr_fd(com->com, 2);
 		if (res == 0)
 			return (1);
 		else if (res == ITS_RDR)
@@ -195,14 +232,15 @@ void 	ft_launch_rdr(t_msh *msh, t_rdr *rdr, t_com *com)
 //			}
 //		}
 	}
+//	ft_putstr_fd(com->com, 2);
 	if (com->com)
 	{
 		if (fd[1] != NONE)
 		{
-//			dup2(STDOUT_FILENO, msh->fd_1);
-//			dup2(fd[1], STDOUT_FILENO);
+			dup2(STDOUT_FILENO, msh->fd_1);
+			dup2(fd[1], STDOUT_FILENO);
 //			printf("%d\n", fd[1]);
-			dup2(fd[1], msh->fd_1);
+			//dup2(fd[1], msh->fd_1);
 			close(fd[1]);
 		}
 		if (fd[0] != -1)
@@ -223,9 +261,12 @@ void	ft_execute_rdr(t_msh *msh, t_rdr *rdr, t_com *com)
 	char 	*err_msg;
 
 	num = 0;
+	//printf("%s\n", com->com);
+	//ft_putstr_fd(com->com, 2);
 	pid = fork();
 	if (pid == 0) // если дочерний процесс успешно создался
 	{
+//		ft_putstr_fd(com->com, 2);
 		ft_launch_rdr(msh, rdr, com);
 		exit(msh->return_code);
 	}
@@ -238,8 +279,10 @@ void	ft_execute_rdr(t_msh *msh, t_rdr *rdr, t_com *com)
 	msh->return_code = WEXITSTATUS(status);
 	while (num < com->num_redir)
 	{
-		free(rdr[num].type);
-		free(rdr[num].file);
+		if (rdr[num].type != NULL)
+			free(rdr[num].type);
+		if (rdr[num].file != NULL)
+			free(rdr[num].file);
 		num++;
 	}
 	free(rdr);
@@ -252,6 +295,7 @@ void	ft_redir_mng(t_com *com, t_msh *msh)
 	int 	delete;
 	int 	size;
 
+//	ft_putstr_fd(com->com, 2);
 	msh->return_code = 0;
 	ft_rdr_count(com);
 	rdr = malloc(com->num_redir * sizeof(t_rdr *));
@@ -269,8 +313,10 @@ void	ft_redir_mng(t_com *com, t_msh *msh)
 		if (!com->args_new)
 			close_prog(msh, "malloc error\n");
 	}
+//	ft_putstr_fd(com->com, 2);
 	if (ft_loop(rdr, com))
 		close_prog(msh, "error\n");
+	//ft_putstr_fd(com->com, 2);
 	free(com->args);
 	com->args = NULL;
 	com->num_args = com->num_args - delete;

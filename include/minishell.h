@@ -126,5 +126,6 @@ void 			ft_launch_com(t_msh *msh, t_com *com);
 void			ft_echo(t_msh *msh, t_com *com);
 void			ft_cd(t_msh *msh, t_com *com);
 int             list_count(t_list *lst);
+void			free_arr(char **arr);
 
 # endif

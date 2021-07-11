@@ -130,7 +130,7 @@ void 	free_arr(char **arr)
 	free(arr);
 }
 
-int 	ft_exec_com(t_msh *msh, t_com *com, char **argv, char *path)
+int 	ft_exec_com(t_msh *msh, char **argv, char *path)
 {
 	int 	status;
 	char	*err_msg;
@@ -151,6 +151,7 @@ int 	ft_exec_com(t_msh *msh, t_com *com, char **argv, char *path)
 	}
 	waitpid(pid, &status, 0);
 	msh->return_code = WEXITSTATUS(status);
+	free(path);
 	//printf("%d\n", msh->return_code);
 	if (msh->return_code)
 	{
@@ -177,8 +178,10 @@ void 	ft_launch_com(t_msh *msh, t_com *com)
 		//printf("%s\n", buff);
 		if (buff == NULL)
 			close_prog(msh, "command not found\n");
-		if (ft_exec_com(msh, com, argv, buff) == 0)
-			break ;
+		if (ft_exec_com(msh, argv, buff) == 0)
+			break;
+		//free(buff);
+		//buff = NULL;
 		i++;
 	}
 	if (exec_paths[i] == NULL)
@@ -186,4 +189,5 @@ void 	ft_launch_com(t_msh *msh, t_com *com)
 		ft_putstr_fd("command not found in the paths\n", 2);
 	}
 	free_arr(argv);
+	free_arr(exec_paths);
 }
