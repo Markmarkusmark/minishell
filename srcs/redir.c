@@ -90,8 +90,8 @@ int 	ft_get_result(t_rdr *rdr, t_com *com, int num, int i)
 		 com->args[num][0].flag == 0)
 	{
 		rdr->type = ft_struct_to_str(com->args[num], 0, ft_mshstrlen(com->args[num]));
+		printf("%s\n", com->com);
 		//rdr->type = ft_struct_to_str2(com, 0, ft_mshstrlen(com->args[num]));
-//		printf("%s\n", com->com);
 //		printf("%s\n", rdr->type);
 		if (!rdr->type)
 			return (0);
@@ -157,16 +157,19 @@ int 	ft_file_check(t_msh *msh, t_rdr rdr, int rdr_num)
 	{
 		msh->type[1] = rdr_num;
 		fd = open(rdr.file, O_WRONLY | O_TRUNC | O_CREAT, 0777);
+		close(fd);
 	}
 	else if (!ft_strcmp(rdr.type, ">>"))
 	{
 		msh->type[1] = rdr_num;
 		fd = open(rdr.file, O_WRONLY | O_APPEND | O_CREAT, 0777);
+		close(fd);
 	}
 	else if (!ft_strcmp(rdr.type, "<"))
 	{
 		msh->type[0] = rdr_num;
 		fd = open(rdr.file, O_RDONLY);
+		close(fd);
 	}
 	else if (!ft_strcmp(rdr.type, "<<"))
 	{
@@ -175,7 +178,6 @@ int 	ft_file_check(t_msh *msh, t_rdr rdr, int rdr_num)
 	}
 	if (fd == -1)
 		return (0);
-	close(fd);
 	return (1);
 }
 
@@ -221,15 +223,17 @@ void 	ft_launch_rdr(t_msh *msh, t_rdr *rdr, t_com *com)
 		}
 		if (!ft_strcmp(rdr[msh->type[0]].type, "<<"))
 		{
-			printf("%s\n", rdr[msh->type[0]].file);
+			//printf("%s\n", rdr[msh->type[0]].file);
 			int	fd_buff[2];
 			char *buff;
 
 			pipe(fd_buff);
-			while (MINISHELL_LOOP)
+			while (1)
 			{
+				//printf("%d\n", fd_buff[0]);
+				//printf("%d\n", fd_buff[1]);
 				buff = readline("> ");
-				printf("%s\n", buff);
+				//printf("%s\n", buff);
 				//get_next_line(0, &buff);
 				if (!ft_strcmp(rdr[msh->type[0]].file, buff))
 				{
@@ -258,6 +262,7 @@ void 	ft_launch_rdr(t_msh *msh, t_rdr *rdr, t_com *com)
 		}
 		if (fd[0] != -1)
 		{
+			//printf("cwecwcw\n");
 			dup2(fd[0], msh->fd_0);
 			close(fd[0]);
 		}
