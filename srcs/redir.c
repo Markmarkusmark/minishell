@@ -90,8 +90,8 @@ int 	ft_get_result(t_rdr *rdr, t_com *com, int num, int i)
 		 com->args[num][0].flag == 0)
 	{
 		rdr->type = ft_struct_to_str(com->args[num], 0, ft_mshstrlen(com->args[num]));
-		printf("%s\n", com->com);
-		//rdr->type = ft_struct_to_str2(com, 0, ft_mshstrlen(com->args[num]));
+//		printf("%s\n", com->com);
+//		rdr->type = ft_struct_to_str2(com, 0, ft_mshstrlen(com->args[num]));
 //		printf("%s\n", rdr->type);
 		if (!rdr->type)
 			return (0);
@@ -128,6 +128,7 @@ int 	ft_loop(t_rdr *rdr, t_com *com)
 	i = 0;
 	num = 0;
 	rdr_num = 0;
+    //printf("%d\n", com->num_args);
 	while (num < com->num_args)
 	{
 		res = ft_get_result(&rdr[rdr_num], com, num, i);
@@ -252,6 +253,7 @@ void 	ft_launch_rdr(t_msh *msh, t_rdr *rdr, t_com *com)
 //	ft_putstr_fd(com->com, 2);
 	if (com->com)
 	{
+        printf("%s\n", com->com);
 		if (fd[1] != NONE)
 		{
 			dup2(STDOUT_FILENO, msh->fd_1);
@@ -306,6 +308,64 @@ void	ft_execute_rdr(t_msh *msh, t_rdr *rdr, t_com *com)
 	free(rdr);
 }
 
+//int	create_redir_array(t_com *com, t_rdr *redir, int i, int j)
+//{
+//    if ((!ft_mshcmp(com->args[i], ">") || !ft_mshcmp(com->args[i], ">>")
+//         || !ft_mshcmp(com->args[i], "<")) && !com->args[i][0].flag)
+//    {
+//        redir->type = ft_struct_to_str(com->args[i], 0, ft_mshstrlen(com->args[i]));
+//        //printf("%s\n", com->cmd);
+//        if (!redir->type)
+//            return (0);
+//        redir->file = ft_struct_to_str(com->args[i + 1],
+//                                    0, ft_mshstrlen(com->args[i + 1]));
+//        if (!redir->file)
+//            return (0);
+//        free(com->args[i]);
+//        free(com->args[i + 1]);
+//        return (1);
+//    }
+//    else
+//    {
+//        com->args_new[j] = ft_struct_to_str(com->args[i],
+//                                         0, ft_mshstrlen(com->args[i]));
+//        if (!com->args_new[j])
+//            return (0);
+//        free(com->args[i]);
+//        return (2);
+//    }
+//}
+//
+//int	cleaner_loop(t_com *com, t_rdr *redir)
+//{
+//    int		i;
+//    int		j;
+//    int		k;
+//    int		r;
+//
+//    i = 0;
+//    j = 0;
+//    k = 0;
+//    //printf("%d\n", com->n_args);
+//    while (i < com->num_args)
+//    {
+//        r = create_redir_array(com, &redir[k], i, j);
+//        if (r == 0)
+//            return (0);
+//        else if (r == 1)
+//        {
+//            k++;
+//            i += 2;
+//        }
+//        else if (r == 2)
+//        {
+//            i++;
+//            j++;
+//        }
+//    }
+//    return (1);
+//}
+
 void	ft_redir_mng(t_com *com, t_msh *msh)
 {
 	int		n;
@@ -334,6 +394,8 @@ void	ft_redir_mng(t_com *com, t_msh *msh)
 //	ft_putstr_fd(com->com, 2);
 	if (ft_loop(rdr, com))
 		close_prog(msh, "error\n");
+//    if (!cleaner_loop(com, rdr))
+//        close_prog(msh, "error\n");
 	//ft_putstr_fd(com->com, 2);
 	free(com->args);
 	com->args = NULL;

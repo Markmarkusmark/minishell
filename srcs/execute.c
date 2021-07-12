@@ -58,6 +58,7 @@ char 	*ft_join_com(t_msh *msh, t_com *com, char *path)
 	tmp = ft_strjoin(path, "/");
 	if (!tmp)
 		close_prog(msh, "error\n");  // тут поменять на ft_exit
+    //printf("%s\n", com->com);
 	tmp2 = ft_strjoin(tmp, com->com);
 	free(tmp);
 	if (!tmp2)

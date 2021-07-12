@@ -294,6 +294,86 @@ int 	ft_get_separator(t_msh *msh, t_com *command, int separ, int i)
 	return (i);
 }
 
+//int	redir_filter(t_com *com, int *found)
+//{
+//    int		n;
+//    char	*arg;
+//
+//    n = 0;
+//    *found = 0;
+//    while (n < com->num_args)
+//    {
+//        arg = ft_struct_to_str(com->args[n], 0, ft_mshstrlen(com->args[n]));
+//        if (!arg)
+//            return (-1);
+//        if (ft_strcmp(arg, ">") && ft_strcmp(arg, "<") && ft_strcmp(arg, ">>"))
+//        {
+//            com->com = arg;
+//            free(com->args[n]);
+//            *found = 1;
+//            return (n);
+//        }
+//        free(arg);
+//        n += 2;
+//    }
+//    return (n);
+//}
+//
+//int	replace_arg_array(t_com *com, int n, t_line_symbol ***tmp, int found)
+//{
+//    int	i;
+//    int	j;
+//
+//    i = 0;
+//    j = 0;
+//    while (i < com->num_args)
+//    {
+//        if (found && i == n)
+//        {
+//            i++;
+//            continue ;
+//        }
+//        (*tmp)[j] = ft_mshdup(com->args[i]);
+//        if (!(*tmp)[j])
+//            return (0);
+//        free(com->args[i]);
+//        j++;
+//        i++;
+//    }
+//    free(com->args);
+//    com->args = *tmp;
+//    return (1);
+//}
+//
+//int	find_cmd(t_com *com)
+//{
+//    int			n;
+//    int			found;
+//    t_line_symbol	**tmp;
+//
+//    n = redir_filter(com, &found);
+//    if (n == -1)
+//        return (0);
+//    if (found)
+//        tmp = malloc((com->num_args - 1) * sizeof(t_line_symbol *));
+//    else
+//        tmp = malloc(com->num_args * sizeof(t_line_symbol *));
+//    if (!tmp)
+//        return (0);
+//    if (!replace_arg_array(com, n, &tmp, found))
+//        return (0);
+//    if (found)
+//    {
+//        com->num_args -= 1;
+//        if (com->num_args == 0)
+//        {
+//            free(com->args);
+//            com->args = NULL;
+//        }
+//    }
+//    return (1);
+//}
+
 void     ft_parser(t_msh *msh)
 {
     t_list  *new_list;
@@ -339,6 +419,8 @@ void     ft_parser(t_msh *msh)
 			close_prog(msh, "arguments error\n");
         if (ft_get_command(command))
 			close_prog(msh, "command not found\n");
+//        if (!find_cmd(command))
+//            close_prog(msh, "command not found\n");
 		i = ft_get_separator(msh, command, 1, i); // поменять потом на воид и ходить по указателю i
 		ft_lstadd_back(&msh->com, new_list);
     }
