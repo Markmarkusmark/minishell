@@ -33,8 +33,10 @@ void	del_lst_command(void *cmd)
 int		main(int argc, char **argv, char **env)
 {
 	t_msh	*msh;
-	int     success;
+	char	*str;
+	//int     success;
 
+	msh = NULL; //
     if (argc > 1 || argv[1])
         close_prog(msh, "too many arguments\n");
     msh = (t_msh *)malloc(sizeof(t_msh));
@@ -43,7 +45,12 @@ int		main(int argc, char **argv, char **env)
 	ft_bzero(msh, sizeof(t_msh));
     ft_putstr_fd("this is our fucking shell\n", 1);
     ft_environment(msh, env);
-    while (MINISHELL_LOOP)
+
+	signal(SIGINT, SIG_IGN);
+    signal(SIGQUIT, SIG_IGN);
+    signal(SIGTERM, SIG_IGN);
+    
+	while (MINISHELL_LOOP)
     {
         // тут будут сигналы , добавим позже
         msh->line = NULL; // зануляем каждый раз для новой команды
@@ -57,7 +64,11 @@ int		main(int argc, char **argv, char **env)
 //		ft_putstr_fd(MAGENTA"t", 1);
 //		ft_putstr_fd(YELLOW"> "RESET, 1);
 //        success = get_next_line(0, &msh->str);
-		msh->str = readline("shit> ");
+		str = readline("custom_shell> ");
+		if (str != NULL)
+			msh->str = str;
+		else
+			break;
 //        if (!success)
 //            close_prog(msh, "gnl error\n");
         ft_parser(msh);

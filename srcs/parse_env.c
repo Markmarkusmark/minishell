@@ -22,6 +22,7 @@ int		ft_get_symbol_flag(t_msh *msh, int *len, int *qte, int *dlr)
 		if ((*dlr != 0) && (msh->str[*len] != '_') && (ft_isalnum(msh->str[*len]) == 0)) {
 
             *dlr = 0; ///// ?return
+			return(0); /// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         }
 		else if ((*dlr == 0) && (*qte == 1 || (*qte == 2 && msh->str[*len] != '$'
 				&& msh->str[*len] != '\\' && msh->str[*len] != '"')))

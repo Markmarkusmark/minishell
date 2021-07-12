@@ -141,6 +141,9 @@ int 	ft_exec_com(t_msh *msh, char **argv, char *path)
 	pid = fork();
 	if (pid == 0)
 	{
+		signal(SIGQUIT, SIG_DFL);
+        signal(SIGINT, SIG_DFL);
+        signal(SIGTERM, SIG_DFL);
 		execve(path, argv, envs);
 		exit(127);
 	}

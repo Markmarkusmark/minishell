@@ -34,35 +34,35 @@ void bi_echo(t_msh *msh, t_com *com)
 /*
 	изменить PWD в переменной окружения
 */
-int bi_cd(char **arg, int fd)
-{
-	char s[100];
+// int bi_cd(char **arg, int fd)
+// {
+// 	//char s[100];
 
-	//processes
-	//printf("%s\n", getcwd(s, 100));
-	if (arg[0] == NULL)
-		write(1, "wrong path", 10);
-	else
-	{
-		if (chdir(arg[0]) != 0)
-			write(1, "wrong path", 10);
-	}	
-	//printf("%s\n", getcwd(s, 100));
-	return (0);
-}
+// 	//processes
+// 	//printf("%s\n", getcwd(s, 100));
+// 	if (arg[0] == NULL)
+// 		write(1, "wrong path", 10);
+// 	else
+// 	{
+// 		if (chdir(arg[0]) != 0)
+// 			write(1, "wrong path", 10);
+// 	}	
+// 	//printf("%s\n", getcwd(s, 100));
+// 	return (0);
+// }
 
 /*
 	мне не нравится делать такой массив, нужно подумать
 */
-int bi_pwd(char **arg, int fd)
-{
-	char dir[100]; // ?
+// int bi_pwd(char **arg, int fd)
+// {
+// 	char dir[100]; // ?
 	
-	getcwd(dir, 100);
-	write(fd, dir, ft_strlen(dir));
-	//write(fd, "\n", 2);
-	return (0);
-}
+// 	getcwd(dir, 100);
+// 	write(fd, dir, ft_strlen(dir));
+// 	//write(fd, "\n", 2);
+// 	return (0);
+// }
 
 void check_exit(char *arg, t_msh *msh)
 {
@@ -94,12 +94,12 @@ void bi_exit(t_msh *msh, t_com *com)
 
 	if (com->args_new == NULL) {
         msh->return_code = 0;
-        ft_putstr_fd("exit\n ", 1);
+        ft_putstr_fd("exit", 1);
         exit(0);
 	}
 	else if (com->args_new[1] != NULL)
     {
-        ft_putstr_fd("exit\n", 1);
+        ft_putstr_fd("exit", 1);
         ft_putstr_fd("command \"exit\" shouldn't get more than 1 argument\n", 2);
         msh->return_code = 1;
     }
@@ -110,7 +110,7 @@ void bi_exit(t_msh *msh, t_com *com)
 		while (n > 256)
 			n = n % 256;
         msh->return_code = n;
-        ft_putstr_fd("exit\n", 1);
+        ft_putstr_fd("exit", 1);
         exit(n);
 	}
 }
@@ -194,6 +194,40 @@ void ft_lstsort(t_list *lst)
 	print_env(sorted, 1, 1);
 }
 
+int		ft_isenv(int c)
+{
+	if (('0' <= c && c <= '9') || ('a' <= c && c <= 'z') ||
+	('A' <= c && c <= 'Z') || c == '_')
+		return (1);
+	return (0);
+}
+
+int export_check(char **args)
+{
+	int i;
+	char c;
+
+	i = 0;
+	c = args[0][0];
+
+	if ((ft_isalpha(c) == 0) && c != '_')
+	{
+		ft_putstr_fd("wrong export \n", 2);
+		return(1);
+	}
+	while(*args++)
+	{
+        while (args[0][i] != '\0') {
+            if (ft_isenv(args[0][i]) == 0) {
+                ft_putstr_fd("wrong export \n", 2);
+                return (1);
+            }
+            i++;
+        }
+    }
+	return (0);
+}
+
 int bi_export(t_msh *msh, t_com *com)
 {
 	int i = 0;
@@ -209,9 +243,12 @@ int bi_export(t_msh *msh, t_com *com)
 		{
 			envp = malloc(sizeof(t_env));
 			msh->env_args = ft_split(com->args_new[i], '=');
-			envp->key = msh->env_args[0];
-			envp->val = msh->env_args[1];
-			ft_lstadd_back(&msh->env, ft_lstnew(envp));
+			if (export_check(msh->env_args) == 0) 
+			{
+				envp->key = msh->env_args[0];
+				envp->val = msh->env_args[1];
+				ft_lstadd_back(&msh->env, ft_lstnew(envp));
+			}
 			free(msh->env_args);
 			i++;
 		}
@@ -294,7 +331,7 @@ void	ft_env(t_msh *msh, t_com *com)
 	msh->return_code = 0;
 }
 
-int ft_builtin(t_msh *msh, t_com *com)
+void ft_builtin(t_msh *msh, t_com *com)
 {
 //	ft_putstr_fd(com->com, 2);
 	if (ft_strcmp(com->com, "echo") == 0) // переделал , все работает как надо

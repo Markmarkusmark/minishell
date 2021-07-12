@@ -119,7 +119,7 @@ int 			ft_check_token1(t_msh *msh, int *len);
 void    		ft_parser(t_msh *msh);
 void			ft_command_manage(t_msh *msh);
 int     		ft_binary(t_msh *msh);
-int 			ft_builtin(t_msh *msh, t_com *com);
+void			ft_builtin(t_msh *msh, t_com *com);
 void			ft_lstdel(t_list *lst, t_list *lst_main);
 char			*ft_struct_to_str(t_line_symbol *struc, int start, int len);
 int				ft_redir_checker(t_com *com);
@@ -127,7 +127,6 @@ void			ft_redir_mng(t_com *com, t_msh *msh);
 void 			ft_launch_com(t_msh *msh, t_com *com);
 void			ft_echo(t_msh *msh, t_com *com);
 void			ft_cd(t_msh *msh, t_com *com);
-int             list_count(t_list *lst);
 void			free_arr(char **arr);
 
 # endif

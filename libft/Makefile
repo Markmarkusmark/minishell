@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: legunshi <legunshi@student.42.fr>          +#+  +:+       +#+         #
+#    By: mryan <mryan@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/31 16:05:22 by legunshi          #+#    #+#              #
-#    Updated: 2020/11/11 21:26:13 by legunshi         ###   ########.fr        #
+#    Updated: 2021/07/12 18:05:50 by mryan            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,9 +45,8 @@ SRC = ft_memset.c \
 		ft_putnbr_fd.c \
 		ft_itoa.c \
 		ft_strmapi.c \
-		ft_split.c
-
-SRC_BONUS = ft_lstnew.c \
+		ft_split.c \
+		ft_lstnew.c \
 		ft_lstadd_front.c \
 		ft_lstsize.c \
 		ft_lstlast.c \
@@ -60,8 +59,6 @@ SRC_BONUS = ft_lstnew.c \
 
 OBJ = $(SRC:.c=.o)
 
-OBJ_BONUS = $(SRC_BONUS:.c=.o) 
-
 CC = gcc
 
 FLAGS = -Werror -Wall -Wextra
@@ -72,9 +69,6 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	ar rc $(NAME) $(OBJ)
-
-bonus: all $(OBJ_BONUS)
-	ar rc $(NAME) $(OBJ_BONUS)
 
 %.o:%.c libft.h
 	$(CC) $(FLAGS) -c $< -o $@

@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/Users/legunshi/minishell/get_next_line/get_next_line.h
+/Users/mryan/1207/get_next_line/get_next_line.h
 stdlib.h
 -
 unistd.h
@@ -14,13 +14,13 @@ unistd.h
 fcntl.h
 -
 
-/Users/legunshi/minishell/include/minishell.h
+/Users/mryan/1207/include/minishell.h
 ../libft/libft.h
-/Users/legunshi/minishell/libft/libft.h
+/Users/mryan/1207/libft/libft.h
 ../get_next_line/get_next_line.h
-/Users/legunshi/minishell/get_next_line/get_next_line.h
+/Users/mryan/1207/get_next_line/get_next_line.h
 fcntl.h
-/Users/legunshi/minishell/include/fcntl.h
+/Users/mryan/1207/include/fcntl.h
 sys/wait.h
 -
 unistd.h
@@ -44,7 +44,7 @@ readline/readline.h
 readline/history.h
 -
 
-/Users/legunshi/minishell/libft/libft.h
+/Users/mryan/1207/libft/libft.h
 string.h
 -
 unistd.h
@@ -58,7 +58,7 @@ stddef.h
 stdarg.h
 -
 
-/Users/legunshi/minishell/srcs/redir.c
+/Users/mryan/1207/srcs/builtin.c
 ../include/minishell.h
-/Users/legunshi/minishell/include/minishell.h
+/Users/mryan/1207/include/minishell.h
 

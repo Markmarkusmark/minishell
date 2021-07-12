@@ -6,25 +6,11 @@
 /*   By: mryan <mryan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/12 15:36:45 by mryan             #+#    #+#             */
-/*   Updated: 2021/07/06 14:45:07 by mryan            ###   ########.fr       */
+/*   Updated: 2021/07/12 17:45:16 by mryan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-int list_count(t_list *lst)
-{
-	t_list *list;
-	int i;
-
-	i = 0;
-	while (list)
-	{
-		i++;
-		list = list->next;
-	}
-	return (i);
-}
 
 void env_toarray(t_msh *msh, char **environment)
 {
@@ -53,7 +39,7 @@ int execute_path(char *path, t_msh *msh)
 	t_com *com;
 
 	char **environment;
-	environment = malloc(255 * list_count(msh->env));
+	environment = malloc(255 * ft_lstsize(msh->env));
 
     com = msh->com->content;
 	env_toarray(msh, environment);

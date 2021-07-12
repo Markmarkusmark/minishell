@@ -230,7 +230,7 @@ int 	ft_get_command(t_com *command)
 {
 	int				args_num;
 	int 			its_cmd;
-	int 			tmp_len;
+	//int 			tmp_len;
 	char 			*tmp;
 	t_line_symbol	**str;
 
