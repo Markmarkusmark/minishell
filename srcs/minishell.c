@@ -30,10 +30,28 @@ void	del_lst_command(void *cmd)
 	}
 }
 
+void handle_signals(int signo) {
+  if (signo == SIGINT) {
+	rl_on_new_line();
+	rl_redisplay();
+	write(1, "  ", 2);
+	printf("\n");
+	rl_on_new_line();
+//	rl_replace_line("  ", 0);
+	rl_redisplay();
+  }
+  if (signo == SIGQUIT) {
+	rl_on_new_line();
+	rl_redisplay();
+	printf("");
+	rl_on_new_line();
+	rl_redisplay();
+  }
+}
+
 int		main(int argc, char **argv, char **env)
 {
 	t_msh	*msh;
-	char	*str;
 	//int     success;
 
 	msh = NULL; //
@@ -45,14 +63,9 @@ int		main(int argc, char **argv, char **env)
 	ft_bzero(msh, sizeof(t_msh));
     ft_putstr_fd("this is our fucking shell\n", 1);
     ft_environment(msh, env);
-
-	signal(SIGINT, SIG_IGN);
-    signal(SIGQUIT, SIG_IGN);
-    signal(SIGTERM, SIG_IGN);
-    
 	while (MINISHELL_LOOP)
     {
-        // тут будут сигналы , добавим позже
+		signal(SIGINT, handle_signals);
         msh->line = NULL; // зануляем каждый раз для новой команды
         msh->com = NULL;
 //		ft_putstr_fd(MAGENTA"a", 1);
@@ -64,13 +77,16 @@ int		main(int argc, char **argv, char **env)
 //		ft_putstr_fd(MAGENTA"t", 1);
 //		ft_putstr_fd(YELLOW"> "RESET, 1);
 //        success = get_next_line(0, &msh->str);
-		str = readline("custom_shell> ");
-		if (str != NULL)
-			msh->str = str;
-		else
+
+		msh->str = readline("custom_shell> ");
+		if (!msh->str)
+		{
+			ft_putstr_fd("exit", 1);
 			break;
-//        if (!success)
-//            close_prog(msh, "gnl error\n");
+		}
+		add_history(msh->str);
+//      if (!success)
+//      	close_prog(msh, "gnl error\n");
         ft_parser(msh);
         ft_command_manage(msh);
 		free(msh->line);

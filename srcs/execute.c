@@ -131,6 +131,16 @@ void 	free_arr(char **arr)
 	free(arr);
 }
 
+void handle_quit(int signo) {
+  if (signo == SIGQUIT) {
+	rl_on_new_line();
+	rl_redisplay();
+	printf("Quit: 3\n");
+	rl_on_new_line();
+	rl_redisplay();
+  }
+}
+
 int 	ft_exec_com(t_msh *msh, char **argv, char *path)
 {
 	int 	status;
@@ -144,7 +154,6 @@ int 	ft_exec_com(t_msh *msh, char **argv, char *path)
 	{
 		signal(SIGQUIT, SIG_DFL);
         signal(SIGINT, SIG_DFL);
-        signal(SIGTERM, SIG_DFL);
 		execve(path, argv, envs);
 		exit(127);
 	}
@@ -153,13 +162,23 @@ int 	ft_exec_com(t_msh *msh, char **argv, char *path)
 		err_msg = strerror(errno);
 		close_prog(msh, err_msg);
 	}
+	signal(SIGINT, SIG_IGN);
+    signal(SIGQUIT, SIG_IGN);
 	waitpid(pid, &status, 0);
 	msh->return_code = WEXITSTATUS(status);
+	if (status == 2)
+	{
+		ft_putstr_fd("\n", 1);
+	}
+	if (status == 3)
+	{
+		ft_putstr_fd("Quit: 3\n", 1);
+	}
 	free(path);
 	//printf("%d\n", msh->return_code);
+	free_arr(envs); ///////// достала  free_arr из if-a снизу
 	if (msh->return_code)
-	{
-		free_arr(envs);
+    {
 		return (1);
 	}
 	return (0);

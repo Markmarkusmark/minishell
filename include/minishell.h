@@ -128,5 +128,6 @@ void 			ft_launch_com(t_msh *msh, t_com *com);
 void			ft_echo(t_msh *msh, t_com *com);
 void			ft_cd(t_msh *msh, t_com *com);
 void			free_arr(char **arr);
+void			rl_replace_line(const char *a, int b);
 
 # endif

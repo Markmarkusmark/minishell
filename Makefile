@@ -28,8 +28,8 @@ OBJS = $(SRCS:.c=.o)
 all : $(NAME)
 
 $(NAME) : $(OBJS) $(LIBFT) $(HEADER)
-	$(CC) -lreadline -ltermcap -L ~.brew/Cellar/readline/8.1/lib/ \
-	-I ~.brew/Cellar/readline/8.1/include \
+	$(CC) -lreadline -ltermcap -L /Users/mryan/.brew/opt/readline/lib \
+	-I /Users/mryan/.brew/opt/readline/include \
 		$(OBJS) -o $(NAME) $(LIBFT)
 
 $(LIBFT) :

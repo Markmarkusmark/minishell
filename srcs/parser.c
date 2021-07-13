@@ -238,11 +238,14 @@ int 	ft_get_command(t_com *command)
 	args_num = 0;
 	while (args_num < command->num_args)
 	{
-		tmp = ft_get_str_from_struct(command->args[args_num],
+//        ft_putstr_fd(command->com, 2);
+        tmp = ft_get_str_from_struct(command->args[args_num],
 									 ft_mshstrlen(command->args[args_num]));
 		//tmp = ft_struct_to_str(command->args[args_num], 0, ft_mshstrlen(command->args[args_num]));
 		if (!tmp)
 			return (1);
+        printf("%s\n", tmp);
+        printf("%s\n", command->com);
 		if (ft_strcmp(tmp, ">>") && ft_strcmp(tmp, "<") && ft_strcmp(tmp, ">")
 			&& ft_strcmp(tmp, "<<"))
 		{
@@ -251,7 +254,7 @@ int 	ft_get_command(t_com *command)
 			its_cmd = 1;
 			break;
 		}
-		//printf("%s\n", tmp);
+//		printf("%s\n", tmp);
 		free(tmp);
 		args_num = args_num + 2;
 	}
@@ -263,7 +266,7 @@ int 	ft_get_command(t_com *command)
 		return (1);
 	if (ft_update_line(&str, command, args_num, its_cmd))
 		return (1);
-	//ft_putstr_fd(command->com, 2);
+//	ft_putstr_fd(command->com, 2);
 	if (its_cmd)
 	{
 		command->num_args = command->num_args - 1;
