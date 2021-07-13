@@ -58,7 +58,7 @@ stddef.h
 stdarg.h
 -
 
-/Users/mryan/1307/srcs/parser.c
+/Users/mryan/1307/srcs/redir.c
 ../include/minishell.h
 /Users/mryan/1307/include/minishell.h
 

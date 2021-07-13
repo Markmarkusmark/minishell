@@ -85,12 +85,14 @@ char	*ft_struct_to_str2(t_com *com, int start, int len)
 
 int 	ft_get_result(t_rdr *rdr, t_com *com, int num, int i)
 {
+    printf("%s -- ?musor? \n", com->com);
 	if (((ft_mshcmp(com->args[num], ">") == 0) || (ft_mshcmp(com->args[num], ">>") == 0)
 		 || (ft_mshcmp(com->args[num], "<") == 0) || (ft_mshcmp(com->args[num], "<<") == 0)) &&
 		 com->args[num][0].flag == 0)
 	{
 		rdr->type = ft_struct_to_str(com->args[num], 0, ft_mshstrlen(com->args[num]));
-//		printf("%s\n", com->com);
+        printf("%s -- musor \n", com->com);
+//		com->com = NULL;
 //		rdr->type = ft_struct_to_str2(com, 0, ft_mshstrlen(com->args[num]));
 //		printf("%s\n", rdr->type);
 		if (!rdr->type)
@@ -253,7 +255,7 @@ void 	ft_launch_rdr(t_msh *msh, t_rdr *rdr, t_com *com)
 //	ft_putstr_fd(com->com, 2);
 	if (com->com)
 	{
-        printf("%s\n", com->com);
+//        printf("%s -- musor\n", com->com);
 		if (fd[1] != NONE)
 		{
 			dup2(STDOUT_FILENO, msh->fd_1);

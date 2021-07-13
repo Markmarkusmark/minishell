@@ -6,7 +6,7 @@ LIBFT = libft/libft.a
 
 CC = gcc
 
-CFLAGS = -Werror -Wall -Wextra -g -I $(HEADER) #-fsanitize=address
+CFLAGS = -fsanitize=address -Werror -Wall -Wextra -g -I $(HEADER)
 
 SRCS =	srcs/minishell.c \
 	srcs/minishell_process.c \
@@ -28,7 +28,7 @@ OBJS = $(SRCS:.c=.o)
 all : $(NAME)
 
 $(NAME) : $(OBJS) $(LIBFT) $(HEADER)
-	$(CC) -lreadline -ltermcap -L /Users/mryan/.brew/opt/readline/lib \
+	$(CC) -fsanitize=address -lreadline -ltermcap -L /Users/mryan/.brew/opt/readline/lib \
 	-I /Users/mryan/.brew/opt/readline/include \
 		$(OBJS) -o $(NAME) $(LIBFT)
 

@@ -239,13 +239,14 @@ int 	ft_get_command(t_com *command)
 	while (args_num < command->num_args)
 	{
 //        ft_putstr_fd(command->com, 2);
+//        printf("%s\n", tmp);
+//        printf("%s\n", command->com);
         tmp = ft_get_str_from_struct(command->args[args_num],
 									 ft_mshstrlen(command->args[args_num]));
-		//tmp = ft_struct_to_str(command->args[args_num], 0, ft_mshstrlen(command->args[args_num]));
-		if (!tmp)
-			return (1);
-        printf("%s\n", tmp);
-        printf("%s\n", command->com);
+        //tmp = ft_struct_to_str(command->args[args_num], 0, ft_mshstrlen(command->args[args_num]));
+        if (!tmp) {
+            return (1);
+        }
 		if (ft_strcmp(tmp, ">>") && ft_strcmp(tmp, "<") && ft_strcmp(tmp, ">")
 			&& ft_strcmp(tmp, "<<"))
 		{
