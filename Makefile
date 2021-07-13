@@ -21,7 +21,8 @@ SRCS =	srcs/minishell.c \
 	srcs/builtin.c \
 	srcs/execute.c \
 	srcs/redir.c \
-	srcs/utils.c
+	srcs/utils.c \
+	srcs/pipe.c
 
 OBJS = $(SRCS:.c=.o)
 

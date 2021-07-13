@@ -52,49 +52,51 @@ int	ft_args_new(t_com *com)
     return (1);
 }
 
+void    ft_exec_all(t_msh *msh, t_com *com)
+{
+    if (ft_redir_checker(com))
+        ft_redir_mng(com, msh);
+    else
+    {
+        if (!ft_args_new(com))
+            close_prog(msh, "error memory\n");
+        ft_builtin(msh, com);
+    }
+}
+
+void    ft_lauch_pipe(t_msh *msh, t_com *com, pid_t *pidpipe)
+{
+    if (com->pipe_in == '|')
+    {
+        ft_pipe_out(msh, com);
+        msh->numwaits_pipe++;
+        if (msh->pipe_read_fd)
+            close(msh->pipe_read_fd);
+        msh->pipe_read_fd = msh->pipe_fd[0];
+        close(msh->pipe_fd[1]);
+    }
+    else if (com->pipe_out == '|')
+    {
+        ft_pipe_in(msh, com, pidpipe);
+        close(msh->pipe_read_fd);
+        msh->pipe_read_fd = 0;
+    }
+}
+
 void	ft_command_manage(t_msh *msh)
 {
     t_list	*list;
+    pid_t   pidpipe;
 
     list = msh->com;
-    msh->read_fd = 0;
-	//printf("eerferf\n");
     while (list)
     {
+        pidpipe = 0;
         if (((t_com *)list->content)->pipe_out != '|'
             && ((t_com *)list->content)->pipe_in != '|')
-        {
-            if (ft_redir_checker((t_com *)list->content))
-                ft_redir_mng((t_com *)list->content, msh);
-            else
-            {
-                if (!ft_args_new((t_com *)list->content))
-                    close_prog(msh, "error memory\n");
-//                for (int i = 0; i < 7; i++)
-//                {
-//                    printf("%c", ((t_com *)list->content)->args_new[0][i]);
-//                }
-//                printf("\n");
-//                for (int j = 0; j < 7; j++)
-//                {
-//                    printf("%c", ((t_com *)list->content)->args_new[1][j]);
-//                }
-//                printf("\n");
-//                printf("%d\n", ((t_com *)list->content)->num_args);
-//                ft_builtin((t_com *)list->content, msh);
-//                if ((ft_builtin(msh, (t_com *)list->content) == 0))  /* || (ft_binary(msh) == 0)*/
-//                    close_prog(msh, "command not found\n");
-				//printf("тут аргумент : %s\n", ((t_com *)list->content)->args_new[0]);
-				ft_builtin(msh, (t_com *)list->content);
-            }
-        }
-//        else if (((t_cmd *)lst->content)->sep_0 == '|')
-//            ft_handle_pipe_input(msh, (t_com *)list->content);
-//        if (((t_cmd *)lst->content)->sep_1 == '|')
-//        {
-//            pipe(fd);
-//            ft_handle_pipe_output(msh, (t_com *)list->content);
-//        }
+            ft_exec_all(msh, (t_com *)list->content);
+        ft_lauch_pipe(msh, (t_com *)list->content, &pidpipe);
+        ft_check_wait(msh, (t_com *)list->content, &pidpipe);
         list = list->next;
     }
 }

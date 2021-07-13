@@ -81,9 +81,10 @@ typedef struct		s_msh
 	char 			token; // (; | > < >>) это для одной из внутренних функций , для дальнейшего не нужно , для удобства положил в структуру
 	int 			fd_0; // stdin
 	int 			fd_1; // stdout
-	int             fd[2]; // для функции pipe
-	int             read_fd;
+	int             pipe_fd[2]; // для функции pipe
+	int             pipe_read_fd;
 	int				type[2];
+	int             numwaits_pipe;
 	/* type[0] contains the index of the last redir of < or << type
 	type[1] contains the index of the last redir of > or >> type */
 }					t_msh;
@@ -129,5 +130,9 @@ void			ft_echo(t_msh *msh, t_com *com);
 void			ft_cd(t_msh *msh, t_com *com);
 void			free_arr(char **arr);
 void			rl_replace_line(const char *a, int b);
+void            ft_exec_all(t_msh *msh, t_com *com);
+void            ft_pipe_out(t_msh *msh, t_com *com);
+void            ft_pipe_in(t_msh *msh, t_com *com, pid_t *pidpipe);
+void            ft_check_wait(t_msh *msh, t_com *com, pid_t *pidpipe);
 
 # endif

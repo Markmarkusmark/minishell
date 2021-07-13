@@ -67,10 +67,10 @@ RM = /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/mryan/1307
+CMAKE_SOURCE_DIR = /Users/marselaminov/Documents/minishell
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/mryan/1307/cmake-build-debug
+CMAKE_BINARY_DIR = /Users/marselaminov/Documents/minishell/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -99,9 +99,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/mryan/1307/cmake-build-debug/CMakeFiles /Users/mryan/1307/cmake-build-debug//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/marselaminov/Documents/minishell/cmake-build-debug/CMakeFiles /Users/marselaminov/Documents/minishell/cmake-build-debug//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/mryan/1307/cmake-build-debug/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/marselaminov/Documents/minishell/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -1627,6 +1627,33 @@ srcs/parser.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/parser.c.s
 .PHONY : srcs/parser.c.s
 
+srcs/pipe.o: srcs/pipe.c.o
+
+.PHONY : srcs/pipe.o
+
+# target to build an object file
+srcs/pipe.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/pipe.c.o
+.PHONY : srcs/pipe.c.o
+
+srcs/pipe.i: srcs/pipe.c.i
+
+.PHONY : srcs/pipe.i
+
+# target to preprocess a source file
+srcs/pipe.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/pipe.c.i
+.PHONY : srcs/pipe.c.i
+
+srcs/pipe.s: srcs/pipe.c.s
+
+.PHONY : srcs/pipe.s
+
+# target to generate assembly for a file
+srcs/pipe.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/pipe.c.s
+.PHONY : srcs/pipe.c.s
+
 srcs/preparser.o: srcs/preparser.c.o
 
 .PHONY : srcs/preparser.o
@@ -1909,6 +1936,9 @@ help:
 	@echo "... srcs/parser.o"
 	@echo "... srcs/parser.i"
 	@echo "... srcs/parser.s"
+	@echo "... srcs/pipe.o"
+	@echo "... srcs/pipe.i"
+	@echo "... srcs/pipe.s"
 	@echo "... srcs/preparser.o"
 	@echo "... srcs/preparser.i"
 	@echo "... srcs/preparser.s"

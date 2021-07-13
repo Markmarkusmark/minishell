@@ -186,6 +186,11 @@ CMakeFiles/minishell.dir/srcs/parser.c.o: ../include/minishell.h
 CMakeFiles/minishell.dir/srcs/parser.c.o: ../libft/libft.h
 CMakeFiles/minishell.dir/srcs/parser.c.o: ../srcs/parser.c
 
+CMakeFiles/minishell.dir/srcs/pipe.c.o: ../get_next_line/get_next_line.h
+CMakeFiles/minishell.dir/srcs/pipe.c.o: ../include/minishell.h
+CMakeFiles/minishell.dir/srcs/pipe.c.o: ../libft/libft.h
+CMakeFiles/minishell.dir/srcs/pipe.c.o: ../srcs/pipe.c
+
 CMakeFiles/minishell.dir/srcs/preparser.c.o: ../get_next_line/get_next_line.h
 CMakeFiles/minishell.dir/srcs/preparser.c.o: ../include/minishell.h
 CMakeFiles/minishell.dir/srcs/preparser.c.o: ../libft/libft.h

@@ -87,6 +87,8 @@ int		main(int argc, char **argv, char **env)
 		add_history(msh->str);
 //      if (!success)
 //      	close_prog(msh, "gnl error\n");
+        msh->numwaits_pipe = 0;
+        msh->pipe_read_fd = 0;
         ft_parser(msh);
         ft_command_manage(msh);
 		free(msh->line);

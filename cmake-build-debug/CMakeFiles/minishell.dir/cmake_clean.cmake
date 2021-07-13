@@ -54,6 +54,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/minishell.dir/srcs/minishell_process.c.o"
   "CMakeFiles/minishell.dir/srcs/parse_env.c.o"
   "CMakeFiles/minishell.dir/srcs/parser.c.o"
+  "CMakeFiles/minishell.dir/srcs/pipe.c.o"
   "CMakeFiles/minishell.dir/srcs/preparser.c.o"
   "CMakeFiles/minishell.dir/srcs/redir.c.o"
   "CMakeFiles/minishell.dir/srcs/syntax.c.o"

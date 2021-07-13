@@ -160,7 +160,7 @@ int 	ft_exec_com(t_msh *msh, char **argv, char *path)
 	else if (pid < 0)
 	{
 		err_msg = strerror(errno);
-		close_prog(msh, err_msg);
+        ft_putstr_fd(err_msg, 2);
 	}
 	signal(SIGINT, SIG_IGN);
     signal(SIGQUIT, SIG_IGN);

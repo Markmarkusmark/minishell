@@ -71,6 +71,7 @@ add_executable(minishell
         srcs/execute.c
         srcs/echo.c
         srcs/cd.c
+        srcs/pipe.c
         )
 add_definitions("-L /Users/mryan/.brew/opt/readline/lib")
 add_definitions("-I /Users/mryan/.brew/opt/readline/include")

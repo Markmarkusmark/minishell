@@ -310,64 +310,6 @@ void	ft_execute_rdr(t_msh *msh, t_rdr *rdr, t_com *com)
 	free(rdr);
 }
 
-//int	create_redir_array(t_com *com, t_rdr *redir, int i, int j)
-//{
-//    if ((!ft_mshcmp(com->args[i], ">") || !ft_mshcmp(com->args[i], ">>")
-//         || !ft_mshcmp(com->args[i], "<")) && !com->args[i][0].flag)
-//    {
-//        redir->type = ft_struct_to_str(com->args[i], 0, ft_mshstrlen(com->args[i]));
-//        //printf("%s\n", com->cmd);
-//        if (!redir->type)
-//            return (0);
-//        redir->file = ft_struct_to_str(com->args[i + 1],
-//                                    0, ft_mshstrlen(com->args[i + 1]));
-//        if (!redir->file)
-//            return (0);
-//        free(com->args[i]);
-//        free(com->args[i + 1]);
-//        return (1);
-//    }
-//    else
-//    {
-//        com->args_new[j] = ft_struct_to_str(com->args[i],
-//                                         0, ft_mshstrlen(com->args[i]));
-//        if (!com->args_new[j])
-//            return (0);
-//        free(com->args[i]);
-//        return (2);
-//    }
-//}
-//
-//int	cleaner_loop(t_com *com, t_rdr *redir)
-//{
-//    int		i;
-//    int		j;
-//    int		k;
-//    int		r;
-//
-//    i = 0;
-//    j = 0;
-//    k = 0;
-//    //printf("%d\n", com->n_args);
-//    while (i < com->num_args)
-//    {
-//        r = create_redir_array(com, &redir[k], i, j);
-//        if (r == 0)
-//            return (0);
-//        else if (r == 1)
-//        {
-//            k++;
-//            i += 2;
-//        }
-//        else if (r == 2)
-//        {
-//            i++;
-//            j++;
-//        }
-//    }
-//    return (1);
-//}
-
 void	ft_redir_mng(t_com *com, t_msh *msh)
 {
 	int		n;
