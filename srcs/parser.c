@@ -311,7 +311,7 @@ void     ft_parser(t_msh *msh)
 	i = 0;
 	while (msh->line[i].c != '\0')
     {
-	    command = malloc(sizeof (t_com));
+	    command = malloc(sizeof(t_com));
         if (!command)
             close_prog(msh, "malloc error\n");
         new_list = ft_lstnew(command);

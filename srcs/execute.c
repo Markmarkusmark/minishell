@@ -177,9 +177,9 @@ int 	ft_exec_com(t_msh *msh, char **argv, char *path)
 	free(path);
 	//printf("%d\n", msh->return_code);
 	free_arr(envs); ///////// достала  free_arr из if-a снизу
-	if (msh->return_code)
+	if (msh->return_code == -1)
     {
-		return (1);
+		return (-1);
 	}
 	return (0);
 }
@@ -205,11 +205,13 @@ void 	ft_launch_com(t_msh *msh, t_com *com)
 			break;
 		//free(buff);
 		//buff = NULL;
-		i++;
-	}
-	if (exec_paths[i] == NULL)
+//        printf("%s -- command \n", com->com);
+
+        i++;
+    }
+    if (exec_paths[i] == NULL)
 	{
-		ft_putstr_fd("command not found in the paths\n", 2);
+        ft_putstr_fd("command not found in the paths\n", 2);
 	}
 	free_arr(argv);
 	free_arr(exec_paths);

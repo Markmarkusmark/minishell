@@ -1,4 +1,4 @@
-# Install script for directory: /Users/marselaminov/Documents/minishell
+# Install script for directory: /Users/mryan/1407minishell
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/Users/marselaminov/Documents/minishell/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/Users/mryan/1407minishell/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

@@ -320,7 +320,7 @@ void	ft_redir_mng(t_com *com, t_msh *msh)
 //	ft_putstr_fd(com->com, 2);
 	msh->return_code = 0;
 	ft_rdr_count(com);
-	rdr = malloc(com->num_redir * sizeof(t_rdr *));
+	rdr = malloc(com->num_redir * sizeof(t_rdr));
 	if (!rdr)
 		close_prog(msh, "malloc error\n");
 	msh->type[0] = NONE;
