@@ -1,30 +1,30 @@
 #include "../include/minishell.h"
 
-char	*ft_struct_to_str(t_line_symbol *struc, int start, int len)
+char	*ft_get_line_from_struct(t_line_symbol *line, int beg, int size)
 {
     int		i;
     int		j;
-    char	*str;
+    char	*new_line;
 
-    if (!struc)
+    if (!line)
         return (NULL);
-	if (struc[0].c == '\0')
+	if (line[0].symb == '\0')
 		return (ft_strdup(""));
-	if (start > ft_mshstrlen(struc))
+	if (beg > ft_mshstrlen(line))
 		return (ft_strdup(""));
-    str = malloc(len + 1);
-    if (!str)
+	new_line = malloc(size + 1);
+    if (!new_line)
         return (NULL);
-    i = start;
+    i = beg;
     j = 0;
-    while (i < (len + start))
+    while (i < (size + beg))
     {
-        str[j] = struc[i].c;
+		new_line[j] = line[i].symb;
         i++;
         j++;
     }
-    str[j] = '\0';
-    return (str);
+	new_line[j] = '\0';
+    return (new_line);
 }
 
 int	ft_args_new(t_com *com)
@@ -40,7 +40,7 @@ int	ft_args_new(t_com *com)
     i = 0;
     while (i < com->num_args)
     {
-        com->args_new[i] = ft_struct_to_str(com->args[i], 0, ft_mshstrlen(com->args[i]));
+        com->args_new[i] = ft_get_line_from_struct(com->args[i], 0, ft_mshstrlen(com->args[i]));
         free(com->args[i]);
 		com->args[i] = NULL;
         i++;
@@ -99,4 +99,6 @@ void	ft_command_manage(t_msh *msh)
         ft_check_wait(msh, (t_com *)list->content, &pidpipe);
         list = list->next;
     }
+    free(msh->line);
+    msh->line = NULL;
 }

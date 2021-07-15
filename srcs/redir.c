@@ -2,102 +2,59 @@
 
 int	ft_redir_checker(t_com *com)
 {
-	int		i;
-	char	*arg;
+	int		j;
+	char	*str;
 
-	i = 0;
-	while (i < com->num_args)
+	j = 0;
+	while (j < com->num_args)
 	{
 		//printf("%c\n", com->args[i]->c);
-		arg = ft_struct_to_str(com->args[i], 0, ft_mshstrlen(com->args[i]));
-		if ((!ft_strcmp(arg, ">") || !ft_strcmp(arg, ">>")
-			 || !ft_strcmp(arg, "<") || !ft_strcmp(arg, "<<"))
-			&& com->args[i][0].flag == 0)
+		str = ft_get_line_from_struct(com->args[j], 0, ft_mshstrlen(com->args[j]));
+		if ((!ft_strcmp(str, ">") || !ft_strcmp(str, ">>")
+			 || !ft_strcmp(str, "<") || !ft_strcmp(str, "<<"))
+			&& com->args[j][0].flag == 0)
 		{
-			free(arg);
+			free(str);
 			return (1);
 		}
-		free(arg);
-		i++;
+		free(str);
+		j++;
 	}
 	return (0);
 }
 
 void	ft_rdr_count(t_com *com)
 {
-	int		i;
-	char	*arg;
-
-	i = 0;
-	com->num_redir = 0;
-	while (i < com->num_args)
-	{
-		arg = ft_struct_to_str(com->args[i], 0, ft_mshstrlen(com->args[i]));
-		if ((!ft_strcmp(arg, ">") || !ft_strcmp(arg, ">>")
-			 || !ft_strcmp(arg, "<") || !ft_strcmp(arg, "<<")) &&
-			 com->args[i][0].flag == 0)
-			com->num_redir++;
-		free(arg);
-		i++;
-	}
-}
-
-int	ft_mshcmp(t_line_symbol *s1, char *s2)
-{
-	int	i;
-
-	i = 0;
-	while (s1[i].c || s2[i])
-	{
-		if (s1[i].c != s2[i])
-			return (s1[i].c - s2[i]);
-		i++;
-	}
-	return (0);
-}
-
-char	*ft_struct_to_str2(t_com *com, int start, int len)
-{
-	int		i;
 	int		j;
 	char	*str;
 
-	if (!com)
-		return (NULL);
-	if (com->args[0]->c == '\0')
-		return (ft_strdup(""));
-//	if (start > ft_mshstrlen(struc))
-//		return (ft_strdup(""));
-	str = malloc(len + 1);
-	if (!str)
-		return (NULL);
-	i = start;
 	j = 0;
-	while (i < (len + start))
+	com->num_redir = 0;
+	while (j < com->num_args)
 	{
-		str[j] = com->args[i]->c;
-		i++;
+		str = ft_get_line_from_struct(com->args[j], 0, ft_mshstrlen(com->args[j]));
+		if ((!ft_strcmp(str, ">") || !ft_strcmp(str, ">>")
+			 || !ft_strcmp(str, "<") || !ft_strcmp(str, "<<")) &&
+			 com->args[j][0].flag == 0)
+			com->num_redir++;
+		free(str);
 		j++;
 	}
-	str[j] = '\0';
-	return (str);
 }
 
 int 	ft_get_result(t_rdr *rdr, t_com *com, int num, int i)
 {
-    printf("%s -- ?musor? \n", com->com);
 	if (((ft_mshcmp(com->args[num], ">") == 0) || (ft_mshcmp(com->args[num], ">>") == 0)
 		 || (ft_mshcmp(com->args[num], "<") == 0) || (ft_mshcmp(com->args[num], "<<") == 0)) &&
 		 com->args[num][0].flag == 0)
 	{
-		rdr->type = ft_struct_to_str(com->args[num], 0, ft_mshstrlen(com->args[num]));
-        printf("%s -- musor \n", com->com);
+		rdr->type = ft_get_line_from_struct(com->args[num], 0, ft_mshstrlen(com->args[num]));
 //		com->com = NULL;
 //		rdr->type = ft_struct_to_str2(com, 0, ft_mshstrlen(com->args[num]));
 //		printf("%s\n", rdr->type);
 		if (!rdr->type)
 			return (0);
-		rdr->file = ft_struct_to_str(com->args[num + 1],
+		rdr->file = ft_get_line_from_struct(com->args[num + 1],
 									0, ft_mshstrlen(com->args[num + 1]));
 		//printf("%s\n", rdr->file);
 		if (!rdr->file)
@@ -111,7 +68,7 @@ int 	ft_get_result(t_rdr *rdr, t_com *com, int num, int i)
 	else
 	{
 //		ft_putstr_fd(com->com, 2);
-		com->args_new[i] = ft_struct_to_str(com->args[num],
+		com->args_new[i] = ft_get_line_from_struct(com->args[num],
 										 0, ft_mshstrlen(com->args[num]));
 		if (!com->args_new[i])
 			return (0);
@@ -255,7 +212,7 @@ void 	ft_launch_rdr(t_msh *msh, t_rdr *rdr, t_com *com)
 //	ft_putstr_fd(com->com, 2);
 	if (com->com)
 	{
-//        printf("%s -- musor\n", com->com);
+
 		if (fd[1] != NONE)
 		{
 			dup2(STDOUT_FILENO, msh->fd_1);

@@ -8,12 +8,12 @@
 
 int     ft_check_symbol(t_line_symbol line)
 {
-    if ((line.c == '<' && line.flag == 0) ||
-        (line.c == '>' && line.flag == 0) ||
-        (line.c == ';' && line.flag == 0) ||
-        (line.c == '|' && line.flag == 0) ||
-        (line.c == ' ' && line.flag == 0) ||
-        (line.c == '\0'))
+    if ((line.symb == '<' && line.flag == 0) ||
+        (line.symb == '>' && line.flag == 0) ||
+        (line.symb == ';' && line.flag == 0) ||
+        (line.symb == '|' && line.flag == 0) ||
+        (line.symb == ' ' && line.flag == 0) ||
+        (line.symb == '\0'))
         return (0);
     else
         return (1);
@@ -26,14 +26,14 @@ int     ft_get_num_of_args(t_line_symbol *line)
 
     i = 0;
     num_args = 0;
-    while (line[i].c)
+    while (line[i].symb)
     {
-        if ((line[i].c == ';' || line[i].c == '|') && line[i].flag == 0)
+        if ((line[i].symb == ';' || line[i].symb == '|') && line[i].flag == 0)
             break ;
-        if ((line[i].c == '>' || line[i].c == '<') && line[i].flag == 0)
+        if ((line[i].symb == '>' || line[i].symb == '<') && line[i].flag == 0)
         {
             num_args++;
-            while ((line[i].c == '>' || line[i].c == '<') && line[i].flag == 0)
+            while ((line[i].symb == '>' || line[i].symb == '<') && line[i].flag == 0)
                 i++;
         }
         else
@@ -42,7 +42,7 @@ int     ft_get_num_of_args(t_line_symbol *line)
                 i++;
             num_args++;
         }
-        while (line[i].c == ' ' && line[i].flag == 0)
+        while (line[i].symb == ' ' && line[i].flag == 0)
             i++;
     }
     return (num_args);
@@ -61,16 +61,16 @@ t_line_symbol	*ft_get_clean_line(t_line_symbol *line)
 	new_line = malloc((ft_mshstrlen(line) + 1) * sizeof (t_line_symbol));
 	if (!new_line)
 		return (NULL);
-	while (line[i].c)
+	while (line[i].symb)
 	{
-		if (!(line[i].flag == 0 && (line[i].c == '"' || line[i].c == '\'')))
+		if (!(line[i].flag == 0 && (line[i].symb == '"' || line[i].symb == '\'')))
 		{
 			new_line[j] = line[i];
 			j++;
 		}
 		i++;
 	}
-	new_line[j].c = '\0';
+	new_line[j].symb = '\0';
 	return (new_line);
 }
 
@@ -79,11 +79,11 @@ int 	ft_pass_str(int *i, t_msh *msh)
 	int	j;
 
 	j = *i;
-	if (msh->line[*i].flag == 0 && (msh->line[*i].c == '>' ||
-		msh->line[*i].c == '<'))
+	if (msh->line[*i].flag == 0 && (msh->line[*i].symb == '>' ||
+		msh->line[*i].symb == '<'))
 	{
-		while (msh->line[j].flag == 0 && (msh->line[j].c == '>' ||
-			msh->line[j].c == '<'))
+		while (msh->line[j].flag == 0 && (msh->line[j].symb == '>' ||
+			msh->line[j].symb == '<'))
 			j++;
 	}
 	else
@@ -107,9 +107,9 @@ t_line_symbol 	*ft_mshsubstr2(t_msh *msh, int n, size_t len)
 	substr = malloc(sizeof (t_line_symbol) * (len + 1));
 	if (!substr)
 		return (NULL);
-	if (msh->line[0].c == '\0')
+	if (msh->line[0].symb == '\0')
 	{
-		substr[0].c = '\0';
+		substr[0].symb = '\0';
 		substr[0].flag = 0;
 		return (substr);
 	}
@@ -119,7 +119,7 @@ t_line_symbol 	*ft_mshsubstr2(t_msh *msh, int n, size_t len)
 		i++;
 		j++;
 	}
-	substr[j].c = '\0';
+	substr[j].symb = '\0';
 	return (substr);
 }
 
@@ -135,7 +135,7 @@ int 	ft_get_args(t_msh *msh, t_com *cmd, int *i)
 		return (1);
 	free(msh->line);
 	msh->line = line2;
-	while (msh->line[*i].c == ' ' && msh->line[*i].flag == 0)
+	while (msh->line[*i].symb == ' ' && msh->line[*i].flag == 0)
 		*i = *i + 1;
 	while (num < cmd->num_args)
 	{
@@ -144,7 +144,7 @@ int 	ft_get_args(t_msh *msh, t_com *cmd, int *i)
 		if (!cmd->args[num])
 			return (1);
 		*i = j;
-		while (msh->line[*i].c == ' ' && msh->line[*i].flag == 0)
+		while (msh->line[*i].symb == ' ' && msh->line[*i].flag == 0)
 			*i = *i + 1;
 		num++;
 	}
@@ -161,7 +161,7 @@ char	*ft_get_str_from_struct(t_line_symbol *line, int len)
 	j = 0;
 	if (!line)
 		return (NULL);
-	if (line[0].c == '\0')
+	if (line[0].symb == '\0')
 		return (ft_strdup(""));
 	if (0 > ft_mshstrlen(line))
 		return (ft_strdup(""));
@@ -170,7 +170,7 @@ char	*ft_get_str_from_struct(t_line_symbol *line, int len)
 		return (NULL);
 	while (i < len)
 	{
-		tmp[j] = line[i].c;
+		tmp[j] = line[i].symb;
 		i++;
 		j++;
 	}
@@ -191,12 +191,12 @@ t_line_symbol	*ft_mshdup(t_line_symbol *line)
 	if (!dup_line)
 		return (NULL);
 	i = 0;
-	while (line[i].c)
+	while (line[i].symb)
 	{
 		dup_line[i] = line[i];
 		i++;
 	}
-	dup_line[i].c = '\0';
+	dup_line[i].symb = '\0';
 	return (dup_line);
 }
 
@@ -238,12 +238,8 @@ int 	ft_get_command(t_com *command)
 	args_num = 0;
 	while (args_num < command->num_args)
 	{
-//        ft_putstr_fd(command->com, 2);
-//        printf("%s\n", tmp);
-//        printf("%s\n", command->com);
-        tmp = ft_get_str_from_struct(command->args[args_num],
-									 ft_mshstrlen(command->args[args_num]));
-        //tmp = ft_struct_to_str(command->args[args_num], 0, ft_mshstrlen(command->args[args_num]));
+        tmp = ft_get_line_from_struct(command->args[args_num], 0,
+									  ft_mshstrlen(command->args[args_num]));
         if (!tmp) {
             return (1);
         }
@@ -255,7 +251,6 @@ int 	ft_get_command(t_com *command)
 			its_cmd = 1;
 			break;
 		}
-//		printf("%s\n", tmp);
 		free(tmp);
 		args_num = args_num + 2;
 	}
@@ -267,7 +262,6 @@ int 	ft_get_command(t_com *command)
 		return (1);
 	if (ft_update_line(&str, command, args_num, its_cmd))
 		return (1);
-//	ft_putstr_fd(command->com, 2);
 	if (its_cmd)
 	{
 		command->num_args = command->num_args - 1;
@@ -284,23 +278,23 @@ int 	ft_get_separator(t_msh *msh, t_com *command, int separ, int i)
 {
 	if (separ == 1)
 	{
-		if (((msh->line[i].c == '|') || (msh->line[i].c == ';'))
+		if (((msh->line[i].symb == '|') || (msh->line[i].symb == ';'))
 		    && msh->line[i].flag == 0)
-			command->pipe_in = msh->line[i].c;
+			command->pipe_in = msh->line[i].symb;
 	}
 	if (separ == 0)
 	{
-		if (((msh->line[i].c == '|') || (msh->line[i].c == ';'))
+		if (((msh->line[i].symb == '|') || (msh->line[i].symb == ';'))
             && msh->line[i].flag == 0)
 		{
-			command->pipe_out = msh->line[i].c;
+			command->pipe_out = msh->line[i].symb;
 			i++;
 		}
 	}
 	return (i);
 }
 
-void     ft_parser(t_msh *msh)
+void     ft_handle_process(t_msh *msh)
 {
     t_list  *new_list;
     t_com   *command;
@@ -309,7 +303,7 @@ void     ft_parser(t_msh *msh)
 	if (ft_preparser(msh))
 		return ;
 	i = 0;
-	while (msh->line[i].c != '\0')
+	while (msh->line[i].symb != '\0')
     {
 	    command = malloc(sizeof(t_com));
         if (!command)
@@ -322,11 +316,11 @@ void     ft_parser(t_msh *msh)
         command->com = NULL;
         command->args = NULL;
         command->args_new = NULL;
-        while (msh->line[i].c == ' ' && msh->line[i].flag == 0)
+        while (msh->line[i].symb == ' ' && msh->line[i].flag == 0)
         	i++;
         //ft_skip_spaces(msh, &i);
 		i = ft_get_separator(msh, command, 0, i); // поменять потом на воид и ходить по указателю i
-        while (msh->line[i].c == ' ' && msh->line[i].flag == 0)
+        while (msh->line[i].symb == ' ' && msh->line[i].flag == 0)
             i++;
         command->num_args = ft_get_num_of_args(&msh->line[i]);
         if (command->num_args == 0)
@@ -350,4 +344,5 @@ void     ft_parser(t_msh *msh)
 		i = ft_get_separator(msh, command, 1, i); // поменять потом на воид и ходить по указателю i
 		ft_lstadd_back(&msh->com, new_list);
     }
+	ft_command_manage(msh);
 }

@@ -12,7 +12,7 @@ int				ft_mshstrlen(t_line_symbol *line)
 	int	i;
 
 	i = 0;
-	while (line[i].c)
+	while (line[i].symb)
 		i++;
 	return (i);
 }
@@ -30,9 +30,9 @@ t_line_symbol 	*ft_mshsubstr(t_msh *msh, size_t len)
 	substr = malloc(sizeof (t_line_symbol) * (len + 1));
 	if (!substr)
 		return (NULL);
-	if (msh->line[0].c == '\0')
+	if (msh->line[0].symb == '\0')
 	{
-		substr[0].c = '\0';
+		substr[0].symb = '\0';
 		substr[0].flag = 0;
 		return (substr);
 	}
@@ -41,7 +41,7 @@ t_line_symbol 	*ft_mshsubstr(t_msh *msh, size_t len)
 		substr[j] = msh->line[i];
 		j++;
 	}
-	substr[j].c = '\0';
+	substr[j].symb = '\0';
 	return (substr);
 }
 
@@ -58,20 +58,20 @@ t_line_symbol	*ft_mshstrjoin(t_line_symbol *line1, t_line_symbol *line2)
 	new_line = malloc(sizeof (t_line_symbol) * (ft_mshstrlen(line1) + ft_mshstrlen(line2) + 1));
 	if (!new_line)
 		return (NULL);
-	while (line1[j].c)
+	while (line1[j].symb)
 	{
 		new_line[i] = line1[j];
 		i++;
 		j++;
 	}
 	j = 0;
-	while (line2[j].c)
+	while (line2[j].symb)
 	{
 		new_line[i] = line2[j];
 		i++;
 		j++;
 	}
-	new_line[i].c = '\0';
+	new_line[i].symb = '\0';
 	return (new_line);
 }
 
@@ -98,4 +98,18 @@ void	ft_lstdel(t_list *lst, t_list *lst_main)
         temp = temp->next;
     temp->next = lst->next;
     free(lst);
+}
+
+int	ft_mshcmp(t_line_symbol *l1, char *l2)
+{
+	int	i;
+
+	i = 0;
+	while (l1[i].symb || l2[i])
+	{
+		if (l1[i].symb != l2[i])
+			return (l1[i].symb - l2[i]);
+		i++;
+	}
+	return (0);
 }

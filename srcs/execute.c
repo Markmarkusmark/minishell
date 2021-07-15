@@ -58,8 +58,8 @@ char 	*ft_join_com(t_msh *msh, t_com *com, char *path)
 	tmp = ft_strjoin(path, "/");
 	if (!tmp)
 		close_prog(msh, "error\n");  // тут поменять на ft_exit
-    //printf("%s\n", com->com);
 	tmp2 = ft_strjoin(tmp, com->com);
+	//printf("%s\n", tmp2);
 	free(tmp);
 	if (!tmp2)
 		close_prog(msh, "error\n");  // тут поменять на ft_exit
@@ -131,17 +131,37 @@ void 	free_arr(char **arr)
 	free(arr);
 }
 
-void handle_quit(int signo) {
-  if (signo == SIGQUIT) {
-	rl_on_new_line();
-	rl_redisplay();
-	printf("Quit: 3\n");
-	rl_on_new_line();
-	rl_redisplay();
-  }
+//void handle_quit(int signo) {
+//  if (signo == SIGQUIT) {
+//	rl_on_new_line();
+//	rl_redisplay();
+//	printf("Quit: 3\n");
+//	rl_on_new_line();
+//	rl_redisplay();
+//  }
+//}
+
+char	*ft_its_correct_path(char *path, t_msh *msh, t_com *com)
+{
+	char		*joined;
+	char		*tmp;
+	struct stat	stat;
+
+	tmp = ft_strjoin(path, "/");
+	if (!tmp)
+		bi_exit(msh, com);
+	joined = ft_strjoin(tmp, com->com);
+	if (!joined)
+		bi_exit(msh, com);
+	free(tmp);
+	lstat(joined, &stat);
+	if (S_ISREG(stat.st_mode))
+		return (joined);
+	free(joined);
+	return (NULL);
 }
 
-int 	ft_exec_com(t_msh *msh, char **argv, char *path)
+void	ft_exec_com(t_msh *msh, char **argv, char *path)
 {
 	int 	status;
 	char	*err_msg;
@@ -150,11 +170,19 @@ int 	ft_exec_com(t_msh *msh, char **argv, char *path)
 
 	envs = ft_get_envs(msh);
 	pid = fork();
+
+	//printf("%s --- it's correct path\n", path);
 	if (pid == 0)
 	{
 		signal(SIGQUIT, SIG_DFL);
         signal(SIGINT, SIG_DFL);
-		execve(path, argv, envs);
+		if (execve(path, argv, envs) == -1)
+		{
+			dup2(msh->fd_1, 1);
+			err_msg = strerror(errno);
+			ft_putstr_fd(err_msg, 2);
+		}
+		//execve(path, argv, envs);
 		exit(127);
 	}
 	else if (pid < 0)
@@ -174,45 +202,85 @@ int 	ft_exec_com(t_msh *msh, char **argv, char *path)
 	{
 		ft_putstr_fd("Quit: 3\n", 1);
 	}
-	free(path);
-	//printf("%d\n", msh->return_code);
 	free_arr(envs); ///////// достала  free_arr из if-a снизу
-	if (msh->return_code == -1)
-    {
-		return (-1);
-	}
-	return (0);
+//	printf("%d\n", msh->return_code);
 }
 
 void 	ft_launch_com(t_msh *msh, t_com *com)
 {
-	int 	i;
 	char 	**exec_paths;
 	char 	**argv;
-	char 	*buff;
 	//char	*err_msg;
+	int		i;
+	char 	*buff;
 
+	buff = NULL;
 	i = 0;
 	argv = ft_create_argv(msh, com);
 	exec_paths = ft_get_paths(msh);
-	while (exec_paths[i])
-	{
-		buff = ft_join_com(msh, com, exec_paths[i]);
-		//printf("%s\n", buff);
+//	while (!ft_strcmp(com->com, "/"))
+//	{
+		if (exec_paths != NULL)
+		{
+			i = 0;
+			while (exec_paths[i])
+			{
+				//printf("%s\n", exec_paths[i]);
+				buff = ft_its_correct_path(exec_paths[i], msh, com);
+				if (buff) {
+					break ;
+				}
+				i++;
+			}
+			free_arr(exec_paths);
+		}
 		if (buff == NULL)
-			close_prog(msh, "command not found\n");
-		if (ft_exec_com(msh, argv, buff) == 0)
-			break;
-		//free(buff);
-		//buff = NULL;
-//        printf("%s -- command \n", com->com);
-
-        i++;
-    }
-    if (exec_paths[i] == NULL)
-	{
-        ft_putstr_fd("command not found in the paths\n", 2);
-	}
+		{
+			dup2(msh->fd_1, 1);
+//			err_msg = strerror(errno);
+//			ft_putstr_fd(err_msg, 2);
+			ft_putstr_fd("command not found in the paths\n", 2);
+			free_arr(argv);
+			msh->return_code = 127;
+			return ;
+		}
+		//printf("%s --- it's correct path\n", buff);
+	//}
+	//printf("%s --- it's correct path\n", buff);
+	ft_exec_com(msh, argv, buff);
 	free_arr(argv);
-	free_arr(exec_paths);
+	//free_arr(exec_paths);
 }
+
+//void 	ft_launch_com(t_msh *msh, t_com *com)
+//{
+//	int 	i;
+//	char 	**exec_paths;
+//	char 	**argv;
+//	char 	*buff;
+//	//char	*err_msg;
+//
+//	i = 0;
+//	argv = ft_create_argv(msh, com);
+//	exec_paths = ft_get_paths(msh);
+//	while (exec_paths[i])
+//	{
+//		buff = ft_join_com(msh, com, exec_paths[i]);
+//		//printf("%s\n", buff);
+//		if (buff == NULL)
+//			close_prog(msh, "command not found\n");
+//		if (ft_exec_com(msh, argv, buff) == 0)
+//			break;
+//		//free(buff);
+//		//buff = NULL;
+////        printf("%s -- command \n", com->com);
+//
+//		i++;
+//	}
+//	if (exec_paths[i] == NULL)
+//	{
+//		ft_putstr_fd("command not found in the paths\n", 2);
+//	}
+//	free_arr(argv);
+//	free_arr(exec_paths);
+//}

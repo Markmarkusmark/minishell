@@ -56,10 +56,10 @@ t_line_symbol		*ft_get_struct_line(t_msh *msh, int mlc_len)
 		line[chr].flag = ft_get_symbol_flag(msh, &len, &qte, &dlr);
 		if (msh->str[len] == '\\' && ft_get_symbol_flag_utils(msh, &len, qte))
 			len++;
-		line[chr].c = msh->str[len];
+		line[chr].symb = msh->str[len];
 		chr++;
 	}
-	line[chr].c = '\0';
+	line[chr].symb = '\0';
 	return (line);
 }
 
@@ -87,7 +87,7 @@ int 	ft_get_val_in_dlr(t_msh *msh, t_line_symbol *line)
 	i = -1;
 	j = 0;
 	val_i = 0;
-	while (((ft_isalnum(line[val_i].c) == 1) || line[val_i].c == '_')
+	while (((ft_isalnum(line[val_i].symb) == 1) || line[val_i].symb == '_')
 		   && line[val_i].flag == 0)
 		val_i++;
 	val = malloc(val_i + 1);
@@ -95,11 +95,11 @@ int 	ft_get_val_in_dlr(t_msh *msh, t_line_symbol *line)
 		return (-1);
 	while (++i < val_i)
 	{
-		val[i] = line[j].c;
+		val[i] = line[j].symb;
 		j++;
 	}
 	val[i] = '\0';
-	if (line[0].c == '?')
+	if (line[0].symb == '?')
 	{
 		msh->val_in_dlr = ft_itoa(msh->return_code); // ноль либо один сюда записывем если встречаем '?'
 		val_i++;
@@ -141,10 +141,10 @@ t_line_symbol	*ft_get_new_line(t_msh *msh)
 		return (NULL);
 	while (msh->val_in_dlr[++i])
 	{
-		new_line[i].c = msh->val_in_dlr[i];
+		new_line[i].symb = msh->val_in_dlr[i];
 		new_line[i].flag = 1;
 	}
-	new_line[i].c = '\0';
+	new_line[i].symb = '\0';
 	return (new_line);
 }
 
@@ -167,7 +167,7 @@ int 	ft_envir(t_msh *msh, int i, int j)
 	s3 = ft_mshstrjoin(s2, &msh->line[j]);
 	if (!s3)
 		return (0);
-	if (msh->line[i].c == '?')
+	if (msh->line[i].symb == '?')
 		free(msh->val_in_dlr);
 	free(msh->line);
 	msh->line = s3;
@@ -201,13 +201,13 @@ int		ft_get_dollar(t_msh *msh)
 	begin_str = -1;
 	end_str = 0;
 	val = 0;
-	while (msh->line[++begin_str].c)
+	while (msh->line[++begin_str].symb)
 	{
-		if (msh->line[begin_str].c == '$' && msh->line[begin_str].flag == 0)
+		if (msh->line[begin_str].symb == '$' && msh->line[begin_str].flag == 0)
 		{
 			begin_str++;
-			if (((ft_isalnum(msh->line[begin_str].c) == 0) && msh->line[begin_str].c != '_'
-				 && msh->line[begin_str].c != '?') || msh->line[begin_str].flag == 1)
+			if (((ft_isalnum(msh->line[begin_str].symb) == 0) && msh->line[begin_str].symb != '_'
+				 && msh->line[begin_str].symb != '?') || msh->line[begin_str].flag == 1)
 				continue; // вернуться поправить (возможно не нужно будет это условие)
 			val = ft_get_val_in_dlr(msh, &msh->line[begin_str]);//тут получаем индекс на котором заканчивается переменная окр и записываем саму переменную в структуру
 			if (val == -1) // проверяем записалсь ли переменная окр в структуру

@@ -8,46 +8,46 @@
 		<Option virtualFolders="CMake Files\;"/>
 		<Build>
 			<Target title="all">
-				<Option working_dir="/Users/mryan/1407minishell/cmake-build-debug"/>
+				<Option working_dir="/Users/legunshi/minishell/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j6 -f &quot;/Users/mryan/1407minishell/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="/usr/bin/make -j6 -f &quot;/Users/mryan/1407minishell/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j6 -f &quot;/Users/mryan/1407minishell/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j6 -f &quot;/Users/mryan/1407minishell/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j6 -f &quot;/Users/legunshi/minishell/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j6 -f &quot;/Users/legunshi/minishell/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j6 -f &quot;/Users/legunshi/minishell/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j6 -f &quot;/Users/legunshi/minishell/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="rebuild_cache">
-				<Option working_dir="/Users/mryan/1407minishell/cmake-build-debug"/>
+				<Option working_dir="/Users/legunshi/minishell/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j6 -f &quot;/Users/mryan/1407minishell/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="/usr/bin/make -j6 -f &quot;/Users/mryan/1407minishell/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j6 -f &quot;/Users/mryan/1407minishell/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j6 -f &quot;/Users/mryan/1407minishell/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j6 -f &quot;/Users/legunshi/minishell/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j6 -f &quot;/Users/legunshi/minishell/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j6 -f &quot;/Users/legunshi/minishell/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j6 -f &quot;/Users/legunshi/minishell/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="edit_cache">
-				<Option working_dir="/Users/mryan/1407minishell/cmake-build-debug"/>
+				<Option working_dir="/Users/legunshi/minishell/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j6 -f &quot;/Users/mryan/1407minishell/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
-					<CompileFile command="/usr/bin/make -j6 -f &quot;/Users/mryan/1407minishell/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j6 -f &quot;/Users/mryan/1407minishell/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j6 -f &quot;/Users/mryan/1407minishell/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j6 -f &quot;/Users/legunshi/minishell/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j6 -f &quot;/Users/legunshi/minishell/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j6 -f &quot;/Users/legunshi/minishell/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j6 -f &quot;/Users/legunshi/minishell/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="minishell">
-				<Option output="/Users/mryan/1407minishell/cmake-build-debug/minishell" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/Users/mryan/1407minishell/cmake-build-debug"/>
+				<Option output="/Users/legunshi/minishell/cmake-build-debug/minishell" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/legunshi/minishell/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add directory="/Users/mryan/1407minishell/get_next_line"/>
-					<Add directory="/Users/mryan/1407minishell/include"/>
-					<Add directory="/Users/mryan/1407minishell/libft"/>
-					<Add directory="/Users/mryan/1407minishell/srcs"/>
+					<Add directory="/Users/legunshi/minishell/get_next_line"/>
+					<Add directory="/Users/legunshi/minishell/include"/>
+					<Add directory="/Users/legunshi/minishell/libft"/>
+					<Add directory="/Users/legunshi/minishell/srcs"/>
 					<Add directory="/usr/local/include"/>
 					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/11.0.0/include"/>
 					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
@@ -55,23 +55,23 @@
 					<Add directory="/Library/Frameworks"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j6 -f &quot;/Users/mryan/1407minishell/cmake-build-debug/Makefile&quot;  VERBOSE=1 minishell"/>
-					<CompileFile command="/usr/bin/make -j6 -f &quot;/Users/mryan/1407minishell/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j6 -f &quot;/Users/mryan/1407minishell/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j6 -f &quot;/Users/mryan/1407minishell/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j6 -f &quot;/Users/legunshi/minishell/cmake-build-debug/Makefile&quot;  VERBOSE=1 minishell"/>
+					<CompileFile command="/usr/bin/make -j6 -f &quot;/Users/legunshi/minishell/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j6 -f &quot;/Users/legunshi/minishell/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j6 -f &quot;/Users/legunshi/minishell/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="minishell/fast">
-				<Option output="/Users/mryan/1407minishell/cmake-build-debug/minishell" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/Users/mryan/1407minishell/cmake-build-debug"/>
+				<Option output="/Users/legunshi/minishell/cmake-build-debug/minishell" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/legunshi/minishell/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add directory="/Users/mryan/1407minishell/get_next_line"/>
-					<Add directory="/Users/mryan/1407minishell/include"/>
-					<Add directory="/Users/mryan/1407minishell/libft"/>
-					<Add directory="/Users/mryan/1407minishell/srcs"/>
+					<Add directory="/Users/legunshi/minishell/get_next_line"/>
+					<Add directory="/Users/legunshi/minishell/include"/>
+					<Add directory="/Users/legunshi/minishell/libft"/>
+					<Add directory="/Users/legunshi/minishell/srcs"/>
 					<Add directory="/usr/local/include"/>
 					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/11.0.0/include"/>
 					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
@@ -79,203 +79,203 @@
 					<Add directory="/Library/Frameworks"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j6 -f &quot;/Users/mryan/1407minishell/cmake-build-debug/Makefile&quot;  VERBOSE=1 minishell/fast"/>
-					<CompileFile command="/usr/bin/make -j6 -f &quot;/Users/mryan/1407minishell/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j6 -f &quot;/Users/mryan/1407minishell/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j6 -f &quot;/Users/mryan/1407minishell/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j6 -f &quot;/Users/legunshi/minishell/cmake-build-debug/Makefile&quot;  VERBOSE=1 minishell/fast"/>
+					<CompileFile command="/usr/bin/make -j6 -f &quot;/Users/legunshi/minishell/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j6 -f &quot;/Users/legunshi/minishell/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j6 -f &quot;/Users/legunshi/minishell/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/Users/mryan/1407minishell/get_next_line/get_next_line.c">
+		<Unit filename="/Users/legunshi/minishell/get_next_line/get_next_line.c">
 			<Option target="minishell"/>
 		</Unit>
-		<Unit filename="/Users/mryan/1407minishell/get_next_line/get_next_line.h">
+		<Unit filename="/Users/legunshi/minishell/get_next_line/get_next_line.h">
 			<Option target="minishell"/>
 		</Unit>
-		<Unit filename="/Users/mryan/1407minishell/get_next_line/get_next_line_utils.c">
+		<Unit filename="/Users/legunshi/minishell/get_next_line/get_next_line_utils.c">
 			<Option target="minishell"/>
 		</Unit>
-		<Unit filename="/Users/mryan/1407minishell/include/minishell.h">
+		<Unit filename="/Users/legunshi/minishell/include/minishell.h">
 			<Option target="minishell"/>
 		</Unit>
-		<Unit filename="/Users/mryan/1407minishell/libft/ft_atoi.c">
+		<Unit filename="/Users/legunshi/minishell/libft/ft_atoi.c">
 			<Option target="minishell"/>
 		</Unit>
-		<Unit filename="/Users/mryan/1407minishell/libft/ft_bzero.c">
+		<Unit filename="/Users/legunshi/minishell/libft/ft_bzero.c">
 			<Option target="minishell"/>
 		</Unit>
-		<Unit filename="/Users/mryan/1407minishell/libft/ft_calloc.c">
+		<Unit filename="/Users/legunshi/minishell/libft/ft_calloc.c">
 			<Option target="minishell"/>
 		</Unit>
-		<Unit filename="/Users/mryan/1407minishell/libft/ft_isalnum.c">
+		<Unit filename="/Users/legunshi/minishell/libft/ft_isalnum.c">
 			<Option target="minishell"/>
 		</Unit>
-		<Unit filename="/Users/mryan/1407minishell/libft/ft_isalpha.c">
+		<Unit filename="/Users/legunshi/minishell/libft/ft_isalpha.c">
 			<Option target="minishell"/>
 		</Unit>
-		<Unit filename="/Users/mryan/1407minishell/libft/ft_isascii.c">
+		<Unit filename="/Users/legunshi/minishell/libft/ft_isascii.c">
 			<Option target="minishell"/>
 		</Unit>
-		<Unit filename="/Users/mryan/1407minishell/libft/ft_isdigit.c">
+		<Unit filename="/Users/legunshi/minishell/libft/ft_isdigit.c">
 			<Option target="minishell"/>
 		</Unit>
-		<Unit filename="/Users/mryan/1407minishell/libft/ft_isprint.c">
+		<Unit filename="/Users/legunshi/minishell/libft/ft_isprint.c">
 			<Option target="minishell"/>
 		</Unit>
-		<Unit filename="/Users/mryan/1407minishell/libft/ft_itoa.c">
+		<Unit filename="/Users/legunshi/minishell/libft/ft_itoa.c">
 			<Option target="minishell"/>
 		</Unit>
-		<Unit filename="/Users/mryan/1407minishell/libft/ft_lstadd_back.c">
+		<Unit filename="/Users/legunshi/minishell/libft/ft_lstadd_back.c">
 			<Option target="minishell"/>
 		</Unit>
-		<Unit filename="/Users/mryan/1407minishell/libft/ft_lstadd_front.c">
+		<Unit filename="/Users/legunshi/minishell/libft/ft_lstadd_front.c">
 			<Option target="minishell"/>
 		</Unit>
-		<Unit filename="/Users/mryan/1407minishell/libft/ft_lstclear.c">
+		<Unit filename="/Users/legunshi/minishell/libft/ft_lstclear.c">
 			<Option target="minishell"/>
 		</Unit>
-		<Unit filename="/Users/mryan/1407minishell/libft/ft_lstdelone.c">
+		<Unit filename="/Users/legunshi/minishell/libft/ft_lstdelone.c">
 			<Option target="minishell"/>
 		</Unit>
-		<Unit filename="/Users/mryan/1407minishell/libft/ft_lstiter.c">
+		<Unit filename="/Users/legunshi/minishell/libft/ft_lstiter.c">
 			<Option target="minishell"/>
 		</Unit>
-		<Unit filename="/Users/mryan/1407minishell/libft/ft_lstlast.c">
+		<Unit filename="/Users/legunshi/minishell/libft/ft_lstlast.c">
 			<Option target="minishell"/>
 		</Unit>
-		<Unit filename="/Users/mryan/1407minishell/libft/ft_lstmap.c">
+		<Unit filename="/Users/legunshi/minishell/libft/ft_lstmap.c">
 			<Option target="minishell"/>
 		</Unit>
-		<Unit filename="/Users/mryan/1407minishell/libft/ft_lstnew.c">
+		<Unit filename="/Users/legunshi/minishell/libft/ft_lstnew.c">
 			<Option target="minishell"/>
 		</Unit>
-		<Unit filename="/Users/mryan/1407minishell/libft/ft_lstsize.c">
+		<Unit filename="/Users/legunshi/minishell/libft/ft_lstsize.c">
 			<Option target="minishell"/>
 		</Unit>
-		<Unit filename="/Users/mryan/1407minishell/libft/ft_memccpy.c">
+		<Unit filename="/Users/legunshi/minishell/libft/ft_memccpy.c">
 			<Option target="minishell"/>
 		</Unit>
-		<Unit filename="/Users/mryan/1407minishell/libft/ft_memchr.c">
+		<Unit filename="/Users/legunshi/minishell/libft/ft_memchr.c">
 			<Option target="minishell"/>
 		</Unit>
-		<Unit filename="/Users/mryan/1407minishell/libft/ft_memcmp.c">
+		<Unit filename="/Users/legunshi/minishell/libft/ft_memcmp.c">
 			<Option target="minishell"/>
 		</Unit>
-		<Unit filename="/Users/mryan/1407minishell/libft/ft_memcpy.c">
+		<Unit filename="/Users/legunshi/minishell/libft/ft_memcpy.c">
 			<Option target="minishell"/>
 		</Unit>
-		<Unit filename="/Users/mryan/1407minishell/libft/ft_memmove.c">
+		<Unit filename="/Users/legunshi/minishell/libft/ft_memmove.c">
 			<Option target="minishell"/>
 		</Unit>
-		<Unit filename="/Users/mryan/1407minishell/libft/ft_memset.c">
+		<Unit filename="/Users/legunshi/minishell/libft/ft_memset.c">
 			<Option target="minishell"/>
 		</Unit>
-		<Unit filename="/Users/mryan/1407minishell/libft/ft_putchar_fd.c">
+		<Unit filename="/Users/legunshi/minishell/libft/ft_putchar_fd.c">
 			<Option target="minishell"/>
 		</Unit>
-		<Unit filename="/Users/mryan/1407minishell/libft/ft_putendl_fd.c">
+		<Unit filename="/Users/legunshi/minishell/libft/ft_putendl_fd.c">
 			<Option target="minishell"/>
 		</Unit>
-		<Unit filename="/Users/mryan/1407minishell/libft/ft_putnbr_fd.c">
+		<Unit filename="/Users/legunshi/minishell/libft/ft_putnbr_fd.c">
 			<Option target="minishell"/>
 		</Unit>
-		<Unit filename="/Users/mryan/1407minishell/libft/ft_putstr_fd.c">
+		<Unit filename="/Users/legunshi/minishell/libft/ft_putstr_fd.c">
 			<Option target="minishell"/>
 		</Unit>
-		<Unit filename="/Users/mryan/1407minishell/libft/ft_split.c">
+		<Unit filename="/Users/legunshi/minishell/libft/ft_split.c">
 			<Option target="minishell"/>
 		</Unit>
-		<Unit filename="/Users/mryan/1407minishell/libft/ft_strchr.c">
+		<Unit filename="/Users/legunshi/minishell/libft/ft_strchr.c">
 			<Option target="minishell"/>
 		</Unit>
-		<Unit filename="/Users/mryan/1407minishell/libft/ft_strdup.c">
+		<Unit filename="/Users/legunshi/minishell/libft/ft_strdup.c">
 			<Option target="minishell"/>
 		</Unit>
-		<Unit filename="/Users/mryan/1407minishell/libft/ft_strjoin.c">
+		<Unit filename="/Users/legunshi/minishell/libft/ft_strjoin.c">
 			<Option target="minishell"/>
 		</Unit>
-		<Unit filename="/Users/mryan/1407minishell/libft/ft_strlcat.c">
+		<Unit filename="/Users/legunshi/minishell/libft/ft_strlcat.c">
 			<Option target="minishell"/>
 		</Unit>
-		<Unit filename="/Users/mryan/1407minishell/libft/ft_strlcpy.c">
+		<Unit filename="/Users/legunshi/minishell/libft/ft_strlcpy.c">
 			<Option target="minishell"/>
 		</Unit>
-		<Unit filename="/Users/mryan/1407minishell/libft/ft_strlen.c">
+		<Unit filename="/Users/legunshi/minishell/libft/ft_strlen.c">
 			<Option target="minishell"/>
 		</Unit>
-		<Unit filename="/Users/mryan/1407minishell/libft/ft_strmapi.c">
+		<Unit filename="/Users/legunshi/minishell/libft/ft_strmapi.c">
 			<Option target="minishell"/>
 		</Unit>
-		<Unit filename="/Users/mryan/1407minishell/libft/ft_strncmp.c">
+		<Unit filename="/Users/legunshi/minishell/libft/ft_strncmp.c">
 			<Option target="minishell"/>
 		</Unit>
-		<Unit filename="/Users/mryan/1407minishell/libft/ft_strnstr.c">
+		<Unit filename="/Users/legunshi/minishell/libft/ft_strnstr.c">
 			<Option target="minishell"/>
 		</Unit>
-		<Unit filename="/Users/mryan/1407minishell/libft/ft_strrchr.c">
+		<Unit filename="/Users/legunshi/minishell/libft/ft_strrchr.c">
 			<Option target="minishell"/>
 		</Unit>
-		<Unit filename="/Users/mryan/1407minishell/libft/ft_strtrim.c">
+		<Unit filename="/Users/legunshi/minishell/libft/ft_strtrim.c">
 			<Option target="minishell"/>
 		</Unit>
-		<Unit filename="/Users/mryan/1407minishell/libft/ft_substr.c">
+		<Unit filename="/Users/legunshi/minishell/libft/ft_substr.c">
 			<Option target="minishell"/>
 		</Unit>
-		<Unit filename="/Users/mryan/1407minishell/libft/ft_tolower.c">
+		<Unit filename="/Users/legunshi/minishell/libft/ft_tolower.c">
 			<Option target="minishell"/>
 		</Unit>
-		<Unit filename="/Users/mryan/1407minishell/libft/ft_toupper.c">
+		<Unit filename="/Users/legunshi/minishell/libft/ft_toupper.c">
 			<Option target="minishell"/>
 		</Unit>
-		<Unit filename="/Users/mryan/1407minishell/libft/libft.h">
+		<Unit filename="/Users/legunshi/minishell/libft/libft.h">
 			<Option target="minishell"/>
 		</Unit>
-		<Unit filename="/Users/mryan/1407minishell/srcs/builtin.c">
+		<Unit filename="/Users/legunshi/minishell/srcs/builtin.c">
 			<Option target="minishell"/>
 		</Unit>
-		<Unit filename="/Users/mryan/1407minishell/srcs/cd.c">
+		<Unit filename="/Users/legunshi/minishell/srcs/cd.c">
 			<Option target="minishell"/>
 		</Unit>
-		<Unit filename="/Users/mryan/1407minishell/srcs/command.c">
+		<Unit filename="/Users/legunshi/minishell/srcs/command.c">
 			<Option target="minishell"/>
 		</Unit>
-		<Unit filename="/Users/mryan/1407minishell/srcs/echo.c">
+		<Unit filename="/Users/legunshi/minishell/srcs/echo.c">
 			<Option target="minishell"/>
 		</Unit>
-		<Unit filename="/Users/mryan/1407minishell/srcs/env_list.c">
+		<Unit filename="/Users/legunshi/minishell/srcs/env_list.c">
 			<Option target="minishell"/>
 		</Unit>
-		<Unit filename="/Users/mryan/1407minishell/srcs/execute.c">
+		<Unit filename="/Users/legunshi/minishell/srcs/execute.c">
 			<Option target="minishell"/>
 		</Unit>
-		<Unit filename="/Users/mryan/1407minishell/srcs/minishell.c">
+		<Unit filename="/Users/legunshi/minishell/srcs/minishell.c">
 			<Option target="minishell"/>
 		</Unit>
-		<Unit filename="/Users/mryan/1407minishell/srcs/minishell_process.c">
+		<Unit filename="/Users/legunshi/minishell/srcs/minishell_process.c">
 			<Option target="minishell"/>
 		</Unit>
-		<Unit filename="/Users/mryan/1407minishell/srcs/parse_env.c">
+		<Unit filename="/Users/legunshi/minishell/srcs/parse_env.c">
 			<Option target="minishell"/>
 		</Unit>
-		<Unit filename="/Users/mryan/1407minishell/srcs/parser.c">
+		<Unit filename="/Users/legunshi/minishell/srcs/parser.c">
 			<Option target="minishell"/>
 		</Unit>
-		<Unit filename="/Users/mryan/1407minishell/srcs/pipe.c">
+		<Unit filename="/Users/legunshi/minishell/srcs/pipe.c">
 			<Option target="minishell"/>
 		</Unit>
-		<Unit filename="/Users/mryan/1407minishell/srcs/preparser.c">
+		<Unit filename="/Users/legunshi/minishell/srcs/preparser.c">
 			<Option target="minishell"/>
 		</Unit>
-		<Unit filename="/Users/mryan/1407minishell/srcs/redir.c">
+		<Unit filename="/Users/legunshi/minishell/srcs/redir.c">
 			<Option target="minishell"/>
 		</Unit>
-		<Unit filename="/Users/mryan/1407minishell/srcs/syntax.c">
+		<Unit filename="/Users/legunshi/minishell/srcs/syntax.c">
 			<Option target="minishell"/>
 		</Unit>
-		<Unit filename="/Users/mryan/1407minishell/srcs/utils.c">
+		<Unit filename="/Users/legunshi/minishell/srcs/utils.c">
 			<Option target="minishell"/>
 		</Unit>
-		<Unit filename="/Users/mryan/1407minishell/CMakeLists.txt">
+		<Unit filename="/Users/legunshi/minishell/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
 	</Project>

@@ -65,6 +65,8 @@ int		main(int argc, char **argv, char **env)
 	ft_bzero(msh, sizeof(t_msh));
     ft_putstr_fd("this is our fucking shell\n", 1);
     ft_environment(msh, env);
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
 	while (MINISHELL_LOOP)
     {
 		signal(SIGINT, handle_signals);
@@ -91,10 +93,7 @@ int		main(int argc, char **argv, char **env)
 //      	close_prog(msh, "gnl error\n");
         msh->numwaits_pipe = 0;
         msh->pipe_read_fd = 0;
-        ft_parser(msh);
-        ft_command_manage(msh);
-		free(msh->line);
-		msh->line = NULL;
+        ft_handle_process(msh);
 		ft_lstclear(&msh->com, &del_lst_command);
         free(msh->str);
     }

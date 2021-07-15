@@ -15,6 +15,7 @@
 # include <errno.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <sys/stat.h>
 
 # define MINISHELL_LOOP 1
 # define ITS_ARG 4
@@ -48,7 +49,7 @@ typedef struct      s_env
 
 typedef struct		s_line_symbol
 {
-	char			c;
+	char			symb;
 	int 			flag;
 }					t_line_symbol;
 
@@ -110,7 +111,7 @@ int 			ft_envir(t_msh *msh, int i, int j);
 int 			ft_check(t_msh *msh, int begin_str, int end_str);
 int				ft_get_dollar(t_msh *msh);
 int    			ft_preparser(t_msh *msh);
-void			ft_parser(t_msh *msh);
+void			ft_handle_process(t_msh *msh);
 int				ft_check_line_syntax(t_msh *msh);
 int				ft_check_token_error(t_msh *msh);
 int				ft_get_token(t_msh *msh, int *len);
@@ -122,7 +123,6 @@ void			ft_command_manage(t_msh *msh);
 int     		ft_binary(t_msh *msh);
 void			ft_builtin(t_msh *msh, t_com *com);
 void			ft_lstdel(t_list *lst, t_list *lst_main);
-char			*ft_struct_to_str(t_line_symbol *struc, int start, int len);
 int				ft_redir_checker(t_com *com);
 void			ft_redir_mng(t_com *com, t_msh *msh);
 void 			ft_launch_com(t_msh *msh, t_com *com);
@@ -134,5 +134,8 @@ void            ft_exec_all(t_msh *msh, t_com *com);
 void            ft_pipe_out(t_msh *msh, t_com *com);
 void            ft_pipe_in(t_msh *msh, t_com *com, pid_t *pidpipe);
 void            ft_check_wait(t_msh *msh, t_com *com, pid_t *pidpipe);
+char			*ft_get_line_from_struct(t_line_symbol *line, int beg, int size);
+int				ft_mshcmp(t_line_symbol *l1, char *l2);
+void			bi_exit(t_msh *msh, t_com *com);
 
 # endif
