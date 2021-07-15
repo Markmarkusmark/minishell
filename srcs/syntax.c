@@ -33,7 +33,7 @@ int		ft_check_token2(t_msh *msh, int *len)
 	}
 	if (msh->line[*len].symb == '<')
 	{
-		while (msh->line[*len].symb == '<' && (*len - j) <= 0 && msh->line[*len].flag == 0)
+		while (msh->line[*len].symb == '<' && (*len - j) <= 1 && msh->line[*len].flag == 0)
 			++*len; //*len = *len + 1;
 	}
 	return (0);
@@ -116,7 +116,6 @@ int		ft_check_line_syntax(t_msh *msh)
 		ft_putstr_fd("syntax error near unexpected token `|'\n", 1);
 		return (1);
 	}
-	// останавливаюсь на том чтобы получить флаг
 	if (ft_get_token(msh, &i))
 		return (1);
 	if (ft_check_token_error(msh))

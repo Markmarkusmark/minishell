@@ -141,37 +141,16 @@ void 	free_arr(char **arr)
 //  }
 //}
 
-char	*ft_its_correct_path(char *path, t_msh *msh, t_com *com)
-{
-	char		*joined;
-	char		*tmp;
-	struct stat	stat;
-
-	tmp = ft_strjoin(path, "/");
-	if (!tmp)
-		bi_exit(msh, com);
-	joined = ft_strjoin(tmp, com->com);
-	if (!joined)
-		bi_exit(msh, com);
-	free(tmp);
-	lstat(joined, &stat);
-	if (S_ISREG(stat.st_mode))
-		return (joined);
-	free(joined);
-	return (NULL);
-}
-
 void	ft_exec_com(t_msh *msh, char **argv, char *path)
 {
 	int 	status;
 	char	*err_msg;
 	char 	**envs;
 	pid_t	pid;
-
+	
+	//printf("%s --- it's correct path\n", path);
 	envs = ft_get_envs(msh);
 	pid = fork();
-
-	//printf("%s --- it's correct path\n", path);
 	if (pid == 0)
 	{
 		signal(SIGQUIT, SIG_DFL);
@@ -181,6 +160,7 @@ void	ft_exec_com(t_msh *msh, char **argv, char *path)
 			dup2(msh->fd_1, 1);
 			err_msg = strerror(errno);
 			ft_putstr_fd(err_msg, 2);
+			write(1, "\n", 1);
 		}
 		//execve(path, argv, envs);
 		exit(127);
@@ -202,8 +182,33 @@ void	ft_exec_com(t_msh *msh, char **argv, char *path)
 	{
 		ft_putstr_fd("Quit: 3\n", 1);
 	}
+	free(path);
 	free_arr(envs); ///////// достала  free_arr из if-a снизу
 //	printf("%d\n", msh->return_code);
+}
+
+char	*ft_its_correct_path(char *path, t_msh *msh, t_com *com)
+{
+	char		*joined;
+	char		*tmp;
+	struct stat	stat;
+
+//	printf("%s -- path \n", path);
+//	printf("%s -- com \n \n", com->com);
+//	if (!ft_strcmp(com->com, path))
+//		return (com->com);
+	tmp = ft_strjoin(path, "/");
+	if (!tmp)
+		bi_exit(msh, com);
+	joined = ft_strjoin(tmp, com->com);
+	if (!joined)
+		bi_exit(msh, com);
+	free(tmp);
+	lstat(joined, &stat);
+	if (S_ISREG(stat.st_mode))
+		return (joined);
+	free(joined);
+	return (NULL);
 }
 
 void 	ft_launch_com(t_msh *msh, t_com *com)
@@ -218,22 +223,27 @@ void 	ft_launch_com(t_msh *msh, t_com *com)
 	i = 0;
 	argv = ft_create_argv(msh, com);
 	exec_paths = ft_get_paths(msh);
-//	while (!ft_strcmp(com->com, "/"))
+//	while (!ft_strchr(com->com, '/'))
 //	{
 		if (exec_paths != NULL)
 		{
 			i = 0;
-			while (exec_paths[i])
+			if (com->com[0] == '/')
+				buff = ft_strdup(com->com);
+			else
 			{
-				//printf("%s\n", exec_paths[i]);
-				buff = ft_its_correct_path(exec_paths[i], msh, com);
-				if (buff) {
-					break ;
+				while (exec_paths[i])
+				{
+					//printf("%s\n", exec_paths[i]);
+					buff = ft_its_correct_path(exec_paths[i], msh, com);
+					if (buff)
+						break;
+					i++;
 				}
-				i++;
+				free_arr(exec_paths);
 			}
-			free_arr(exec_paths);
 		}
+		//printf("%s --- it's correct path\n", buff);
 		if (buff == NULL)
 		{
 			dup2(msh->fd_1, 1);

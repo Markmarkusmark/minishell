@@ -139,7 +139,10 @@ void ft_copy_lst(t_list *lst, t_list **new)
 	t_env  *cont;
 
 	cont = malloc(sizeof(t_env));
-	cont->key = ft_strdup(((t_env *)lst->content)->key);
+	if (((t_env *)lst->next->content)->key != NULL)
+		cont->key = ft_strdup(((t_env *)lst->next->content)->key);
+	else
+		cont->val = ft_strdup("");
 	if (((t_env *)lst->next->content)->val != NULL)
 		cont->val = ft_strdup(((t_env *)lst->next->content)->val);
 	else
@@ -215,16 +218,13 @@ int export_check(char **args)
 		ft_putstr_fd("wrong export \n", 2);
 		return(1);
 	}
-	while(*args++)
-	{
-        while (args[0][i] != '\0') {
-            if (ft_isenv(args[0][i]) == 0) {
-                ft_putstr_fd("wrong export \n", 2);
-                return (1);
-            }
-            i++;
-        }
-    }
+	while (args[0][i] != '\0') {
+		if (ft_isenv(args[0][i]) == 0) {
+			ft_putstr_fd("wrong export \n", 2);
+			return (1);
+		}
+		i++;
+	}
 	return (0);
 }
 

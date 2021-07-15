@@ -60,7 +60,11 @@ stddef.h
 stdarg.h
 -
 
-/Users/legunshi/minishell/srcs/redir.c
+/Users/legunshi/minishell/srcs/execute.c
+../include/minishell.h
+/Users/legunshi/minishell/include/minishell.h
+
+/Users/legunshi/minishell/srcs/minishell.c
 ../include/minishell.h
 /Users/legunshi/minishell/include/minishell.h
 

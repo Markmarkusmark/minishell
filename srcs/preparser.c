@@ -81,11 +81,11 @@ int     ft_preparser(t_msh *msh)
 		close_prog(msh, "line malloc error\n");
 	if (ft_get_dollar(msh) == 0)
 		return (1);
-//	if (ft_check_line_syntax(msh))
-//	{
-//		msh->return_code = 258; // код ошибки ( можно чекнуть в оригинальном баше если просто вввести ; или | )
-//		free(msh->line);
-//		return (1);
-//	}
+	if (ft_check_line_syntax(msh))
+	{
+		msh->return_code = 258; // код ошибки ( можно чекнуть в оригинальном баше если просто вввести ; или | )
+		free(msh->line);
+		return (1);
+	}
 	return (0);
 }
