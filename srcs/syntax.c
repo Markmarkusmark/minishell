@@ -1,6 +1,6 @@
 #include "../include/minishell.h"
 
-int 	ft_check_token1(t_msh *msh, int *len)
+int	ft_check_token1(t_msh *msh, int *len)
 {
 	if (msh->token)
 	{
@@ -11,15 +11,15 @@ int 	ft_check_token1(t_msh *msh, int *len)
 		msh->token = ';';
 	if (msh->line[*len].symb == '|')
 		msh->token = '|';
-	++*len; //*len = *len + 1;
+	++*len;
 	return (0);
 }
 
-int		ft_check_token2(t_msh *msh, int *len)
+int	ft_check_token2(t_msh *msh, int *len)
 {
 	int j;
 
-	if (msh->token == '!')  // ! - это редирект тут
+	if (msh->token == '!')
 	{
 		ft_putstr_fd("syntax error near unexpected token 'redirect'\n", 1);
 		return (1);
@@ -29,17 +29,17 @@ int		ft_check_token2(t_msh *msh, int *len)
 	if (msh->line[*len].symb == '>')
 	{
 		while (msh->line[*len].symb == '>' && (*len - j) <= 1 && msh->line[*len].flag == 0)
-			++*len; //*len = *len + 1;
+			++*len;
 	}
 	if (msh->line[*len].symb == '<')
 	{
 		while (msh->line[*len].symb == '<' && (*len - j) <= 1 && msh->line[*len].flag == 0)
-			++*len; //*len = *len + 1;
+			++*len;
 	}
 	return (0);
 }
 
-int		ft_check_token3(t_msh *msh, int *len)
+int	ft_check_token3(t_msh *msh, int *len)
 {
 
 	if ((msh->line[*len].symb == '<' && msh->line[*len].flag == 0) ||
@@ -53,7 +53,7 @@ int		ft_check_token3(t_msh *msh, int *len)
 		return (1);
 }
 
-int		ft_get_token(t_msh *msh, int *len)
+int	t_get_token(t_msh *msh, int *len)
 {
 	while (msh->line[*len].symb)
 	{
@@ -84,22 +84,7 @@ int		ft_get_token(t_msh *msh, int *len)
 	return (0);
 }
 
-int		ft_check_token_error(t_msh *msh)
-{
-	if (msh->token == '!')
-	{
-		ft_putstr_fd("syntax error near unexpected token `newline'\n", 1);
-		return (1);
-	}
-	if (msh->token == '|')
-	{
-		ft_putstr_fd("open pipe\n", 1);
-		return (1);
-	}
-	return (0);
-}
-
-int		ft_check_line_syntax(t_msh *msh)
+int	ft_check_line_syntax(t_msh *msh)
 {
 	int		i;
 

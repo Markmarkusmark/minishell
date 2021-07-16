@@ -15,10 +15,15 @@ SRCS =	srcs/minishell.c \
 	srcs/parse_env.c \
 	srcs/env_list.c \
 	srcs/syntax.c \
-	srcs/echo.c \
-	srcs/cd.c \
+	srcs/builtin/echo.c \
+	srcs/builtin/cd.c \
+	srcs/builtin/pwd.c \
+	srcs/builtin/env.c \
+	srcs/builtin/unset.c \
+	srcs/builtin/export.c \
+	srcs/builtin/exit.c \
+	srcs/builtin/builtin.c \
 	srcs/command.c \
-	srcs/builtin.c \
 	srcs/execute.c \
 	srcs/redir.c \
 	srcs/utils.c \

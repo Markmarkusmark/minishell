@@ -17,7 +17,7 @@ void	ft_clear_oldpwd(t_msh *msh)
 	}
 }
 
-void    ft_environment(t_msh *msh, char **env)
+void	ft_environment(t_msh *msh, char **env)
 {
 	int		i;
 	t_list	*new_lst;

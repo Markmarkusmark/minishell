@@ -70,6 +70,13 @@ typedef struct      s_rdr
     char            *file;
 }                   t_rdr;
 
+typedef struct      s_sort
+{
+	int				i;
+	int				j;
+	int				count;
+}                   t_sort;
+
 typedef struct		s_msh
 {
     t_list		    *env;
@@ -128,6 +135,13 @@ void			ft_redir_mng(t_com *com, t_msh *msh);
 void 			ft_launch_com(t_msh *msh, t_com *com);
 void			ft_echo(t_msh *msh, t_com *com);
 void			ft_cd(t_msh *msh, t_com *com);
+void			ft_pwd(t_msh *msh);
+void			ft_print_env(t_list *env, int fd, int declare);
+void			ft_env(t_msh *msh, t_com *com);
+int				ft_export(t_msh *msh, t_com *com);
+void			ft_copy_lst(t_list *lst, t_list **new);
+void			ft_unset(t_msh *msh, t_com *com);
+void			ft_exit(t_msh *msh, t_com *com);
 void			free_arr(char **arr);
 void			rl_replace_line(const char *a, int b);
 void            ft_exec_all(t_msh *msh, t_com *com);
@@ -136,6 +150,10 @@ void            ft_pipe_in(t_msh *msh, t_com *com, pid_t *pidpipe);
 void            ft_check_wait(t_msh *msh, t_com *com, pid_t *pidpipe);
 char			*ft_get_line_from_struct(t_line_symbol *line, int beg, int size);
 int				ft_mshcmp(t_line_symbol *l1, char *l2);
-void			bi_exit(t_msh *msh, t_com *com);
-
+char			**ft_create_argv(t_msh *msh, t_com *com);
+char			**ft_get_paths(t_msh *msh);
+char 			*ft_join_com(t_msh *msh, t_com *com, char *path);
+int				ft_get_envs_values(t_env *lst, char **env);
+void			free_arr(char **arr);
+int				ft_check_token_error(t_msh *msh);
 # endif

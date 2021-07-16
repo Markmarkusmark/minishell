@@ -1,13 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mryan <mryan@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/07/16 18:23:39 by mryan             #+#    #+#             */
+/*   Updated: 2021/07/16 19:05:04 by mryan            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/minishell.h"
 
-void 	close_prog(t_msh *msh, char *err)
+void	close_prog(t_msh *msh, char *err)
 {
 	ft_putstr_fd(err, 2);
 	free(msh);
 	exit(0);
 }
 
-int				ft_mshstrlen(t_line_symbol *line)
+int	ft_mshstrlen(t_line_symbol *line)
 {
 	int	i;
 
@@ -17,7 +29,7 @@ int				ft_mshstrlen(t_line_symbol *line)
 	return (i);
 }
 
-t_line_symbol 	*ft_mshsubstr(t_msh *msh, size_t len)
+t_line_symbol	*ft_mshsubstr(t_msh *msh, size_t len)
 {
 	size_t			i;
 	size_t			j;
@@ -55,7 +67,8 @@ t_line_symbol	*ft_mshstrjoin(t_line_symbol *line1, t_line_symbol *line2)
 	j = 0;
 	if (!line1 || !line2)
 		return (NULL);
-	new_line = malloc(sizeof (t_line_symbol) * (ft_mshstrlen(line1) + ft_mshstrlen(line2) + 1));
+	new_line = malloc(sizeof (t_line_symbol)
+			* (ft_mshstrlen(line1) + ft_mshstrlen(line2) + 1));
 	if (!new_line)
 		return (NULL);
 	while (line1[j].symb)
@@ -75,7 +88,7 @@ t_line_symbol	*ft_mshstrjoin(t_line_symbol *line1, t_line_symbol *line2)
 	return (new_line);
 }
 
-int			ft_strcmp(const char *s1, const char *s2)
+int	ft_strcmp(const char *s1, const char *s2)
 {
 	unsigned int	z;
 
@@ -85,31 +98,6 @@ int			ft_strcmp(const char *s1, const char *s2)
 		if (s1[z] != s2[z])
 			return ((unsigned char)s1[z] - (unsigned char)s2[z]);
 		z++;
-	}
-	return (0);
-}
-
-void	ft_lstdel(t_list *lst, t_list *lst_main)
-{
-    t_list	*temp;
-
-    temp = lst_main;
-    while (temp->next != lst)
-        temp = temp->next;
-    temp->next = lst->next;
-    free(lst);
-}
-
-int	ft_mshcmp(t_line_symbol *l1, char *l2)
-{
-	int	i;
-
-	i = 0;
-	while (l1[i].symb || l2[i])
-	{
-		if (l1[i].symb != l2[i])
-			return (l1[i].symb - l2[i]);
-		i++;
 	}
 	return (0);
 }
