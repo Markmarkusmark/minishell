@@ -6,85 +6,46 @@
 /*   By: mryan <mryan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:38:00 by mryan             #+#    #+#             */
-/*   Updated: 2021/07/16 16:43:08 by mryan            ###   ########.fr       */
+/*   Updated: 2021/07/17 11:38:34 by mryan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-// void	ft_lstsort_utils(t_sort *sort, t_list *sorted, t_list *lst, t_list *beg)
-// {
-// 	sort->i = 0;
-// 	sorted = malloc(sizeof(t_list));
-// 	ft_copy_lst(lst, &sorted);
-// 	sort->j = ft_lstsize(sorted);
-// 	beg = sorted;
-// }
-
-// void	ft_lstsort(t_list *lst)
-// {
-// 	t_list	*beg;
-// 	t_list	*sorted;
-// 	t_env	*elem1;
-// 	t_env	*elem2;
-// 	t_sort	sort;
-
-// 	beg = NULL;
-// 	sorted = NULL;
-// 	ft_lstsort_utils(&sort, sorted, lst, beg);
-// 	while (sort.i < sort.count - 1)
-// 	{
-// 		sort.j = 0;
-// 		sorted = beg;
-// 		while (sort.j < sort.count - sort.i - 1)
-// 		{
-// 			elem1 = sorted->content;
-// 			elem2 = sorted->next->content;
-// 			if (ft_strcmp(elem1->key, elem2->key) > 0)
-// 			{
-// 				sorted->content = (t_env *)elem2;
-// 				sorted->next->content = (t_env *)elem1;
-// 			}
-// 			sorted = sorted->next;
-// 			sort.j++;
-// 		}
-// 		sort.i++;
-// 	}
-// 	ft_print_env(sorted, 1, 1);
-// }
-
-void ft_lstsort(t_list *lst)
+void	ft_sort_utils(t_list *sorted, t_env *elem1, t_env *elem2)
 {
-	t_list *sorted;
-	t_list *beg;
-	t_env *elem1;
-	t_env *elem2;
-	int count;
-	int i, j;
-
-	count = 1;
-	i = 0;
-	sorted = malloc(sizeof(t_list)); // error
-	ft_copy_lst(lst, &sorted);
-	count = ft_lstsize(sorted);
-	beg = sorted;
-	while (i < count - 1)
+	if (ft_strcmp(elem1->key, elem2->key) > 0)
 	{
-		j = 0;
+		sorted->content = (t_env *)elem2;
+		sorted->next->content = (t_env *)elem1;
+	}
+}
+
+void	ft_lstsort(t_list *lst)
+{
+	t_list	*sorted;
+	t_list	*beg;
+	t_env	*elem1;
+	t_env	*elem2;
+	t_sort	sort;
+
+	sort.count = 1;
+	sort.i = -1;
+	sorted = malloc(sizeof(t_list));
+	ft_copy_lst(lst, &sorted);
+	sort.count = ft_lstsize(sorted);
+	beg = sorted;
+	while (++sort.i < sort.count - 1)
+	{
+		sort.j = -1;
 		sorted = beg;
-		while (j < count - i - 1)
+		while (++sort.j < sort.count - sort.i - 1)
 		{
 			elem1 = sorted->content;
 			elem2 = sorted->next->content;
-			if (ft_strcmp(elem1->key, elem2->key) > 0)
-			{
-				sorted->content = (t_env *)elem2;
-				sorted->next->content = (t_env *)elem1;
-			}
+			ft_sort_utils(sorted, elem1, elem2);
 			sorted = sorted->next;
-			j++;
 		}
-		i++;
 	}
 	ft_print_env(sorted, 1, 1);
 }
@@ -121,13 +82,6 @@ int	ft_export_check(char **args)
 	return (0);
 }
 
-void	ft_export_utils(t_msh *msh)
-{
-	
-
-	ft_lstsort(msh->env);
-}
-
 int	ft_export(t_msh *msh, t_com *com)
 {
 	int		i;
@@ -135,9 +89,7 @@ int	ft_export(t_msh *msh, t_com *com)
 
 	i = 0;
 	if (com->args_new == NULL)
-	{
-		ft_export_utils(msh);
-	}
+		ft_lstsort(msh->env);
 	else
 	{
 		while (com->args_new[i])

@@ -8,13 +8,20 @@ CC = gcc
 
 CFLAGS = -Werror -Wall -Wextra -g -I $(HEADER) #-fsanitize=address
 
-SRCS =	srcs/minishell.c \
-	srcs/minishell_process.c \
-	srcs/parser.c \
-	srcs/preparser.c \
-	srcs/parse_env.c \
-	srcs/env_list.c \
-	srcs/syntax.c \
+SRCS =	srcs/main/minishell.c \
+	srcs/main/command.c \
+	srcs/main/execute.c \
+	srcs/main/execute_utils.c \
+	srcs/main/redir.c \
+	srcs/main/redir_utils.c \
+	srcs/main/pipe.c \
+	srcs/parse/parser.c \
+	srcs/parse/parser_utils.c \
+	srcs/parse/preparser.c \
+	srcs/parse/parse_env.c \
+	srcs/parse/parse_env_utils.c \
+	srcs/parse/env_list.c \
+	srcs/parse/syntax.c \
 	srcs/builtin/echo.c \
 	srcs/builtin/cd.c \
 	srcs/builtin/pwd.c \
@@ -23,11 +30,8 @@ SRCS =	srcs/minishell.c \
 	srcs/builtin/export.c \
 	srcs/builtin/exit.c \
 	srcs/builtin/builtin.c \
-	srcs/command.c \
-	srcs/execute.c \
-	srcs/redir.c \
 	srcs/utils.c \
-	srcs/pipe.c
+	srcs/utils_2.c \
 
 OBJS = $(SRCS:.c=.o)
 

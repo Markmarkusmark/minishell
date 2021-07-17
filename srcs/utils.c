@@ -6,17 +6,16 @@
 /*   By: mryan <mryan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 18:23:39 by mryan             #+#    #+#             */
-/*   Updated: 2021/07/16 19:05:04 by mryan            ###   ########.fr       */
+/*   Updated: 2021/07/17 11:14:08 by mryan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	close_prog(t_msh *msh, char *err)
+void	close_prog(char *err)
 {
 	ft_putstr_fd(err, 2);
-	free(msh);
-	exit(0);
+	exit(1);
 }
 
 int	ft_mshstrlen(t_line_symbol *line)
@@ -57,20 +56,14 @@ t_line_symbol	*ft_mshsubstr(t_msh *msh, size_t len)
 	return (substr);
 }
 
-t_line_symbol	*ft_mshstrjoin(t_line_symbol *line1, t_line_symbol *line2)
+t_line_symbol	*ft_mshstrjoin_utils(t_line_symbol *line1,
+		t_line_symbol *line2, t_line_symbol	*new_line)
 {
-	t_line_symbol	*new_line;
-	size_t			i;
-	size_t			j;
+	size_t	i;
+	size_t	j;
 
 	i = 0;
 	j = 0;
-	if (!line1 || !line2)
-		return (NULL);
-	new_line = malloc(sizeof (t_line_symbol)
-			* (ft_mshstrlen(line1) + ft_mshstrlen(line2) + 1));
-	if (!new_line)
-		return (NULL);
 	while (line1[j].symb)
 	{
 		new_line[i] = line1[j];
@@ -88,16 +81,19 @@ t_line_symbol	*ft_mshstrjoin(t_line_symbol *line1, t_line_symbol *line2)
 	return (new_line);
 }
 
-int	ft_strcmp(const char *s1, const char *s2)
+t_line_symbol	*ft_mshstrjoin(t_line_symbol *line1, t_line_symbol *line2)
 {
-	unsigned int	z;
+	t_line_symbol	*new_line;
+	size_t			i;
+	size_t			j;
 
-	z = 0;
-	while (s1[z] != '\0' || s2[z] != '\0')
-	{
-		if (s1[z] != s2[z])
-			return ((unsigned char)s1[z] - (unsigned char)s2[z]);
-		z++;
-	}
-	return (0);
+	i = 0;
+	j = 0;
+	if (!line1 || !line2)
+		return (NULL);
+	new_line = malloc(sizeof (t_line_symbol)
+			* (ft_mshstrlen(line1) + ft_mshstrlen(line2) + 1));
+	if (!new_line)
+		return (NULL);
+	return (ft_mshstrjoin_utils(line1, line2, new_line));
 }

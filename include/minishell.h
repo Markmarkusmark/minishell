@@ -100,7 +100,7 @@ typedef struct		s_msh
 t_line_symbol 	*ft_mshsubstr(t_msh *msh, size_t len);
 int				ft_mshstrlen(t_line_symbol *line);
 t_line_symbol	*ft_mshstrjoin(t_line_symbol *line1, t_line_symbol *line2);
-void 			close_prog(t_msh *msh, char *err);
+void 			close_prog(char *err);
 void			ft_clear_oldpwd(t_msh *msh);
 void    		ft_environment(t_msh *msh, char **env);
 int     		ft_get_quote_flag(t_msh *msh, const int *i, int q_flag);
@@ -131,7 +131,10 @@ int     		ft_binary(t_msh *msh);
 void			ft_builtin(t_msh *msh, t_com *com);
 void			ft_lstdel(t_list *lst, t_list *lst_main);
 int				ft_redir_checker(t_com *com);
+void			ft_rdr_count(t_com *com);
 void			ft_redir_mng(t_com *com, t_msh *msh);
+int				ft_get_result(t_rdr *rdr, t_com *com, int num, int i);
+int				ft_loop(t_rdr *rdr, t_com *com);
 void 			ft_launch_com(t_msh *msh, t_com *com);
 void			ft_echo(t_msh *msh, t_com *com);
 void			ft_cd(t_msh *msh, t_com *com);
@@ -156,4 +159,10 @@ char 			*ft_join_com(t_msh *msh, t_com *com, char *path);
 int				ft_get_envs_values(t_env *lst, char **env);
 void			free_arr(char **arr);
 int				ft_check_token_error(t_msh *msh);
+int				ft_check_symbol(t_line_symbol line);
+int				ft_get_num_of_args(t_line_symbol *line);
+t_line_symbol	*ft_get_clean_line(t_line_symbol *line);
+int				ft_pass_str(int *i, t_msh *msh);
+t_line_symbol	*ft_mshsubstr2(t_msh *msh, int n, size_t len);
+
 # endif
