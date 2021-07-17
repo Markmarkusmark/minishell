@@ -89,3 +89,22 @@ void	ft_launch_rdr_utils_1(t_msh *msh, t_rdr *rdr, char *out)
 	else if (!ft_strcmp(rdr[msh->rdr_type[1]].kind, ">>"))
 		msh->rdr_fd[1] = open(out, O_WRONLY | O_APPEND | O_CREAT, 0777);
 }
+
+void	ft_redir_mng_utils(t_com *com, t_msh *msh, int *delete, t_rdr *rdr)
+{
+	int	n;
+
+	com->args = NULL;
+	com->num_args = com->num_args - *delete;
+	n = 0;
+	while (n < com->num_redir)
+	{
+		if (!ft_file_check(msh, rdr[n], n))
+		{
+			ft_not_file_after_rdr(msh, rdr, com);
+			return ;
+		}
+		n++;
+	}
+	ft_execute_rdr(msh, rdr, com);
+}

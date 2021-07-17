@@ -29,18 +29,6 @@
 # define CYAN    "\x1b[36m"
 # define RESET   "\x1b[0m"
 
-//int main (int argc, char const *argv[]) {
-//
-//	printf(ANSI_COLOR_RED     "This text is RED!"     ANSI_COLOR_RESET "\n");
-//	printf(ANSI_COLOR_GREEN   "This text is GREEN!"   ANSI_COLOR_RESET "\n");
-//	printf(ANSI_COLOR_YELLOW  "This text is YELLOW!"  ANSI_COLOR_RESET "\n");
-//	printf(ANSI_COLOR_BLUE    "This text is BLUE!"    ANSI_COLOR_RESET "\n");
-//	printf(ANSI_COLOR_MAGENTA "This text is MAGENTA!" ANSI_COLOR_RESET "\n");
-//	printf(ANSI_COLOR_CYAN    "This text is CYAN!"    ANSI_COLOR_RESET "\n");
-//
-//	return 0;
-//}
-
 typedef struct      s_env
 {
     char            *key;
@@ -84,7 +72,11 @@ typedef struct		s_msh
     t_line_symbol	*line;
 	char			*str;
 	char            **env_args;
+<<<<<<< HEAD
 	char 			*val_in_dlr; 
+=======
+	char 			*val_in_dlr;
+>>>>>>> 93ab37c313bba67daacd4cb9cddbca3eef0fddc3
 	int 			return_code;
 	char 			token;
 	int 			fd_0;
@@ -169,6 +161,7 @@ char 			**ft_get_envs(t_msh *msh);
 int				ft_redir_checker(t_com *com);
 void			ft_file_check_utils(t_msh *msh, t_rdr rdr, int rdr_num, int *fd);
 void			ft_launch_rdr_utils(t_msh *msh, t_com *com, int fd[2]);
+<<<<<<< HEAD
 t_line_symbol	*ft_mshdup(t_line_symbol *line);
 void	ft_skip_spaces_in_line(t_msh *msh, int *i);
 void	ft_split_line(t_msh *msh, t_com *command, int *i);
@@ -186,3 +179,11 @@ void            ft_not_file_after_rdr(t_msh *msh, t_rdr *rdr, t_com *com);
 void	ft_launch_rdr_utils_1(t_msh *msh, t_rdr *rdr, char *out);
 
 # endif
+=======
+void			ft_redir_mng_utils(t_com *com, t_msh *msh, int *delete, t_rdr *rdr);
+int				ft_file_check(t_msh *msh, t_rdr rdr, int rdr_num);
+void			ft_execute_rdr(t_msh *msh, t_rdr *rdr, t_com *com);
+void			ft_not_file_after_rdr(t_msh *msh, t_rdr *rdr, t_com *com);
+
+# endif
+>>>>>>> 93ab37c313bba67daacd4cb9cddbca3eef0fddc3
