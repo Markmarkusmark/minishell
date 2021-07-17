@@ -46,21 +46,11 @@ void	ft_launch_rdr_utils_0(t_msh *msh, t_rdr *rdr, char *in)
 	}
 }
 
-void	ft_launch_rdr_utils_2(t_msh *msh, t_rdr *rdr,
-		char *last_out_file, int fd[2])
-{
-	if (!ft_strcmp(rdr[msh->type[1]].type, ">"))
-		fd[1] = open(last_out_file, O_WRONLY | O_TRUNC | O_CREAT, 0777);
-	else if (!ft_strcmp(rdr[msh->type[1]].type, ">>"))
-		fd[1] = open(last_out_file, O_WRONLY | O_APPEND | O_CREAT, 0777);
-}
-
 void	ft_launch_rdr(t_msh *msh, t_rdr *rdr, t_com *com)
 {
 	char	*out;
 	char	*in;
 
-<<<<<<< HEAD
 	ft_rdr_init(msh, rdr, &in, &out);
 	if (msh->rdr_type[1] != NONE)
 		ft_launch_rdr_utils_1(msh, rdr, out);
@@ -69,19 +59,6 @@ void	ft_launch_rdr(t_msh *msh, t_rdr *rdr, t_com *com)
 	if (com->com)
 	{
 		if (msh->rdr_fd[1] != NONE)
-=======
-	fd[0] = NONE;
-	fd[1] = NONE;
-	last_in_file = rdr[msh->type[0]].file;
-	last_out_file = rdr[msh->type[1]].file;
-	if (msh->type[1] != NONE)
-		ft_launch_rdr_utils_2(msh, rdr, last_out_file, fd);
-	if (msh->type[0] != NONE)
-	{
-		if (!ft_strcmp(rdr[msh->type[0]].type, "<"))
-			fd[0] = open(last_in_file, O_RDONLY);
-		if (!ft_strcmp(rdr[msh->type[0]].type, "<<"))
->>>>>>> 93ab37c313bba67daacd4cb9cddbca3eef0fddc3
 		{
 			dup2(STDOUT_FILENO, msh->fd_1);
 			dup2(msh->rdr_fd[1], STDOUT_FILENO);
