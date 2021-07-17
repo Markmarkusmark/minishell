@@ -18,6 +18,8 @@ SRCS =	srcs/main/minishell.c \
 	srcs/main/pipe.c \
 	srcs/parse/parser.c \
 	srcs/parse/parser_utils.c \
+	srcs/parse/parser_utils2.c \
+	srcs/parse/parser_utils3.c \
 	srcs/parse/preparser.c \
 	srcs/parse/parse_env.c \
 	srcs/parse/parse_env_utils.c \

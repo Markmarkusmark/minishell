@@ -12,31 +12,29 @@
 
 #include "../include/minishell.h"
 
-int	ft_get_symbol_flag(t_msh *msh, int *len, int *qte, int *dlr)
+int	ft_get_symbol_flag(t_msh *msh, int *i, int *qte, int *dlr)
 {
-	if ((msh->str[*len] == '\'' && *qte != 2)
-		|| (msh->str[*len] == '"' && *qte != 1))
+	if ((msh->str[*i] == '\'' && *qte != 2)
+		|| (msh->str[*i] == '"' && *qte != 1))
 	{
-		*qte = ft_get_quote_flag(msh, len, *qte);
+		*qte = ft_get_quote_flag(msh, i, *qte);
 		return (0);
 	}
-	else if (msh->str[*len] == '\\' && ft_get_symbol_flag_utils(msh, len, *qte))
+	else if (msh->str[*i] == '\\' && ft_get_symbol_flag_utils(msh, i, *qte))
 		return (1);
 	else
 	{
-		if ((*dlr != 0) && (msh->str[*len] != '_')
-			&& (ft_isalnum(msh->str[*len]) == 0))
+		if ((*dlr) && (msh->str[*i] != '_') && (!ft_isalnum(msh->str[*i])))
 		{
 			*dlr = 0;
 			return (0);
 		}
-		else if ((*dlr == 0) && (*qte == 1
-				|| (*qte == 2 && msh->str[*len] != '$'
-					&& msh->str[*len] != '\\' && msh->str[*len] != '"')))
+		else if ((*dlr == 0) && (*qte == 1 || (*qte == 2 && msh->str[*i] != '$'
+				&& msh->str[*i] != '\\' && msh->str[*i] != '"')))
 			return (1);
 		else
 		{
-			if (msh->str[*len] == '$')
+			if (msh->str[*i] == '$')
 				*dlr = 1;
 			return (0);
 		}
@@ -70,6 +68,18 @@ t_line_symbol	*ft_get_struct_line(t_msh *msh, int mlc_len)
 	return (line);
 }
 
+int	ft_get_val_in_dlr_init(t_line_symbol *line, int *val_i, char **val)
+{
+	*val_i = 0;
+	while (((ft_isalnum(line[*val_i].symb) == 1) || line[*val_i].symb == '_')
+		   && line[*val_i].flag == 0)
+		(*val_i)++;
+	(*val) = malloc((*val_i) + 1);
+	if (!(*val))
+		return (-1);
+	return (0);
+}
+
 int	ft_get_val_in_dlr(t_msh *msh, t_line_symbol *line)
 {
 	int		val_i;
@@ -79,12 +89,7 @@ int	ft_get_val_in_dlr(t_msh *msh, t_line_symbol *line)
 
 	i = -1;
 	j = 0;
-	val_i = 0;
-	while (((ft_isalnum(line[val_i].symb) == 1) || line[val_i].symb == '_')
-		   && line[val_i].flag == 0)
-		val_i++;
-	val = malloc(val_i + 1);
-	if (!val)
+	if (ft_get_val_in_dlr_init(line, &val_i, &val) == -1)
 		return (-1);
 	while (++i < val_i)
 	{

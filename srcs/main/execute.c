@@ -12,22 +12,24 @@
 
 #include "../include/minishell.h"
 
-void	ft_child_process(t_msh *msh, pid_t pid, int *status)
+void	ft_exec_com_utils(t_msh *msh, char *path, char **envs, int status)
 {
-	signal(SIGINT, SIG_IGN);
-	signal(SIGQUIT, SIG_IGN);
-	waitpid(pid, status, 0);
 	msh->return_code = WEXITSTATUS(status);
-	if (*status == 2)
+	if (status == 2)
+	{
 		ft_putstr_fd("\n", 1);
-	if (*status == 3)
+	}
+	if (status == 3)
+	{
 		ft_putstr_fd("Quit: 3\n", 1);
+	}
+	free(path);
+	free_arr(envs);
 }
 
 void	ft_exec_com(t_msh *msh, char **argv, char *path)
 {
 	int		status;
-	char	*err_msg;
 	char	**envs;
 	pid_t	pid;
 
@@ -40,17 +42,17 @@ void	ft_exec_com(t_msh *msh, char **argv, char *path)
 		if (execve(path, argv, envs) == -1)
 		{
 			dup2(msh->fd_1, 1);
-			err_msg = strerror(errno);
-			ft_putstr_fd(err_msg, 2);
+			ft_putstr_fd(strerror(errno), 2);
 			write(1, "\n", 1);
 		}
 		exit(127);
 	}
 	else if (pid < 0)
-		ft_putstr_fd("process crush\n", 2);
-	ft_child_process(msh, pid, &status);
-	free(path);
-	free_arr(envs);
+		ft_putstr_fd(strerror(errno), 2);
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
+	waitpid(pid, &status, 0);
+	ft_exec_com_utils(msh, path, envs, status);
 }
 
 char	*ft_its_correct_path(char *path, t_msh *msh, t_com *com)

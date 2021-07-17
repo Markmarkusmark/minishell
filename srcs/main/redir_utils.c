@@ -73,13 +73,13 @@ int	ft_get_result(t_rdr *rdr, t_com *com, int num, int i)
 			|| (ft_mshcmp(com->args[num], "<<") == 0))
 		&& com->args[num][0].flag == 0)
 	{
-		rdr->type = ft_get_line_from_struct(com->args[num],
+		rdr->kind = ft_get_line_from_struct(com->args[num],
 				0, ft_mshstrlen(com->args[num]));
-		if (!rdr->type)
+		if (!rdr->kind)
 			return (0);
-		rdr->file = ft_get_line_from_struct(com->args[num + 1],
+		rdr->arg = ft_get_line_from_struct(com->args[num + 1],
 				0, ft_mshstrlen(com->args[num + 1]));
-		if (!rdr->file)
+		if (!rdr->arg)
 			return (0);
 		free(com->args[num]);
 		free(com->args[num + 1]);

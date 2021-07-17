@@ -6,94 +6,71 @@
 /*   By: mryan <mryan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/17 09:52:42 by mryan             #+#    #+#             */
-/*   Updated: 2021/07/17 13:34:36 by mryan            ###   ########.fr       */
+/*   Updated: 2021/07/17 14:11:08 by mryan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	ft_file_check(t_msh *msh, t_rdr rdr, int rdr_num)
+void	ft_rdr_init(t_msh *msh, t_rdr *rdr, char **in, char **out)
 {
-	int	fd;
-
-	fd = 0;
-	if (!ft_strcmp(rdr.type, ">"))
-	{
-		msh->type[1] = rdr_num;
-		fd = open(rdr.file, O_WRONLY | O_TRUNC | O_CREAT, 0777);
-		close(fd);
-	}
-	else if (!ft_strcmp(rdr.type, ">>"))
-	{
-		msh->type[1] = rdr_num;
-		fd = open(rdr.file, O_WRONLY | O_APPEND | O_CREAT, 0777);
-		close(fd);
-	}
-	else
-		ft_file_check_utils(msh, rdr, rdr_num, &fd);
-	if (fd == -1)
-		return (0);
-	return (1);
+	msh->rdr_fd[0] = NONE;
+	msh->rdr_fd[1] = NONE;
+	(*in) = rdr[msh->rdr_type[0]].arg;
+	(*out) = rdr[msh->rdr_type[1]].arg;
 }
 
-void	ft_not_file_after_rdr(t_msh *msh, t_rdr *rdr, t_com *com)
+void	ft_launch_rdr_utils_0(t_msh *msh, t_rdr *rdr, char *in)
 {
-	int	i;
+	char	*buff;
 
-	i = 0;
-	while (i < com->num_redir)
+	if (!ft_strcmp(rdr[msh->rdr_type[0]].kind, "<"))
+		msh->rdr_fd[0] = open(in, O_RDONLY);
+	if (!ft_strcmp(rdr[msh->rdr_type[0]].kind, "<<"))
 	{
-		free(rdr[i].type);
-		free(rdr[i].file);
-		i++;
+		pipe(msh->rdr_fd2);
+		while (1)
+		{
+			buff = readline("> ");
+			if (!ft_strcmp(rdr[msh->rdr_type[0]].arg, buff))
+			{
+				free(buff);
+				break ;
+			}
+			ft_putstr_fd(buff, msh->rdr_fd2[1]);
+			ft_putstr_fd("\n", msh->rdr_fd2[1]);
+			free(buff);
+		}
+		close(msh->rdr_fd2[1]);
+		msh->rdr_fd[0] = msh->rdr_fd2[0];
 	}
-	free(rdr);
-	msh->return_code = 1;
 }
 
 void	ft_launch_rdr(t_msh *msh, t_rdr *rdr, t_com *com)
 {
-	int		fd[2];
-	char	*last_out_file;
-	char	*last_in_file;
-	int		fd_buff[2];
-	char	*buff;
+	char	*out;
+	char	*in;
 
-	fd[0] = NONE;
-	fd[1] = NONE;
-	last_in_file = rdr[msh->type[0]].file;
-	last_out_file = rdr[msh->type[1]].file;
-	if (msh->type[1] != NONE)
+	ft_rdr_init(msh, rdr, &in, &out);
+	if (msh->rdr_type[1] != NONE)
+		ft_launch_rdr_utils_1(msh, rdr, out);
+	if (msh->rdr_type[0] != NONE)
+		ft_launch_rdr_utils_0(msh, rdr, in);
+	if (com->com)
 	{
-		if (!ft_strcmp(rdr[msh->type[1]].type, ">"))
-			fd[1] = open(last_out_file, O_WRONLY | O_TRUNC | O_CREAT, 0777);
-		else if (!ft_strcmp(rdr[msh->type[1]].type, ">>"))
-			fd[1] = open(last_out_file, O_WRONLY | O_APPEND | O_CREAT, 0777);
-	}
-	if (msh->type[0] != NONE)
-	{
-		if (!ft_strcmp(rdr[msh->type[0]].type, "<"))
-			fd[0] = open(last_in_file, O_RDONLY);
-		if (!ft_strcmp(rdr[msh->type[0]].type, "<<"))
+		if (msh->rdr_fd[1] != NONE)
 		{
-			pipe(fd_buff);
-			while (1)
-			{
-				buff = readline("> ");
-				if (!ft_strcmp(rdr[msh->type[0]].file, buff))
-				{
-					free(buff);
-					break ;
-				}
-				ft_putstr_fd(buff, fd_buff[1]);
-				ft_putstr_fd("\n", fd_buff[1]);
-				free(buff);
-			}
-			close(fd_buff[1]);
-			fd[0] = fd_buff[0];
+			dup2(STDOUT_FILENO, msh->fd_1);
+			dup2(msh->rdr_fd[1], STDOUT_FILENO);
+			close(msh->rdr_fd[1]);
 		}
+		if (msh->rdr_fd[0] != -1)
+		{
+			dup2(msh->rdr_fd[0], msh->fd_0);
+			close(msh->rdr_fd[0]);
+		}
+		ft_builtin(msh, com);
 	}
-	ft_launch_rdr_utils(msh, com, fd);
 }
 
 void	ft_execute_rdr(t_msh *msh, t_rdr *rdr, t_com *com)
@@ -101,7 +78,6 @@ void	ft_execute_rdr(t_msh *msh, t_rdr *rdr, t_com *com)
 	int		num;
 	int		status;
 	pid_t	pid;
-	char	*err_msg;
 
 	num = 0;
 	pid = fork();
@@ -111,18 +87,15 @@ void	ft_execute_rdr(t_msh *msh, t_rdr *rdr, t_com *com)
 		exit(msh->return_code);
 	}
 	if (pid < 0)
-	{
-		err_msg = strerror(errno);
-		ft_putstr_fd(err_msg, 2);
-	}
+		ft_putstr_fd("process crush\n", 2);
 	wait(&status);
 	msh->return_code = WEXITSTATUS(status);
 	while (num < com->num_redir)
 	{
-		if (rdr[num].type != NULL)
-			free(rdr[num].type);
-		if (rdr[num].file != NULL)
-			free(rdr[num].file);
+		if (rdr[num].kind != NULL)
+			free(rdr[num].kind);
+		if (rdr[num].arg != NULL)
+			free(rdr[num].arg);
 		num++;
 	}
 	free(rdr);
@@ -130,7 +103,6 @@ void	ft_execute_rdr(t_msh *msh, t_rdr *rdr, t_com *com)
 
 void	ft_redir_mng(t_com *com, t_msh *msh)
 {
-	int		n;
 	t_rdr	*rdr;
 	int		delete;
 	int		size;
@@ -140,8 +112,8 @@ void	ft_redir_mng(t_com *com, t_msh *msh)
 	rdr = malloc(com->num_redir * sizeof(t_rdr));
 	if (!rdr)
 		close_prog("malloc error\n");
-	msh->type[0] = NONE;
-	msh->type[1] = NONE;
+	msh->rdr_type[0] = NONE;
+	msh->rdr_type[1] = NONE;
 	msh->fd_1 = 1;
 	msh->fd_0 = 0;
 	delete = com->num_redir * 2;
@@ -155,17 +127,5 @@ void	ft_redir_mng(t_com *com, t_msh *msh)
 	if (ft_loop(rdr, com))
 		ft_exit(msh, com);
 	free(com->args);
-	com->args = NULL;
-	com->num_args = com->num_args - delete;
-	n = 0;
-	while (n < com->num_redir)
-	{
-		if (!ft_file_check(msh, rdr[n], n))
-		{
-			ft_not_file_after_rdr(msh, rdr, com);
-			return ;
-		}
-		n++;
-	}
-	ft_execute_rdr(msh, rdr, com);
+	ft_redir_mng_utils(com, msh, &delete, rdr);
 }

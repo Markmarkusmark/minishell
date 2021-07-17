@@ -6,7 +6,7 @@
 /*   By: mryan <mryan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/17 13:11:51 by mryan             #+#    #+#             */
-/*   Updated: 2021/07/17 13:34:51 by mryan            ###   ########.fr       */
+/*   Updated: 2021/07/17 13:58:37 by mryan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,31 +14,78 @@
 
 void	ft_file_check_utils(t_msh *msh, t_rdr rdr, int rdr_num, int *fd)
 {
-	if (!ft_strcmp(rdr.type, "<"))
+	if (!ft_strcmp(rdr.kind, "<"))
 	{
-		msh->type[0] = rdr_num;
-		*fd = open(rdr.file, O_RDONLY);
+		msh->rdr_type[0] = rdr_num;
+		*fd = open(rdr.arg, O_RDONLY);
 		close(*fd);
 	}
-	else if (!ft_strcmp(rdr.type, "<<"))
-		msh->type[0] = rdr_num;
+	else if (!ft_strcmp(rdr.kind, "<<"))
+		msh->rdr_type[0] = rdr_num;
 }
 
-void	ft_launch_rdr_utils(t_msh *msh, t_com *com, int fd[2])
+void	ft_redir_mng_utils(t_com *com, t_msh *msh, int *delete, t_rdr *rdr)
 {
-	if (com->com)
+	int	n;
+
+	com->args = NULL;
+	com->num_args = com->num_args - *delete;
+	n = 0;
+	while (n < com->num_redir)
 	{
-		if (fd[1] != NONE)
+		if (!ft_file_check(msh, rdr[n], n))
 		{
-			dup2(STDOUT_FILENO, msh->fd_1);
-			dup2(fd[1], STDOUT_FILENO);
-			close(fd[1]);
+			ft_not_file_after_rdr(msh, rdr, com);
+			return ;
 		}
-		if (fd[0] != -1)
-		{
-			dup2(fd[0], msh->fd_0);
-			close(fd[0]);
-		}
-		ft_builtin(msh, com);
+		n++;
 	}
+	ft_execute_rdr(msh, rdr, com);
+}
+
+int	ft_file_check(t_msh *msh, t_rdr rdr, int rdr_num)
+{
+	int	fd;
+
+	fd = 0;
+	if (!ft_strcmp(rdr.kind, ">"))
+	{
+		msh->rdr_type[1] = rdr_num;
+		fd = open(rdr.arg, O_WRONLY | O_TRUNC | O_CREAT, 0777);
+		close(fd);
+	}
+	else if (!ft_strcmp(rdr.kind, ">>"))
+	{
+		msh->rdr_type[1] = rdr_num;
+		fd = open(rdr.arg, O_WRONLY | O_APPEND | O_CREAT, 0777);
+		close(fd);
+	}
+	else
+		ft_file_check_utils(msh, rdr, rdr_num, &fd);
+	if (fd == -1)
+		return (0);
+	return (1);
+}
+
+void	ft_not_file_after_rdr(t_msh *msh, t_rdr *rdr, t_com *com)
+{
+	int	i;
+
+	i = 0;
+	while (i < com->num_redir)
+	{
+		free(rdr[i].kind);
+		free(rdr[i].arg);
+		i++;
+	}
+	free(rdr);
+	msh->return_code = 1;
+}
+
+void	ft_launch_rdr_utils_1(t_msh *msh, t_rdr *rdr, char *out)
+{
+	if (!ft_strcmp(rdr[msh->rdr_type[1]].kind, ">"))
+		msh->rdr_fd[1] = open(out, O_WRONLY | O_TRUNC | O_CREAT, 0777);
+	else if (!ft_strcmp(rdr[msh->rdr_type[1]].kind, ">>"))
+		msh->rdr_fd[1] = open(out, O_WRONLY | O_APPEND | O_CREAT, 0777);
 }

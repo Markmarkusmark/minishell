@@ -25,6 +25,17 @@ int	ft_check_symbol(t_line_symbol line)
 		return (1);
 }
 
+// void	ft_get_num_of_args_utils(t_line_symbol *line, int *i, int *num_args)
+// {
+// 	if ((line[*i].symb == '>' || line[*i].symb == '<') && line[*i].flag == 0)
+// 	{
+// 		*num_args++;
+// 		while ((line[*i].symb == '>' || line[*i].symb == '<')
+// 			&& line[*i].flag == 0)
+// 			(*i)++;
+// 	}
+// }
+
 int	ft_get_num_of_args(t_line_symbol *line)
 {
 	int	i;
@@ -43,6 +54,7 @@ int	ft_get_num_of_args(t_line_symbol *line)
 				&& line[i].flag == 0)
 				i++;
 		}
+		//ft_get_num_of_args_utils(line, &i, &num_args);
 		else
 		{
 			while (ft_check_symbol(line[i]))

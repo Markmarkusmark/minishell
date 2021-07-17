@@ -45,7 +45,7 @@ int	ft_args_new(t_com *com)
 
 	if (com->num_args > 0)
 	{
-		com->args_new = calloc(com->num_args, sizeof(char *));
+		com->args_new = malloc(com->num_args * sizeof(char *));
 		if (!com->args_new)
 			return (0);
 	}

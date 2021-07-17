@@ -66,8 +66,8 @@ typedef struct      s_com
 
 typedef struct      s_rdr
 {
-    char            *type;
-    char            *file;
+    char            *kind;
+    char            *arg;
 }                   t_rdr;
 
 typedef struct      s_sort
@@ -82,19 +82,19 @@ typedef struct		s_msh
     t_list		    *env;
     t_list		    *com;
     t_line_symbol	*line;
-	char			*str; // my input string
+	char			*str;
 	char            **env_args;
-	char 			*val_in_dlr;   // in this field environment after $
+	char 			*val_in_dlr; 
 	int 			return_code;
-	char 			token; // (; | > < >>) это для одной из внутренних функций , для дальнейшего не нужно , для удобства положил в структуру
-	int 			fd_0; // stdin
-	int 			fd_1; // stdout
-	int             pipe_fd[2]; // для функции pipe
+	char 			token;
+	int 			fd_0;
+	int 			fd_1;
+	int             pipe_fd[2];
 	int             pipe_read_fd;
-	int				type[2];
+	int				rdr_type[2];
+	int				rdr_fd[2];
+	int				rdr_fd2[2];
 	int             numwaits_pipe;
-	/* type[0] contains the index of the last redir of < or << type
-	type[1] contains the index of the last redir of > or >> type */
 }					t_msh;
 
 t_line_symbol 	*ft_mshsubstr(t_msh *msh, size_t len);
@@ -169,9 +169,20 @@ char 			**ft_get_envs(t_msh *msh);
 int				ft_redir_checker(t_com *com);
 void			ft_file_check_utils(t_msh *msh, t_rdr rdr, int rdr_num, int *fd);
 void			ft_launch_rdr_utils(t_msh *msh, t_com *com, int fd[2]);
-
-
-
-
+t_line_symbol	*ft_mshdup(t_line_symbol *line);
+void	ft_skip_spaces_in_line(t_msh *msh, int *i);
+void	ft_split_line(t_msh *msh, t_com *command, int *i);
+void	ft_init_proc(t_com **command, t_list **new_list);
+void	ft_get_separator(t_msh *msh, t_com *command, int separ, int *i);
+int		ft_get_args(t_msh *msh, t_com *cmd, int *i);
+char	*ft_get_str_from_struct(t_line_symbol *line, int len);
+int	ft_update_line(t_line_symbol ***str, t_com *cmd, int num, int its_cmd);
+void	ft_check_if_command(t_com *command, int its_cmd);
+int	ft_get_command(t_com *command);
+void            ft_redir_mng_utils(t_com *com, t_msh *msh, int *delete, t_rdr *rdr);
+int                ft_file_check(t_msh *msh, t_rdr rdr, int rdr_num);
+void            ft_execute_rdr(t_msh *msh, t_rdr *rdr, t_com *com);
+void            ft_not_file_after_rdr(t_msh *msh, t_rdr *rdr, t_com *com);
+void	ft_launch_rdr_utils_1(t_msh *msh, t_rdr *rdr, char *out);
 
 # endif
