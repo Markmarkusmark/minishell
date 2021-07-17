@@ -1,5 +1,22 @@
 #include "../include/minishell.h"
 
+void	del_lst_command_utils(void *cmd)
+{
+	int	i;
+
+	if (((t_com *)cmd)->args_new)
+	{
+		i = 0;
+		while (i < ((t_com *)cmd)->num_args)
+		{
+			free(((t_com *)cmd)->args_new[i]);
+			i++;
+		}
+		if (((t_com *)cmd)->args_new != NULL)
+			free(((t_com *)cmd)->args_new);
+	}
+}
+
 void	del_lst_command(void *cmd)
 {
 	int	i;
@@ -16,56 +33,20 @@ void	del_lst_command(void *cmd)
 		}
 		free(((t_com *)cmd)->args);
 	}
-	if (((t_com *)cmd)->args_new)
-	{
-		i = 0;
-		while (i < ((t_com *)cmd)->num_args)
-		{
-			free(((t_com *)cmd)->args_new[i]);
-			i++;
-		}
-		if (((t_com *)cmd)->args_new != NULL)
-			free(((t_com *)cmd)->args_new);
-	}
+	del_lst_command_utils(cmd);
 	free((t_com *)cmd);
 }
 
-void	handle_signals(int signo)
+void	main_init(char **env, t_msh *msh)
 {
-	if (signo == SIGINT)
-	{
-		rl_on_new_line();
-		rl_redisplay();
-		write(1, "  ", 2);
-		printf("\n");
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
-	}
-	if (signo == SIGQUIT)
-	{
-		rl_on_new_line();
-		rl_redisplay();
-		printf("");
-		rl_on_new_line();
-		rl_redisplay();
-	}
-}
-
-int	main(int argc, char **argv, char **env)
-{
-	t_msh	*msh;
-
-	msh = NULL;
-	if (argc > 1 || argv[1])
-		close_prog("too many arguments\n");
-	msh = (t_msh *)malloc(sizeof(t_msh));
-	if (!msh)
-		close_prog("error memory\n");
 	ft_bzero(msh, sizeof(t_msh));
 	ft_environment(msh, env);
 	signal(SIGINT, SIG_IGN);
 	signal(SIGQUIT, SIG_IGN);
+}
+
+void	main_loop(t_msh *msh)
+{
 	while (MINISHELL_LOOP)
 	{
 		signal(SIGINT, handle_signals);
@@ -84,5 +65,19 @@ int	main(int argc, char **argv, char **env)
 		ft_lstclear(&msh->com, &del_lst_command);
 		free(msh->str);
 	}
+}
+
+int	main(int argc, char **argv, char **env)
+{
+	t_msh	*msh;
+
+	msh = NULL;
+	if (argc > 1 || argv[1])
+		close_prog("too many arguments\n");
+	msh = (t_msh *)malloc(sizeof(t_msh));
+	if (!msh)
+		close_prog("error memory\n");
+	main_init(env, msh);
+	main_loop(msh);
 	return (0);
 }

@@ -6,35 +6,22 @@
 /*   By: mryan <mryan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 17:25:49 by mryan             #+#    #+#             */
-/*   Updated: 2021/07/16 18:16:28 by mryan            ###   ########.fr       */
+/*   Updated: 2021/07/17 12:55:52 by mryan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-char 	**ft_get_envs(t_msh *msh)
+void	ft_child_process(t_msh *msh, pid_t pid, int *status)
 {
-	t_list	*list;
-	char	**envs;
-	int		i;
-	int		j;
-
-	i = ft_lstsize(msh->env);
-	envs = malloc((i + 1) * sizeof(char *));
-	j = 0;
-	list = msh->env;
-	while (list)
-	{
-		if (((t_env *)list->content)->val)
-		{
-			if (!ft_get_envs_values((t_env *)list->content, &envs[j]))
-				return (NULL);
-			j++;
-		}
-		list = list->next;
-	}
-	envs[j] = NULL;
-	return (envs);
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
+	waitpid(pid, status, 0);
+	msh->return_code = WEXITSTATUS(status);
+	if (*status == 2)
+		ft_putstr_fd("\n", 1);
+	if (*status == 3)
+		ft_putstr_fd("Quit: 3\n", 1);
 }
 
 void	ft_exec_com(t_msh *msh, char **argv, char *path)
@@ -60,22 +47,8 @@ void	ft_exec_com(t_msh *msh, char **argv, char *path)
 		exit(127);
 	}
 	else if (pid < 0)
-	{
-		err_msg = strerror(errno);
-		ft_putstr_fd(err_msg, 2);
-	}
-	signal(SIGINT, SIG_IGN);
-	signal(SIGQUIT, SIG_IGN);
-	waitpid(pid, &status, 0);
-	msh->return_code = WEXITSTATUS(status);
-	if (status == 2)
-	{
-		ft_putstr_fd("\n", 1);
-	}
-	if (status == 3)
-	{
-		ft_putstr_fd("Quit: 3\n", 1);
-	}
+		ft_putstr_fd("process crush\n", 2);
+	ft_child_process(msh, pid, &status);
 	free(path);
 	free_arr(envs);
 }
@@ -100,34 +73,8 @@ char	*ft_its_correct_path(char *path, t_msh *msh, t_com *com)
 	return (NULL);
 }
 
-void 	ft_launch_com(t_msh *msh, t_com *com)
+void 	ft_launch_com_utils(t_msh *msh, char *buff, char **argv)
 {
-	char	**exec_paths;
-	char	**argv;
-	int		i;
-	char	*buff;
-
-	buff = NULL;
-	i = 0;
-	argv = ft_create_argv(msh, com);
-	exec_paths = ft_get_paths(msh);
-	if (exec_paths != NULL)
-	{
-		i = 0;
-		if (com->com[0] == '/')
-			buff = ft_strdup(com->com);
-		else
-		{
-			while (exec_paths[i])
-			{
-				buff = ft_its_correct_path(exec_paths[i], msh, com);
-				if (buff)
-					break ;
-				i++;
-			}
-			free_arr(exec_paths);
-		}
-	}
 	if (buff == NULL)
 	{
 		dup2(msh->fd_1, 1);
@@ -138,4 +85,33 @@ void 	ft_launch_com(t_msh *msh, t_com *com)
 	}
 	ft_exec_com(msh, argv, buff);
 	free_arr(argv);
+}
+
+void 	ft_launch_com(t_msh *msh, t_com *com)
+{
+	char	**exec_paths;
+	char	**argv;
+	int		i;
+	char	*buff;
+
+	buff = NULL;
+	i = -1;
+	argv = ft_create_argv(msh, com);
+	exec_paths = ft_get_paths(msh);
+	if (exec_paths != NULL)
+	{
+		if (com->com[0] == '/')
+			buff = ft_strdup(com->com);
+		else
+		{
+			while (exec_paths[++i])
+			{
+				buff = ft_its_correct_path(exec_paths[i], msh, com);
+				if (buff)
+					break ;
+			}
+			free_arr(exec_paths);
+		}
+	}
+	ft_launch_com_utils(msh, buff, argv);
 }

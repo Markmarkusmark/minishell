@@ -6,7 +6,7 @@
 /*   By: mryan <mryan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/17 09:50:47 by mryan             #+#    #+#             */
-/*   Updated: 2021/07/17 09:51:26 by mryan            ###   ########.fr       */
+/*   Updated: 2021/07/17 13:13:08 by mryan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,16 @@ void	ft_rdr_count(t_com *com)
 	}
 }
 
+int	ft_get_result_utils(t_com *com, int num, int i)
+{
+	com->args_new[i] = ft_get_line_from_struct(com->args[num],
+			0, ft_mshstrlen(com->args[num]));
+	if (!com->args_new[i])
+		return (0);
+	free(com->args[num]);
+	return (ITS_ARG);
+}
+
 int	ft_get_result(t_rdr *rdr, t_com *com, int num, int i)
 {
 	if (((ft_mshcmp(com->args[num], ">") == 0)
@@ -76,14 +86,7 @@ int	ft_get_result(t_rdr *rdr, t_com *com, int num, int i)
 		return (ITS_RDR);
 	}
 	else
-	{
-		com->args_new[i] = ft_get_line_from_struct(com->args[num],
-				0, ft_mshstrlen(com->args[num]));
-		if (!com->args_new[i])
-			return (0);
-		free(com->args[num]);
-		return (ITS_ARG);
-	}
+		return (ft_get_result_utils(com, num, i));
 }
 
 int	ft_loop(t_rdr *rdr, t_com *com)

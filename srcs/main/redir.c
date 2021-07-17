@@ -6,7 +6,7 @@
 /*   By: mryan <mryan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/17 09:52:42 by mryan             #+#    #+#             */
-/*   Updated: 2021/07/17 11:21:27 by mryan            ###   ########.fr       */
+/*   Updated: 2021/07/17 13:34:36 by mryan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,8 @@ int	ft_file_check(t_msh *msh, t_rdr rdr, int rdr_num)
 		fd = open(rdr.file, O_WRONLY | O_APPEND | O_CREAT, 0777);
 		close(fd);
 	}
-	else if (!ft_strcmp(rdr.type, "<"))
-	{
-		msh->type[0] = rdr_num;
-		fd = open(rdr.file, O_RDONLY);
-		close(fd);
-	}
-	else if (!ft_strcmp(rdr.type, "<<"))
-		msh->type[0] = rdr_num;
+	else
+		ft_file_check_utils(msh, rdr, rdr_num, &fd);
 	if (fd == -1)
 		return (0);
 	return (1);
@@ -99,21 +93,7 @@ void	ft_launch_rdr(t_msh *msh, t_rdr *rdr, t_com *com)
 			fd[0] = fd_buff[0];
 		}
 	}
-	if (com->com)
-	{
-		if (fd[1] != NONE)
-		{
-			dup2(STDOUT_FILENO, msh->fd_1);
-			dup2(fd[1], STDOUT_FILENO);
-			close(fd[1]);
-		}
-		if (fd[0] != -1)
-		{
-			dup2(fd[0], msh->fd_0);
-			close(fd[0]);
-		}
-		ft_builtin(msh, com);
-	}
+	ft_launch_rdr_utils(msh, com, fd);
 }
 
 void	ft_execute_rdr(t_msh *msh, t_rdr *rdr, t_com *com)
