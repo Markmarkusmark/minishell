@@ -6,7 +6,7 @@
 /*   By: mryan <mryan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/17 09:52:42 by mryan             #+#    #+#             */
-/*   Updated: 2021/07/17 13:34:36 by mryan            ###   ########.fr       */
+/*   Updated: 2021/07/17 14:11:08 by mryan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,15 @@ void	ft_not_file_after_rdr(t_msh *msh, t_rdr *rdr, t_com *com)
 	msh->return_code = 1;
 }
 
+void	ft_launch_rdr_utils_2(t_msh *msh, t_rdr *rdr,
+		char *last_out_file, int fd[2])
+{
+	if (!ft_strcmp(rdr[msh->type[1]].type, ">"))
+		fd[1] = open(last_out_file, O_WRONLY | O_TRUNC | O_CREAT, 0777);
+	else if (!ft_strcmp(rdr[msh->type[1]].type, ">>"))
+		fd[1] = open(last_out_file, O_WRONLY | O_APPEND | O_CREAT, 0777);
+}
+
 void	ft_launch_rdr(t_msh *msh, t_rdr *rdr, t_com *com)
 {
 	int		fd[2];
@@ -64,12 +73,7 @@ void	ft_launch_rdr(t_msh *msh, t_rdr *rdr, t_com *com)
 	last_in_file = rdr[msh->type[0]].file;
 	last_out_file = rdr[msh->type[1]].file;
 	if (msh->type[1] != NONE)
-	{
-		if (!ft_strcmp(rdr[msh->type[1]].type, ">"))
-			fd[1] = open(last_out_file, O_WRONLY | O_TRUNC | O_CREAT, 0777);
-		else if (!ft_strcmp(rdr[msh->type[1]].type, ">>"))
-			fd[1] = open(last_out_file, O_WRONLY | O_APPEND | O_CREAT, 0777);
-	}
+		ft_launch_rdr_utils_2(msh, rdr, last_out_file, fd);
 	if (msh->type[0] != NONE)
 	{
 		if (!ft_strcmp(rdr[msh->type[0]].type, "<"))
@@ -101,7 +105,6 @@ void	ft_execute_rdr(t_msh *msh, t_rdr *rdr, t_com *com)
 	int		num;
 	int		status;
 	pid_t	pid;
-	char	*err_msg;
 
 	num = 0;
 	pid = fork();
@@ -111,10 +114,7 @@ void	ft_execute_rdr(t_msh *msh, t_rdr *rdr, t_com *com)
 		exit(msh->return_code);
 	}
 	if (pid < 0)
-	{
-		err_msg = strerror(errno);
-		ft_putstr_fd(err_msg, 2);
-	}
+		ft_putstr_fd("process crush\n", 2);
 	wait(&status);
 	msh->return_code = WEXITSTATUS(status);
 	while (num < com->num_redir)
@@ -130,7 +130,6 @@ void	ft_execute_rdr(t_msh *msh, t_rdr *rdr, t_com *com)
 
 void	ft_redir_mng(t_com *com, t_msh *msh)
 {
-	int		n;
 	t_rdr	*rdr;
 	int		delete;
 	int		size;
@@ -155,17 +154,5 @@ void	ft_redir_mng(t_com *com, t_msh *msh)
 	if (ft_loop(rdr, com))
 		ft_exit(msh, com);
 	free(com->args);
-	com->args = NULL;
-	com->num_args = com->num_args - delete;
-	n = 0;
-	while (n < com->num_redir)
-	{
-		if (!ft_file_check(msh, rdr[n], n))
-		{
-			ft_not_file_after_rdr(msh, rdr, com);
-			return ;
-		}
-		n++;
-	}
-	ft_execute_rdr(msh, rdr, com);
+	ft_redir_mng_utils(com, msh, &delete, rdr);
 }

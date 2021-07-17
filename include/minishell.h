@@ -29,18 +29,6 @@
 # define CYAN    "\x1b[36m"
 # define RESET   "\x1b[0m"
 
-//int main (int argc, char const *argv[]) {
-//
-//	printf(ANSI_COLOR_RED     "This text is RED!"     ANSI_COLOR_RESET "\n");
-//	printf(ANSI_COLOR_GREEN   "This text is GREEN!"   ANSI_COLOR_RESET "\n");
-//	printf(ANSI_COLOR_YELLOW  "This text is YELLOW!"  ANSI_COLOR_RESET "\n");
-//	printf(ANSI_COLOR_BLUE    "This text is BLUE!"    ANSI_COLOR_RESET "\n");
-//	printf(ANSI_COLOR_MAGENTA "This text is MAGENTA!" ANSI_COLOR_RESET "\n");
-//	printf(ANSI_COLOR_CYAN    "This text is CYAN!"    ANSI_COLOR_RESET "\n");
-//
-//	return 0;
-//}
-
 typedef struct      s_env
 {
     char            *key;
@@ -82,19 +70,17 @@ typedef struct		s_msh
     t_list		    *env;
     t_list		    *com;
     t_line_symbol	*line;
-	char			*str; // my input string
+	char			*str;
 	char            **env_args;
-	char 			*val_in_dlr;   // in this field environment after $
+	char 			*val_in_dlr;
 	int 			return_code;
-	char 			token; // (; | > < >>) это для одной из внутренних функций , для дальнейшего не нужно , для удобства положил в структуру
-	int 			fd_0; // stdin
-	int 			fd_1; // stdout
-	int             pipe_fd[2]; // для функции pipe
+	char 			token;
+	int 			fd_0;
+	int 			fd_1;
+	int             pipe_fd[2];
 	int             pipe_read_fd;
 	int				type[2];
 	int             numwaits_pipe;
-	/* type[0] contains the index of the last redir of < or << type
-	type[1] contains the index of the last redir of > or >> type */
 }					t_msh;
 
 t_line_symbol 	*ft_mshsubstr(t_msh *msh, size_t len);
@@ -169,9 +155,9 @@ char 			**ft_get_envs(t_msh *msh);
 int				ft_redir_checker(t_com *com);
 void			ft_file_check_utils(t_msh *msh, t_rdr rdr, int rdr_num, int *fd);
 void			ft_launch_rdr_utils(t_msh *msh, t_com *com, int fd[2]);
-
-
-
-
+void			ft_redir_mng_utils(t_com *com, t_msh *msh, int *delete, t_rdr *rdr);
+int				ft_file_check(t_msh *msh, t_rdr rdr, int rdr_num);
+void			ft_execute_rdr(t_msh *msh, t_rdr *rdr, t_com *com);
+void			ft_not_file_after_rdr(t_msh *msh, t_rdr *rdr, t_com *com);
 
 # endif

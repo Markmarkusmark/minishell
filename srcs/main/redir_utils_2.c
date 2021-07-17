@@ -6,7 +6,7 @@
 /*   By: mryan <mryan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/17 13:11:51 by mryan             #+#    #+#             */
-/*   Updated: 2021/07/17 13:34:51 by mryan            ###   ########.fr       */
+/*   Updated: 2021/07/17 13:58:37 by mryan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,23 @@ void	ft_launch_rdr_utils(t_msh *msh, t_com *com, int fd[2])
 		}
 		ft_builtin(msh, com);
 	}
+}
+
+void	ft_redir_mng_utils(t_com *com, t_msh *msh, int *delete, t_rdr *rdr)
+{
+	int	n;
+
+	com->args = NULL;
+	com->num_args = com->num_args - *delete;
+	n = 0;
+	while (n < com->num_redir)
+	{
+		if (!ft_file_check(msh, rdr[n], n))
+		{
+			ft_not_file_after_rdr(msh, rdr, com);
+			return ;
+		}
+		n++;
+	}
+	ft_execute_rdr(msh, rdr, com);
 }
