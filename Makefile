@@ -14,6 +14,7 @@ SRCS =	srcs/main/minishell.c \
 	srcs/main/execute_utils.c \
 	srcs/main/redir.c \
 	srcs/main/redir_utils.c \
+	srcs/main/redir_utils_2.c \
 	srcs/main/pipe.c \
 	srcs/parse/parser.c \
 	srcs/parse/parser_utils.c \
@@ -32,6 +33,7 @@ SRCS =	srcs/main/minishell.c \
 	srcs/builtin/builtin.c \
 	srcs/utils.c \
 	srcs/utils_2.c \
+	srcs/utils_3.c \
 
 OBJS = $(SRCS:.c=.o)
 

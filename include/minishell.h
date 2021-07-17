@@ -164,5 +164,14 @@ int				ft_get_num_of_args(t_line_symbol *line);
 t_line_symbol	*ft_get_clean_line(t_line_symbol *line);
 int				ft_pass_str(int *i, t_msh *msh);
 t_line_symbol	*ft_mshsubstr2(t_msh *msh, int n, size_t len);
+void			handle_signals(int signo);
+char 			**ft_get_envs(t_msh *msh);
+int				ft_redir_checker(t_com *com);
+void			ft_file_check_utils(t_msh *msh, t_rdr rdr, int rdr_num, int *fd);
+void			ft_launch_rdr_utils(t_msh *msh, t_com *com, int fd[2]);
+
+
+
+
 
 # endif
