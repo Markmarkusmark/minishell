@@ -6,7 +6,7 @@
 /*   By: mryan <mryan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/17 12:14:47 by mryan             #+#    #+#             */
-/*   Updated: 2021/07/17 12:56:04 by mryan            ###   ########.fr       */
+/*   Updated: 2021/07/18 12:06:07 by mryan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,16 @@ char 	**ft_get_envs(t_msh *msh)
 	}
 	envs[j] = NULL;
 	return (envs);
+}
+
+void	ft_file_check_utils(t_msh *msh, t_rdr rdr, int rdr_num, int *fd)
+{
+	if (!ft_strcmp(rdr.kind, "<"))
+	{
+		msh->rdr_type[0] = rdr_num;
+		*fd = open(rdr.arg, O_RDONLY);
+		close(*fd);
+	}
+	else if (!ft_strcmp(rdr.kind, "<<"))
+		msh->rdr_type[0] = rdr_num;
 }
