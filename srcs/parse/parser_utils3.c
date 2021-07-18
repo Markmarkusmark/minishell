@@ -12,7 +12,7 @@
 
 #include "../include/minishell.h"
 
-int		ft_get_args(t_msh *msh, t_com *cmd, int *i)
+int	ft_get_args(t_msh *msh, t_com *cmd, int *i)
 {
 	int				j;
 	int				num;
@@ -57,6 +57,7 @@ char	*ft_get_str_from_struct(t_line_symbol *line, int len)
 	tmp = malloc(len + 1);
 	if (!tmp)
 		return (NULL);
+	ft_lstadd_front(&g_mem, ft_lstnew(tmp));
 	while (i < len)
 	{
 		tmp[j] = line[i].symb;
@@ -104,4 +105,17 @@ void	ft_check_if_command(t_com *command, int its_cmd)
 			command->args = NULL;
 		}
 	}
+}
+
+int	ft_check_symbol(t_line_symbol line)
+{
+	if ((line.symb == '<' && line.flag == 0)
+		|| (line.symb == '>' && line.flag == 0)
+		|| (line.symb == ';' && line.flag == 0)
+		|| (line.symb == '|' && line.flag == 0)
+		|| (line.symb == ' ' && line.flag == 0)
+		|| (line.symb == '\0'))
+		return (0);
+	else
+		return (1);
 }

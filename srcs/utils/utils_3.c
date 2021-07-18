@@ -43,6 +43,9 @@ char 	**ft_get_envs(t_msh *msh)
 
 	i = ft_lstsize(msh->env);
 	envs = malloc((i + 1) * sizeof(char *));
+	if (!envs)
+		close_prog("malloc error\n");
+	ft_lstadd_front(&g_mem, ft_lstnew(envs));
 	j = 0;
 	list = msh->env;
 	while (list)
@@ -69,4 +72,18 @@ void	ft_file_check_utils(t_msh *msh, t_rdr rdr, int rdr_num, int *fd)
 	}
 	else if (!ft_strcmp(rdr.kind, "<<"))
 		msh->rdr_type[0] = rdr_num;
+}
+
+int	ft_get_token_utils(t_msh *msh, int *len)
+{
+	if (ft_check_token2(msh, len))
+		return (1);
+	if ((msh->line[*len].symb == '>' || msh->line[*len].symb == '<')
+		&& msh->line[*len].flag == 0)
+	{
+		ft_putstr_fd(
+			"syntax error near unexpected token 'redirect'\n", 1);
+		return (1);
+	}
+	return (0);
 }

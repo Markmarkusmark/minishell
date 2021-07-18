@@ -46,6 +46,23 @@ int	ft_check_open_quote(int q_flag)
 	return (0);
 }
 
+int	ft_line_size_utils(t_msh *msh, int *i, int q_flag)
+{
+	if (msh->str[*i] == '\\' && (q_flag == 0 || (q_flag == 2
+				&& (msh->str[*i + 1] == '$'
+					|| msh->str[*i + 1] == '\\'
+					|| msh->str[*i + 1] == '"'))))
+	{
+		(*i)++;
+		if (msh->str[*i] == '\0')
+		{
+			ft_putstr_fd("open backslash\n", 1);
+			return (0);
+		}
+	}
+	return (1);
+}
+
 int	ft_line_size(t_msh *msh)
 {
 	int	q_flag;
@@ -59,18 +76,8 @@ int	ft_line_size(t_msh *msh)
 	while (msh->str[++i])
 	{
 		q_flag = ft_get_quote_flag(msh, &i, q_flag);
-		if (msh->str[i] == '\\' && (q_flag == 0 || (q_flag == 2
-					&& (msh->str[i + 1] == '$'
-						|| msh->str[i + 1] == '\\'
-						|| msh->str[i + 1] == '"'))))
-		{
-			i++;
-			if (msh->str[i] == '\0')
-			{
-				ft_putstr_fd("open backslash\n", 1);
-				return (-1);
-			}
-		}
+		if (!ft_line_size_utils(msh, &i, q_flag))
+			return (-1);
 		str_len++;
 	}
 	err = ft_check_open_quote(q_flag);
@@ -93,6 +100,7 @@ int	ft_preparser(t_msh *msh)
 	msh->line = ft_get_struct_line(msh, str_len);
 	if (!msh->line)
 		close_prog("line malloc error\n");
+	ft_lstadd_front(&g_mem, ft_lstnew(msh->line));
 	if (ft_get_dollar(msh) == 0)
 		return (1);
 	if (ft_check_line_syntax(msh))

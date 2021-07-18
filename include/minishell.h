@@ -2,7 +2,6 @@
 # define MINISHELL_H
 
 # include "../libft/libft.h"
-# include "../get_next_line/get_next_line.h"
 # include "fcntl.h"
 # include <sys/wait.h>
 # include <unistd.h>
@@ -77,6 +76,8 @@ typedef struct s_msh
 	int				rdr_fd2[2];
 	int				numwaits_pipe;
 }					t_msh;
+
+t_list			*g_mem;
 
 t_line_symbol	*ft_mshsubstr(t_msh *msh, size_t len);
 int				ft_mshstrlen(t_line_symbol *line);
@@ -169,7 +170,8 @@ int				ft_file_check(t_msh *msh, t_rdr rdr, int rdr_num);
 void			ft_execute_rdr(t_msh *msh, t_rdr *rdr, t_com *com);
 void			ft_not_file_after_rdr(t_msh *msh, t_rdr *rdr, t_com *com);
 void			ft_launch_rdr_utils_1(t_msh *msh, t_rdr *rdr, char *out);
-void			ft_file_check_utils(t_msh *msh, t_rdr rdr,
-					int rdr_num, int *fd);
+int				ft_get_symbol_flag(t_msh *msh, int *i, int *qte, int *dlr);
+t_line_symbol	*ft_get_struct_line(t_msh *msh, int mlc_len);
+int				ft_get_token_utils(t_msh *msh, int *len);
 
 #endif

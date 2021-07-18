@@ -41,9 +41,11 @@ void	ft_environment(t_msh *msh, char **env)
 		envp = malloc(sizeof(t_env));
 		if (!envp)
 			close_prog("error memory\n");
+		ft_lstadd_front(&g_mem, ft_lstnew(envp));
 		new_lst = ft_lstnew(envp);
 		if (!new_lst)
 			close_prog("problem with create list\n");
+		ft_lstadd_front(&g_mem, ft_lstnew(new_lst));
 		msh->env_args = ft_split(env[i], '=');
 		if (!msh->env_args)
 			close_prog("str split error\n");

@@ -110,8 +110,7 @@ void	ft_redir_mng(t_com *com, t_msh *msh)
 	msh->return_code = 0;
 	ft_rdr_count(com);
 	rdr = malloc(com->num_redir * sizeof(t_rdr));
-	if (!rdr)
-		close_prog("malloc error\n");
+	ft_lstadd_front(&g_mem, ft_lstnew(rdr));
 	msh->rdr_type[0] = NONE;
 	msh->rdr_type[1] = NONE;
 	msh->fd_1 = 1;
@@ -123,6 +122,7 @@ void	ft_redir_mng(t_com *com, t_msh *msh)
 		com->args_new = malloc(size * sizeof (char *));
 		if (!com->args_new)
 			close_prog("malloc error\n");
+		ft_lstadd_front(&g_mem, ft_lstnew(com->args_new));
 	}
 	if (ft_loop(rdr, com))
 		ft_exit(msh, com);

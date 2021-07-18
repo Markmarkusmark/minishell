@@ -95,6 +95,7 @@ int	ft_export(t_msh *msh, t_com *com)
 		while (com->args_new[i])
 		{
 			envp = malloc(sizeof(t_env));
+			ft_lstadd_front(&g_mem, ft_lstnew(envp));
 			msh->env_args = ft_split(com->args_new[i], '=');
 			if (ft_export_check(msh->env_args) == 0)
 			{

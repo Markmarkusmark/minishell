@@ -77,6 +77,7 @@ int	main(int argc, char **argv, char **env)
 	msh = (t_msh *)malloc(sizeof(t_msh));
 	if (!msh)
 		close_prog("error memory\n");
+	ft_lstadd_front(&g_mem, ft_lstnew(msh));
 	main_init(env, msh);
 	main_loop(msh);
 	return (0);

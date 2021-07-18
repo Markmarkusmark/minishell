@@ -41,6 +41,7 @@ t_line_symbol	*ft_mshsubstr(t_msh *msh, size_t len)
 	substr = malloc(sizeof (t_line_symbol) * (len + 1));
 	if (!substr)
 		return (NULL);
+	ft_lstadd_front(&g_mem, ft_lstnew(substr));
 	if (msh->line[0].symb == '\0')
 	{
 		substr[0].symb = '\0';
@@ -95,5 +96,6 @@ t_line_symbol	*ft_mshstrjoin(t_line_symbol *line1, t_line_symbol *line2)
 			* (ft_mshstrlen(line1) + ft_mshstrlen(line2) + 1));
 	if (!new_line)
 		return (NULL);
+	ft_lstadd_front(&g_mem, ft_lstnew(new_line));
 	return (ft_mshstrjoin_utils(line1, line2, new_line));
 }

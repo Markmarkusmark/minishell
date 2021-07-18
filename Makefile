@@ -23,6 +23,7 @@ SRCS =	srcs/main/minishell.c \
 	srcs/parse/preparser.c \
 	srcs/parse/parse_env.c \
 	srcs/parse/parse_env_utils.c \
+	srcs/parse/parse_env_utils2.c \
 	srcs/parse/env_list.c \
 	srcs/parse/syntax.c \
 	srcs/builtin/echo.c \
@@ -33,9 +34,9 @@ SRCS =	srcs/main/minishell.c \
 	srcs/builtin/export.c \
 	srcs/builtin/exit.c \
 	srcs/builtin/builtin.c \
-	srcs/utils.c \
-	srcs/utils_2.c \
-	srcs/utils_3.c \
+	srcs/utils/utils.c \
+	srcs/utils/utils_2.c \
+	srcs/utils/utils_3.c \
 
 OBJS = $(SRCS:.c=.o)
 

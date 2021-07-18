@@ -35,6 +35,7 @@ char	**ft_create_argv(t_msh *msh, t_com *com)
 		j++;
 	}
 	argv[i] = NULL;
+	ft_lstadd_front(&g_mem, ft_lstnew(argv));
 	return (argv);
 }
 

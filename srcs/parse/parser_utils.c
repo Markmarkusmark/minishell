@@ -12,29 +12,13 @@
 
 #include "../include/minishell.h"
 
-int	ft_check_symbol(t_line_symbol line)
+void	ft_get_num_of_args_utils(t_line_symbol *line, int *i, int *num_args)
 {
-	if ((line.symb == '<' && line.flag == 0)
-		|| (line.symb == '>' && line.flag == 0)
-		|| (line.symb == ';' && line.flag == 0)
-		|| (line.symb == '|' && line.flag == 0)
-		|| (line.symb == ' ' && line.flag == 0)
-		|| (line.symb == '\0'))
-		return (0);
-	else
-		return (1);
+	(*num_args)++;
+	while ((line[*i].symb == '>' || line[*i].symb == '<')
+		&& line[*i].flag == 0)
+		(*i)++;
 }
-
-// void	ft_get_num_of_args_utils(t_line_symbol *line, int *i, int *num_args)
-// {
-// 	if ((line[*i].symb == '>' || line[*i].symb == '<') && line[*i].flag == 0)
-// 	{
-// 		*num_args++;
-// 		while ((line[*i].symb == '>' || line[*i].symb == '<')
-// 			&& line[*i].flag == 0)
-// 			(*i)++;
-// 	}
-// }
 
 int	ft_get_num_of_args(t_line_symbol *line)
 {
@@ -48,13 +32,7 @@ int	ft_get_num_of_args(t_line_symbol *line)
 		if ((line[i].symb == ';' || line[i].symb == '|') && line[i].flag == 0)
 			break ;
 		if ((line[i].symb == '>' || line[i].symb == '<') && line[i].flag == 0)
-		{
-			num_args++;
-			while ((line[i].symb == '>' || line[i].symb == '<')
-				&& line[i].flag == 0)
-				i++;
-		}
-		//ft_get_num_of_args_utils(line, &i, &num_args);
+			ft_get_num_of_args_utils(line, &i, &num_args);
 		else
 		{
 			while (ft_check_symbol(line[i]))
@@ -80,6 +58,7 @@ t_line_symbol	*ft_get_clean_line(t_line_symbol *line)
 	new_line = malloc((ft_mshstrlen(line) + 1) * sizeof (t_line_symbol));
 	if (!new_line)
 		return (NULL);
+	ft_lstadd_front(&g_mem, ft_lstnew(new_line));
 	while (line[i].symb)
 	{
 		if (!(line[i].flag == 0

@@ -47,6 +47,7 @@ int	ft_get_command(t_com *command)
 		str = malloc(sizeof (t_line_symbol *) * (command->num_args - 1));
 	else
 		str = malloc(sizeof (t_line_symbol *) * (command->num_args));
+	ft_lstadd_front(&g_mem, ft_lstnew(str));
 	if (ft_update_line(&str, command, args_num, its_cmd))
 		return (1);
 	ft_check_if_command(command, its_cmd);
@@ -68,6 +69,7 @@ int	ft_get_args_num(t_msh *msh, t_com *com, t_list *new_list, int *i)
 				* sizeof (t_line_symbol *));
 		if (!com->args)
 			close_prog("malloc error\n");
+		ft_lstadd_front(&g_mem, ft_lstnew(com->args));
 	}
 	return (1);
 }

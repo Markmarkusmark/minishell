@@ -62,6 +62,7 @@ t_line_symbol	*ft_get_new_line(t_msh *msh)
 	new_line = malloc(sizeof (t_line_symbol) * len);
 	if (!new_line)
 		return (NULL);
+	ft_lstadd_front(&g_mem, ft_lstnew(new_line));
 	while (msh->val_in_dlr[++i])
 	{
 		new_line[i].symb = msh->val_in_dlr[i];

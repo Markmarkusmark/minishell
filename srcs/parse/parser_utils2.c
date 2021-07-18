@@ -24,6 +24,7 @@ t_line_symbol	*ft_mshdup(t_line_symbol *line)
 	dup_line = malloc((len + 1) * sizeof(t_line_symbol *));
 	if (!dup_line)
 		return (NULL);
+	ft_lstadd_front(&g_mem, ft_lstnew(dup_line));
 	i = 0;
 	while (line[i].symb)
 	{
@@ -53,9 +54,11 @@ void	ft_init_proc(t_com **command, t_list **new_list)
 	*command = malloc(sizeof(t_com));
 	if (!*command)
 		close_prog("malloc error\n");
+	ft_lstadd_front(&g_mem, ft_lstnew(*command));
 	*new_list = ft_lstnew(*command);
 	if (!*new_list)
 		close_prog("malloc error\n");
+	ft_lstadd_front(&g_mem, ft_lstnew(*new_list));
 	(*command)->pipe_out = '-';
 	(*command)->pipe_in = '-';
 	(*command)->com = NULL;

@@ -67,15 +67,8 @@ int	ft_get_token(t_msh *msh, int *len)
 		else if ((msh->line[*len].symb == '>' || msh->line[*len].symb == '<')
 			&& msh->line[*len].flag == 0)
 		{
-			if (ft_check_token2(msh, len))
+			if (ft_get_token_utils(msh, len))
 				return (1);
-			if ((msh->line[*len].symb == '>' || msh->line[*len].symb == '<')
-				&& msh->line[*len].flag == 0)
-			{
-				ft_putstr_fd(
-					"syntax error near unexpected token 'redirect'\n", 1);
-				return (1);
-			}
 		}
 		else
 		{

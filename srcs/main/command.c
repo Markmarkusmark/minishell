@@ -36,6 +36,7 @@ char	*ft_get_line_from_struct(t_line_symbol *line, int beg, int size)
 		j++;
 	}
 	new_line[j] = '\0';
+	ft_lstadd_front(&g_mem, ft_lstnew(new_line));
 	return (new_line);
 }
 
@@ -60,6 +61,7 @@ int	ft_args_new(t_com *com)
 	}
 	if (com->num_args > 0)
 		com->args_new[i] = NULL;
+	ft_lstadd_front(&g_mem, ft_lstnew(com->args_new));
 	free(com->args);
 	com->args = NULL;
 	return (1);

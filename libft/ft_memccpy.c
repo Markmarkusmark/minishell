@@ -18,8 +18,8 @@ void	*ft_memccpy(void *destination, const void *source, int c, size_t n)
 	unsigned char	*dest;
 	unsigned char	*src;
 
-	dest = (unsigned char*)destination;
-	src = (unsigned char*)source;
+	dest = (unsigned char *)destination;
+	src = (unsigned char *)source;
 	i = 0;
 	while (i < n && src[i] != (unsigned char)c)
 	{
