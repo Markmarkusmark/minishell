@@ -97,7 +97,8 @@ int	ft_export(t_msh *msh, t_com *com)
 			envp = malloc(sizeof(t_env));
 			ft_lstadd_front(&g_mem, ft_lstnew(envp));
 			msh->env_args = ft_split(com->args_new[i], '=');
-			if (ft_export_check(msh->env_args) == 0)
+			//printf("%s\n", msh->env_args[0]);
+			if (ft_export_check(msh->env_args) == 0) // тут надо добавить проверку на то что если вдруг ошибка , то надо код возвращаемого знач = 1 (как ты и сделала в ft_env), потом делаешь i ++  и continue. сделай это пожалуйста
 			{
 				envp->key = msh->env_args[0];
 				envp->val = msh->env_args[1];

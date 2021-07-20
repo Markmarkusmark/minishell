@@ -55,13 +55,13 @@ int	ft_args_new(t_com *com)
 	{
 		com->args_new[i] = ft_get_line_from_struct(com->args[i], 0,
 				ft_mshstrlen(com->args[i]));
+		ft_lstadd_front(&g_mem, ft_lstnew(com->args_new));
 		free(com->args[i]);
 		com->args[i] = NULL;
 		i++;
 	}
-	if (com->num_args > 0)
-		com->args_new[i] = NULL;
-	ft_lstadd_front(&g_mem, ft_lstnew(com->args_new));
+	// if (com->num_args > 0)
+	// 	com->args_new[i] = NULL;
 	free(com->args);
 	com->args = NULL;
 	return (1);

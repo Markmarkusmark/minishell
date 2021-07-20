@@ -27,10 +27,11 @@ void	ft_copy_lst(t_list *lst, t_list **new)
 	else
 		cont->val = ft_strdup("");
 	(*new) = ft_lstnew(cont);
+	ft_lstadd_front(&g_mem, ft_lstnew((*new)));
 	while (lst->next)
 	{
 		cont = malloc(sizeof(t_env));
-		ft_lstadd_front(&g_mem, ft_lstnew(cont));
+		ft_lstadd_back(new, ft_lstnew(cont));
 		cont->key = ft_strdup(((t_env *)lst->next->content)->key);
 		if (((t_env *)lst->next->content)->val != NULL)
 			cont->val = ft_strdup(((t_env *)lst->next->content)->val);

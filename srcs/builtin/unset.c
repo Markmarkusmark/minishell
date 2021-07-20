@@ -38,55 +38,55 @@
 // 	return ;
 // }
 
-void	del_lst(void *env)
+void	ft_delete_utils(void *env)
 {
 	free(((t_env *)env)->key);
 	free(((t_env *)env)->val);
 	free((t_env *)env);
 }
 
-void	unsetter(t_msh *msh, char **args_str, int *i)
+void	ft_delete(t_msh *msh, char **str, int *i)
 {
-	t_list	*prev;
+	t_list	*previous;
 	t_list	*list;
 
 	list = msh->env;
 	while (list)
 	{
-		if (!ft_strcmp(((t_env *)list->content)->key, args_str[*i]))
+		if (!ft_strcmp(((t_env *)list->content)->key, str[*i]))
 		{
 			if (list == msh->env)
 			{
 				msh->env = list->next;
-				ft_lstdelone(list, &del_lst);
+				ft_lstdelone(list, &ft_delete_utils);
 			}
 			else
 			{
-				prev->next = list->next;
-				ft_lstdelone(list, &del_lst);
+				previous->next = list->next;
+				ft_lstdelone(list, &ft_delete_utils);
 			}
 			break ;
 		}
-		prev = list;
+		previous = list;
 		list = list->next;
 	}
 }
 
-int	unset_errors(char *str)
+int	ft_check_err(char *arg)
 {
 	int	i;
 
 	i = 0;
-	while (str[i])
+	while (arg[i])
 	{
-		if (!ft_isalnum(str[i]) && str[i] != '_')
+		if (!ft_isalnum(arg[i]) && arg[i] != '_')
 		{
 			ft_putstr_fd("unset : not a valid identifier\n", 2);
 			return (0);
 		}
 		i++;
 	}
-	if (!ft_isalpha(str[0]) && str[0] != '_')
+	if (!ft_isalpha(arg[0]) && arg[0] != '_')
 	{
 		ft_putstr_fd("unset : not a valid identifier\n", 2);
 		return (0);
@@ -102,13 +102,13 @@ void	ft_unset(t_msh *msh, t_com *com)
 	i = 0;
 	while (i < com->num_args)
 	{
-		if (!unset_errors(com->args_new[i]))
+		if (!ft_check_err(com->args_new[i]))
 		{
 			i++;
 			msh->return_code = 1;
 			continue ;
 		}
-		unsetter(msh, com->args_new, &i);
+		ft_delete(msh, com->args_new, &i);
 		i++;
 	}
 }

@@ -19,6 +19,7 @@ void	ft_print_env(t_list *env, int fd, int declare)
 	while (env)
 	{
 		envp = malloc(sizeof(t_env));
+		ft_lstadd_front(&g_mem, ft_lstnew(envp));
 		envp = env->content;
 		if (declare == 1)
 			write(fd, "declare -x ", 11);
@@ -29,7 +30,6 @@ void	ft_print_env(t_list *env, int fd, int declare)
 		write(fd, "\n", 1);
 		env = env->next;
 	}
-	ft_lstadd_front(&g_mem, ft_lstnew(envp));
 }
 
 void	ft_env(t_msh *msh, t_com *com)
