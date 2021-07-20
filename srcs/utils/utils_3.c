@@ -12,27 +12,27 @@
 
 #include "../include/minishell.h"
 
-void	handle_signals(int signo)
-{
-	if (signo == SIGINT)
-	{
-		rl_on_new_line();
-		rl_redisplay();
-		write(1, "  ", 2);
-		printf("\n");
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
-	}
-	if (signo == SIGQUIT)
-	{
-		rl_on_new_line();
-		rl_redisplay();
-		printf("");
-		rl_on_new_line();
-		rl_redisplay();
-	}
-}
+// void	handle_signals(int signo)
+// {
+// 	if (signo == SIGINT)
+// 	{
+// 		rl_on_new_line();
+// 		rl_redisplay();
+// 		write(1, "  ", 2);
+// 		printf("\n");
+// 		rl_on_new_line();
+// 		rl_replace_line("", 0);
+// 		rl_redisplay();
+// 	}
+// 	if (signo == SIGQUIT)
+// 	{
+// 		rl_on_new_line();
+// 		rl_redisplay();
+// 		printf("");
+// 		rl_on_new_line();
+// 		rl_redisplay();
+// 	}
+// }
 
 char 	**ft_get_envs(t_msh *msh)
 {

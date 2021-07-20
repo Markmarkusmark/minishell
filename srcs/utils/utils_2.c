@@ -12,31 +12,6 @@
 
 #include "../include/minishell.h"
 
-void	ft_lstdel(t_list *lst, t_list *lst_main)
-{
-	t_list	*temp;
-
-	temp = lst_main;
-	while (temp->next != lst)
-		temp = temp->next;
-	temp->next = lst->next;
-	free(lst);
-}
-
-int	ft_mshcmp(t_line_symbol *l1, char *l2)
-{
-	int	i;
-
-	i = 0;
-	while (l1[i].symb || l2[i])
-	{
-		if (l1[i].symb != l2[i])
-			return (l1[i].symb - l2[i]);
-		i++;
-	}
-	return (0);
-}
-
 void	ft_copy_lst(t_list *lst, t_list **new)
 {
 	t_env	*cont;
@@ -64,6 +39,31 @@ void	ft_copy_lst(t_list *lst, t_list **new)
 		ft_lstadd_back(new, ft_lstnew(cont));
 		lst = lst->next;
 	}
+}
+
+void	ft_lstdel(t_list *lst, t_list *lst_main)
+{
+	t_list	*temp;
+
+	temp = lst_main;
+	while (temp->next != lst)
+		temp = temp->next;
+	temp->next = lst->next;
+	free(lst);
+}
+
+int	ft_mshcmp(t_line_symbol *l1, char *l2)
+{
+	int	i;
+
+	i = 0;
+	while (l1[i].symb || l2[i])
+	{
+		if (l1[i].symb != l2[i])
+			return (l1[i].symb - l2[i]);
+		i++;
+	}
+	return (0);
 }
 
 int	ft_check_token_error(t_msh *msh)

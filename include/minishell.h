@@ -121,7 +121,7 @@ void			ft_launch_com(t_msh *msh, t_com *com);
 void			ft_echo(t_msh *msh, t_com *com);
 void			ft_cd(t_msh *msh, t_com *com);
 void			ft_pwd(t_msh *msh);
-void			ft_print_env(t_list *env, int fd, int declare);
+//void			ft_print_env(t_list *env);
 void			ft_env(t_msh *msh, t_com *com);
 int				ft_export(t_msh *msh, t_com *com);
 void			ft_copy_lst(t_list *lst, t_list **new);
@@ -173,5 +173,7 @@ void			ft_launch_rdr_utils_1(t_msh *msh, t_rdr *rdr, char *out);
 int				ft_get_symbol_flag(t_msh *msh, int *i, int *qte, int *dlr);
 t_line_symbol	*ft_get_struct_line(t_msh *msh, int mlc_len);
 int				ft_get_token_utils(t_msh *msh, int *len);
+void			del_lst(void *env);
+void	ft_print_env(t_list *env, int fd, int declare);
 
 #endif

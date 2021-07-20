@@ -70,10 +70,10 @@ void	ft_cd(t_msh *msh, t_com *com)
 		ft_cd_utils(msh, home, err_msg);
 		return ;
 	}
-	if (chdir(com->args_new[0]) == 1)
+	if (chdir(com->args_new[0]) == -1)
 	{
-		err_msg = strerror(errno);
-		ft_putstr_fd(err_msg, 2);
+		ft_putstr_fd(strerror(errno), 2);
+		write(1, "\n", 1);
 		msh->return_code = 1;
 		return ;
 	}

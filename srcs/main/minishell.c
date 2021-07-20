@@ -41,15 +41,15 @@ void	main_init(char **env, t_msh *msh)
 {
 	ft_bzero(msh, sizeof(t_msh));
 	ft_environment(msh, env);
-	signal(SIGINT, SIG_IGN);
-	signal(SIGQUIT, SIG_IGN);
+	// signal(SIGINT, SIG_IGN);
+	// signal(SIGQUIT, SIG_IGN);
 }
 
 void	main_loop(t_msh *msh)
 {
 	while (MINISHELL_LOOP)
 	{
-		signal(SIGINT, handle_signals);
+		//signal(SIGINT, handle_signals);
 		msh->line = NULL;
 		msh->com = NULL;
 		msh->str = readline("minishell> ");

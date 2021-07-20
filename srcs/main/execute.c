@@ -102,7 +102,7 @@ void 	ft_launch_com(t_msh *msh, t_com *com)
 	exec_paths = ft_get_paths(msh);
 	if (exec_paths != NULL)
 	{
-		if (com->com[0] == '/')
+		if (com->com[0] == '/' || com->com[0] == '.')
 			buff = ft_strdup(com->com);
 		else
 		{
