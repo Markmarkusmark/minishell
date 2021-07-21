@@ -12,9 +12,11 @@ SRCS =	srcs/main/minishell.c \
 	srcs/main/command.c \
 	srcs/main/execute.c \
 	srcs/main/execute_utils.c \
+	srcs/main/execute_utils_2.c \
 	srcs/main/redir.c \
 	srcs/main/redir_utils.c \
 	srcs/main/redir_utils_2.c \
+	srcs/main/redir_utils_3.c \
 	srcs/main/pipe.c \
 	srcs/parse/parser.c \
 	srcs/parse/parser_utils.c \
@@ -32,6 +34,7 @@ SRCS =	srcs/main/minishell.c \
 	srcs/builtin/env.c \
 	srcs/builtin/unset.c \
 	srcs/builtin/export.c \
+	srcs/builtin/export_utils.c \
 	srcs/builtin/exit.c \
 	srcs/builtin/builtin.c \
 	srcs/utils/utils.c \

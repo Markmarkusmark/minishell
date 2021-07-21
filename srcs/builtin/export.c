@@ -6,7 +6,7 @@
 /*   By: mryan <mryan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:38:00 by mryan             #+#    #+#             */
-/*   Updated: 2021/07/17 11:38:34 by mryan            ###   ########.fr       */
+/*   Updated: 2021/07/21 20:52:29 by mryan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	ft_isenv(int c)
 	return (0);
 }
 
-int	ft_export_check(char **args)
+int	ft_export_check(char **args, t_msh *msh)
 {
 	int		i;
 	char	c;
@@ -68,12 +68,14 @@ int	ft_export_check(char **args)
 	if ((ft_isalpha(c) == 0) && c != '_')
 	{
 		ft_putstr_fd("wrong export \n", 2);
+		msh->return_code = 1;
 		return (1);
 	}
 	while (args[0][i] != '\0')
 	{
 		if (ft_isenv(args[0][i]) == 0)
 		{
+			msh->return_code = 1;
 			ft_putstr_fd("wrong export \n", 2);
 			return (1);
 		}
@@ -85,6 +87,7 @@ int	ft_export_check(char **args)
 int	ft_export(t_msh *msh, t_com *com)
 {
 	int		i;
+	int		args;
 	t_env	*envp;
 
 	i = 0;
@@ -92,19 +95,16 @@ int	ft_export(t_msh *msh, t_com *com)
 		ft_lstsort(msh->env);
 	else
 	{
-		while (com->args_new[i])
+		args = com->num_args;
+		while (args)
 		{
 			envp = malloc(sizeof(t_env));
 			ft_lstadd_front(&g_mem, ft_lstnew(envp));
 			msh->env_args = ft_split(com->args_new[i], '=');
-			//printf("%s\n", msh->env_args[0]);
-			if (ft_export_check(msh->env_args) == 0) // тут надо добавить проверку на то что если вдруг ошибка , то надо код возвращаемого знач = 1 (как ты и сделала в ft_env), потом делаешь i ++  и continue. сделай это пожалуйста
-			{
-				envp->key = msh->env_args[0];
-				envp->val = msh->env_args[1];
-				ft_lstadd_back(&msh->env, ft_lstnew(envp));
-			}
+			if (msh->env_args[0])
+				ft_export_utils(msh, envp);
 			free(msh->env_args);
+			args--;
 			i++;
 		}
 	}

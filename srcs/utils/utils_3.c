@@ -6,33 +6,39 @@
 /*   By: mryan <mryan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/17 12:14:47 by mryan             #+#    #+#             */
-/*   Updated: 2021/07/18 12:06:07 by mryan            ###   ########.fr       */
+/*   Updated: 2021/07/21 20:27:13 by mryan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-// void	handle_signals(int signo)
-// {
-// 	if (signo == SIGINT)
-// 	{
-// 		rl_on_new_line();
-// 		rl_redisplay();
-// 		write(1, "  ", 2);
-// 		printf("\n");
-// 		rl_on_new_line();
-// 		rl_replace_line("", 0);
-// 		rl_redisplay();
-// 	}
-// 	if (signo == SIGQUIT)
-// 	{
-// 		rl_on_new_line();
-// 		rl_redisplay();
-// 		printf("");
-// 		rl_on_new_line();
-// 		rl_redisplay();
-// 	}
-// }
+void	handle_signals(int signo)
+{
+	if (signo == SIGINT)
+	{
+		rl_on_new_line();
+		rl_redisplay();
+		write(1, "  ", 2);
+		printf("\n");
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+	}
+}
+
+int	ft_strcmp(const char *s1, const char *s2)
+{
+	unsigned int	z;
+
+	z = 0;
+	while (s1[z] != '\0' || s2[z] != '\0')
+	{
+		if (s1[z] != s2[z])
+			return ((unsigned char)s1[z] - (unsigned char)s2[z]);
+		z++;
+	}
+	return (0);
+}
 
 char 	**ft_get_envs(t_msh *msh)
 {

@@ -6,7 +6,7 @@
 /*   By: mryan <mryan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 17:11:15 by mryan             #+#    #+#             */
-/*   Updated: 2021/07/17 11:20:26 by mryan            ###   ########.fr       */
+/*   Updated: 2021/07/21 19:03:06 by mryan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,6 @@ int	ft_args_new(t_com *com)
 		com->args[i] = NULL;
 		i++;
 	}
-	// if (com->num_args > 0)
-	// 	com->args_new[i] = NULL;
 	free(com->args);
 	com->args = NULL;
 	return (1);

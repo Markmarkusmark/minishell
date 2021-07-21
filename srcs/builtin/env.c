@@ -6,7 +6,7 @@
 /*   By: mryan <mryan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:29:42 by mryan             #+#    #+#             */
-/*   Updated: 2021/07/16 15:31:30 by mryan            ###   ########.fr       */
+/*   Updated: 2021/07/21 18:00:30 by mryan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,18 @@ void	ft_print_env(t_list *env, int fd, int declare)
 		if (declare == 1)
 			write(fd, "declare -x ", 11);
 		write(fd, envp->key, strlen(envp->key));
-		write(fd, "=", 1);
 		if (envp->val != NULL)
-			write(fd, envp->val, strlen(envp->val));
+		{
+			write(fd, "=", 1);
+			if (declare == 1)
+			{
+				ft_putstr_fd("\"", 1);
+				write(fd, envp->val, strlen(envp->val));
+				ft_putstr_fd("\"", 1);
+			}
+			else
+				write(fd, envp->val, strlen(envp->val));
+		}
 		write(fd, "\n", 1);
 		env = env->next;
 	}

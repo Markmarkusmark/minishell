@@ -6,7 +6,7 @@
 /*   By: mryan <mryan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 17:25:49 by mryan             #+#    #+#             */
-/*   Updated: 2021/07/17 12:55:52 by mryan            ###   ########.fr       */
+/*   Updated: 2021/07/21 19:24:17 by mryan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,18 +75,30 @@ char	*ft_its_correct_path(char *path, t_msh *msh, t_com *com)
 	return (NULL);
 }
 
-void 	ft_launch_com_utils(t_msh *msh, char *buff, char **argv)
+void	ft_launch_extra(char **buff, t_com *com, t_msh *msh)
 {
-	if (buff == NULL)
+	t_env	*env_tmp;
+	t_list	*list_tmp;
+	int		f;
+
+	f = 0;
+	list_tmp = msh->env;
+	if (ft_strcmp(com->com, "./minishell") == 0)
 	{
-		dup2(msh->fd_1, 1);
-		ft_putstr_fd("command not found in the paths\n", 2);
-		free_arr(argv);
-		msh->return_code = 127;
-		return ;
+		while (list_tmp)
+		{
+			env_tmp = list_tmp->content;
+			if (ft_strcmp(env_tmp->key, "SHLVL") == 0)
+			{
+				ft_launch_extra_utils_2(env_tmp);
+				f = 1;
+				break ;
+			}
+			list_tmp = list_tmp->next;
+		}
 	}
-	ft_exec_com(msh, argv, buff);
-	free_arr(argv);
+	ft_launch_extra_utils(f, msh);
+	*buff = ft_strdup(com->com);
 }
 
 void 	ft_launch_com(t_msh *msh, t_com *com)
@@ -103,7 +115,7 @@ void 	ft_launch_com(t_msh *msh, t_com *com)
 	if (exec_paths != NULL)
 	{
 		if (com->com[0] == '/' || com->com[0] == '.')
-			buff = ft_strdup(com->com);
+			ft_launch_extra(&buff, com, msh);
 		else
 		{
 			while (exec_paths[++i])

@@ -6,7 +6,7 @@
 /*   By: mryan <mryan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/17 09:52:42 by mryan             #+#    #+#             */
-/*   Updated: 2021/07/17 14:11:08 by mryan            ###   ########.fr       */
+/*   Updated: 2021/07/21 19:01:37 by mryan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,21 +83,17 @@ void	ft_execute_rdr(t_msh *msh, t_rdr *rdr, t_com *com)
 	pid = fork();
 	if (pid == 0)
 	{
+		signal(SIGINT, SIG_DFL);
 		ft_launch_rdr(msh, rdr, com);
 		exit(msh->return_code);
 	}
 	if (pid < 0)
 		ft_putstr_fd("process crush\n", 2);
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
 	wait(&status);
-	msh->return_code = WEXITSTATUS(status);
-	while (num < com->num_redir)
-	{
-		if (rdr[num].kind != NULL)
-			free(rdr[num].kind);
-		if (rdr[num].arg != NULL)
-			free(rdr[num].arg);
-		num++;
-	}
+	ft_rdr_signal(msh, &status);
+	ft_free_rdr(rdr, com, &num);
 	free(rdr);
 }
 

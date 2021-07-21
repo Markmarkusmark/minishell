@@ -4,6 +4,7 @@
 # include "../libft/libft.h"
 # include "fcntl.h"
 # include <sys/wait.h>
+# include <sys/types.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
@@ -121,7 +122,6 @@ void			ft_launch_com(t_msh *msh, t_com *com);
 void			ft_echo(t_msh *msh, t_com *com);
 void			ft_cd(t_msh *msh, t_com *com);
 void			ft_pwd(t_msh *msh);
-//void			ft_print_env(t_list *env);
 void			ft_env(t_msh *msh, t_com *com);
 int				ft_export(t_msh *msh, t_com *com);
 void			ft_copy_lst(t_list *lst, t_list **new);
@@ -148,6 +148,7 @@ t_line_symbol	*ft_get_clean_line(t_line_symbol *line);
 int				ft_pass_str(int *i, t_msh *msh);
 t_line_symbol	*ft_mshsubstr2(t_msh *msh, int n, size_t len);
 void			handle_signals(int signo);
+void			handle_signals_q(int signo);
 char			**ft_get_envs(t_msh *msh);
 int				ft_redir_checker(t_com *com);
 void			ft_file_check_utils(t_msh *msh, t_rdr rdr,
@@ -174,6 +175,18 @@ int				ft_get_symbol_flag(t_msh *msh, int *i, int *qte, int *dlr);
 t_line_symbol	*ft_get_struct_line(t_msh *msh, int mlc_len);
 int				ft_get_token_utils(t_msh *msh, int *len);
 void			del_lst(void *env);
-void	ft_print_env(t_list *env, int fd, int declare);
+void			ft_print_env(t_list *env, int fd, int declare);
+void			ft_export_utils(t_msh *msh, t_env *envp);
+int				ft_export_check(char **args, t_msh *msh);
+void			ft_rdr_signal(t_msh *msh, int *status);
+void			ft_free_rdr(t_rdr *rdr, t_com *com, int *num);
+void			ft_launch_com_utils(t_msh *msh, char *buff, char **argv);
+int				ft_shlvl_check(char *shlvl);
+void			ft_exec_com(t_msh *msh, char **argv, char *path);
+void			ft_exec_com_utils(t_msh *msh, char *path, char **envs,
+					int status);
+void			ft_launch_extra_utils(int f, t_msh *msh);
+void			ft_launch_extra_utils_2(t_env *env_tmp);
+void			ft_export_utils_2(t_msh *msh, int *f);
 
 #endif
